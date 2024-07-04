@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { CiHome } from "react-icons/ci"
 
 export default function Home() {
@@ -8,14 +9,14 @@ export default function Home() {
                 <nav className="block w-64 p-5">
                     <h1 className="text-4xl font-bold mb-10">Zy<span className="text-mainGreen">n</span>kle</h1>
 
-                    <a className="flex align-middle text-xl mb-4 p-2 cursor-pointer">
+                    <Link to="" className="flex align-middle text-xl mb-4 p-2 cursor-pointer">
                         <CiHome className="my-auto"/>
                         <p className="my-auto ms-2">Home</p>
-                    </a>
-                    <a className="flex align-middle text-xl p-2 cursor-pointer">
+                    </Link>
+                    <Link to="" className="flex align-middle text-xl p-2 cursor-pointer">
                         <CiHome className="my-auto"/>
                         <p className="my-auto ms-2">Home</p>
-                    </a>
+                    </Link>
                 </nav>
             </section>
             {/* Content section */}
