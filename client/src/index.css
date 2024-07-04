@@ -1,7 +1,11 @@
-:root {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* :root {
   --white: #fff;
   --main-green: #0ebd60;
   --dark-grey: #cad1c9;
   --dark-green: #184c34;
   --white-bg: #eff4ed;
-}
+} */
