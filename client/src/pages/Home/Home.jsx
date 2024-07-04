@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom"
 import { CiHome, CiCirclePlus, CiSearch } from "react-icons/ci"
+import Post from "../../features/home/components/Post/Post"
 
 export default function Home() {
     return (
         <main className="absolute w-full flex justify-center min-h-screen overflow-x-hidden bg-mainWhite font-montserrat">
             {/* Navigation section - desktop */}
-            <section className="w-32 flex-auto flex justify-end border-e-2 border-slate-200" id="app-navigation-container">
-                <nav className="block w-64 p-5">
+            <section className="flex-auto grow-0 flex justify-end border-e-2 border-slate-200" id="app-navigation-container">
+                <nav className="block w-64 p-8">
                     <h1 className="text-4xl font-bold mb-10">Zy<span className="text-mainGreen">n</span>kle</h1>
 
                     <Link className="flex align-middle text-xl mb-4 p-2 cursor-pointer hover:text-mainGreen">
@@ -24,11 +25,17 @@ export default function Home() {
                 </nav>
             </section>
             {/* Content section */}
-            <section className="w-64 max-h-full flex-auto border-e-2 border-slate-200 block overflow-x-hidden overflow-y-scroll no-scrollbar">
-
+            <section className="max-h-full flex-auto grow border-e-2 border-slate-200 block overflow-x-hidden overflow-y-scroll no-scrollbar">
+                <header className="flex justify-center py-10">
+                    <button className="flex text-xl text-mainGreen py-2 px-10 border-mainGreen border-2 rounded-lg">
+                        <CiCirclePlus className="my-auto"/>
+                        <p className="my-auto ms-2">Create a new post</p>
+                    </button>
+                </header>
+                <div className="block"> {/* Posts wrapper */}
+                    <Post />
+                </div>
             </section>
-            {/* Search section */}
-            <section className="w-32 flex-auto"></section>
         </main>
     )
 }
