@@ -11,6 +11,9 @@ export default {
         darkGreen: "#184c34",
         darkGrey: "#cad1c9",
         mainWhite: "#eff4ed"
+      },
+      fontFamily: {
+        montserrat: "'Montserrat', sans-serif"
       }
     },
   },
