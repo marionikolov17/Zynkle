@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Post() {
     return (
-        <div className="w-full flex justify-center my-3">
+        <div className="w-full flex justify-center mt-3 mb-5">
             <div className="w-[50%] shrink border rounded-lg block p-4">
                 {/* Author's info */}
                 <div className="w-full flex align-middle">
