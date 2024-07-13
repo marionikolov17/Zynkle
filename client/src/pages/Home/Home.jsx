@@ -3,6 +3,7 @@ import { CiHome, CiCirclePlus, CiSearch } from "react-icons/ci"
 import Post from "../../features/home/components/Post/Post"
 import NoPosts from "../../features/home/components/NoPosts/NoPosts"
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture"
+import TopCreator from "../../features/home/components/TopCreator/TopCreator"
 
 export default function Home() {
     return (
@@ -47,7 +48,10 @@ export default function Home() {
                         <p className="my-auto text-sm opacity-60">Mario Nikolov</p>
                     </div>
                 </div>
-                <h3 className="ms-6 font-bold text-lg">Top Creators</h3>
+                <h3 className="ms-6 font-bold text-lg mb-2">Top Creators</h3>
+                {/* <p className="ms-6 mt-1 text-sm">There are no top creators.</p> */}
+                <TopCreator />
+                <TopCreator />
             </section>
         </main>
     )
