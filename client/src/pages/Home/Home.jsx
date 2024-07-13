@@ -34,7 +34,11 @@ export default function Home() {
                 </header>
                 <div className="block"> {/* Posts wrapper */}
                     <Post />
+                    <Post />
                 </div>
+            </section>
+            <section className="flex-auto shrink grow-0 w-[25%]">
+
             </section>
         </main>
     )
