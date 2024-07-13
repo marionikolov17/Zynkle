@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { CiHome, CiCirclePlus, CiSearch } from "react-icons/ci"
 import Post from "../../features/home/components/Post/Post"
+import NoPosts from "../../features/home/components/NoPosts/NoPosts"
 
 export default function Home() {
     return (
@@ -34,6 +35,7 @@ export default function Home() {
                 </header>
                 <div className="block"> {/* Posts wrapper */}
                     <Post />
+                    <NoPosts />
                 </div>
             </section>
             <section className="flex-auto shrink grow-0 w-[25%] sticky top-0">
