@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { CiHome, CiCirclePlus, CiSearch } from "react-icons/ci"
 import Post from "../../features/home/components/Post/Post"
 import NoPosts from "../../features/home/components/NoPosts/NoPosts"
+import ProfilePicture from "../../components/ProfilePicture/ProfilePicture"
 
 export default function Home() {
     return (
@@ -39,7 +40,14 @@ export default function Home() {
                 </div>
             </section>
             <section className="flex-auto shrink grow-0 w-[25%] sticky top-0">
-
+                <div className="flex p-6 mt-4">
+                    <ProfilePicture className="w-12 h-12"/>
+                    <div className="block ms-2">
+                        <Link className="my-auto text-sm font-bold">marionikolov17</Link>
+                        <p className="my-auto text-sm opacity-60">Mario Nikolov</p>
+                    </div>
+                </div>
+                <h3 className="ms-6 font-bold text-lg">Top Creators</h3>
             </section>
         </main>
     )

@@ -2,6 +2,7 @@ import { CiHeart, CiBookmark } from "react-icons/ci";
 import { AiOutlineComment } from "react-icons/ai";
 import { PiShareFat } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import ProfilePicture from "../../../../components/ProfilePicture/ProfilePicture";
 
 export default function Post() {
     return (
@@ -9,9 +10,7 @@ export default function Post() {
             <div className="w-[50%] shrink border rounded-lg block p-4">
                 {/* Author's info */}
                 <div className="w-full flex align-middle">
-                    <div className="w-10 h-10 flex justify-center align-middle overflow-hidden rounded-full">
-                        <img className="object-cover" src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
-                    </div>
+                    <ProfilePicture className="w-10 h-10"/>
                     <p className="my-auto mx-2 font-bold">marionikolov17</p>
                     <p className="my-auto text-sm opacity-60">2 days ago</p>
                 </div>
