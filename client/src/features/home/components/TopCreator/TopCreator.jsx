@@ -11,8 +11,8 @@ export default function TopCreator() {
             <p className="my-auto text-sm opacity-60">Mario Nikolov</p>
         </div>
       </div>
-      <div className="flex grow justify-end items-center pe-4">
-        <button className="bg-mainGreen text-white rounded-lg py-2 px-8 h-max">Follow</button>
+      <div className="flex shrink justify-end items-center pe-4">
+        <button className="bg-mainGreen text-white rounded-lg py-2 px-8 h-max hidden 2xl:flex">Follow</button>
       </div>
     </div>
   );
