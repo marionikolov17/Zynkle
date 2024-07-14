@@ -14,9 +14,7 @@ export default function MobileNavigation() {
             <Link>
                 <CiCirclePlus className="text-2xl my-auto"/>
             </Link>
-            <Link>
-                <ProfilePicture className="w-6 h-6"/>
-            </Link>
+            <ProfilePicture className="w-6 h-6"/>
         </div>
     )
 }
