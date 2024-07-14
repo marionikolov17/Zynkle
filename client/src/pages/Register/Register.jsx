@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Register() {
     return (
-        <main className="min-h-full w-full absolute top-0 flex justify-center items-center font-montserrat">
+        <main className="min-h-full w-full absolute top-0 flex justify-center items-center font-montserrat bg-mainWhite">
           <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <h1 className="text-center font-bold text-4xl">Zy<span className="text-mainGreen">n</span>kle</h1>
