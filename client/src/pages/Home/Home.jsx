@@ -25,7 +25,6 @@ export default function Home() {
           </button>
         </header>
         <div className="block">
-          {" "}
           {/* Posts wrapper */}
           <Post />
           <Post />

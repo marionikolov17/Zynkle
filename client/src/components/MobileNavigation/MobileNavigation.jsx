@@ -6,7 +6,7 @@ export default function MobileNavigation() {
   return (
     <div className="flex items-center justify-around w-full fixed bottom-0 bg-mainWhite border-t-2 h-10 z-50 sm:hidden">
       <Link>
-        <CiHome className="text-2xl my-auto" />
+        <CiHome className="text-2xl my-auto text-mainGreen" />
       </Link>
       <Link>
         <CiSearch className="text-2xl my-auto" />
