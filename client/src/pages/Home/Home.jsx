@@ -33,7 +33,7 @@ export default function Home() {
         <div className="flex p-6 mt-4">
           <ProfilePicture className="w-12 h-12" />
           <div className="block ms-2">
-            <Link className="my-auto text-sm font-bold">marionikolov17</Link>
+            <Link to="/profile" className="my-auto text-sm font-bold">marionikolov17</Link>
             <p className="my-auto text-sm opacity-60">Mario Nikolov</p>
           </div>
         </div>
