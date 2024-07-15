@@ -9,7 +9,7 @@ export default function DesktopNavigation() {
           Zy<span className="text-mainGreen">n</span>kle
         </h1>
 
-        <Link className="flex align-middle text-xl mb-4 p-2 cursor-pointer hover:text-mainGreen">
+        <Link to="/" className="flex align-middle text-xl mb-4 p-2 cursor-pointer hover:text-mainGreen">
           <CiHome className="my-auto" />
           <p className="my-auto ms-2">Home</p>
         </Link>
@@ -28,7 +28,7 @@ export default function DesktopNavigation() {
       </nav>
       <nav className="block xl:hidden">
         <h1 className="text-2xl text-center font-bold my-4">Z</h1>
-        <Link className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
+        <Link to="/" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
           <CiHome className="my-auto" />
         </Link>
         <Link className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
