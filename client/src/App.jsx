@@ -3,6 +3,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Profile from "./pages/Profile/Profile";
+import ProfileEdit from "./pages/ProfileEdit/ProfileEdit";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/login" Component={Login}/>
         <Route path="/register" Component={Register}/>
         <Route path="/profile" Component={Profile} />
+        <Route path="/profile/edit" Component={ProfileEdit}/>
       </Routes>
     </BrowserRouter>
   )
