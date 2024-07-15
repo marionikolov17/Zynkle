@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import ProfilePicture from "./../../components/ProfilePicture/ProfilePicture";
 import { CiBookmark, CiGrid41 } from "react-icons/ci";
 import ProfilePost from "../../features/profile/components/ProfilePost/ProfilePost";
@@ -5,6 +6,8 @@ import MobileNavigation from "./../../components/MobileNavigation/MobileNavigati
 import DesktopNavigation from "../../components/DesktopNavigation/DesktopNavigation";
 
 export default function Profile() {
+  const navigate = useNavigate();
+
   return (
     <main className="w-full min-h-full max-h-max overflow-y-scroll overflow-x-hidden absolute bg-mainWhite flex justify-center font-montserrat no-scrollbar">
       <MobileNavigation />
@@ -49,7 +52,7 @@ export default function Profile() {
               </p>{" "}
               {/* Description */}
               {/* Action Buttons */}
-              <button className="sm:ms-4 mt-8 rounded-sm border border-black px-6 py-2">
+              <button className="sm:ms-4 mt-8 rounded-sm border border-black px-6 py-2" onClick={() => navigate('/profile/edit')}>
                 Edit Profile
               </button>
               <button className="sm:ms-4 mt-8 rounded-sm border border-red-600 text-red-600 px-6 py-2 ms-2">
