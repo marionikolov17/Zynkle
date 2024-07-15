@@ -4,7 +4,7 @@ import Post from "../../features/home/components/Post/Post";
 import NoPosts from "../../features/home/components/NoPosts/NoPosts";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import TopCreator from "../../features/home/components/TopCreator/TopCreator";
-import DesktopNavigation from "../../features/home/components/DesktopNavigation/DesktopNavigation";
+import DesktopNavigation from "../../components/DesktopNavigation/DesktopNavigation";
 import MobileNavigation from "../../components/MobileNavigation/MobileNavigation";
 
 export default function Home() {
