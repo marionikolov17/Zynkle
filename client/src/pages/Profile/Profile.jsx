@@ -35,6 +35,7 @@ export default function Profile() {
                         <p className="text-sm sm:text-base sm:ms-4 mt-1">Doing everything with passion! Follow for more.</p> {/* Description */}
                         {/* Action Buttons */}
                         <button className="sm:ms-4 mt-8 rounded-sm border border-black px-6 py-2">Edit Profile</button>
+                        <button className="sm:ms-4 mt-8 rounded-sm border border-red-600 text-red-600 px-6 py-2 ms-2">Log out</button>
                         {/* <button className="ms-4 mt-8 rounded-sm bg-mainGreen text-white px-6 py-2">Follow</button> */}
                         {/* <button className="ms-4 mt-8 rounded-sm border border-mainGreen text-mainGreen px-6 py-2">Unfollow</button> */}
                     </div>
