@@ -2,11 +2,18 @@ import ProfilePicture from "./../../components/ProfilePicture/ProfilePicture";
 import { CiBookmark, CiGrid41 } from "react-icons/ci";
 import ProfilePost from "../../features/profile/components/ProfilePost/ProfilePost";
 import MobileNavigation from "./../../components/MobileNavigation/MobileNavigation";
+import { Link } from "react-router-dom";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 export default function Profile() {
     return (
-        <main className="w-full min-h-full max-h-max overflow-y-scroll overflow-x-hidden absolute bg-mainWhite flex justify-center font-montserrat no-scrollbar">
+        <main className="w-full min-h-full max-h-max overflow-y-scroll overflow-x-hidden absolute bg-mainWhite flex justify-center font-montserrat no-scrollbar">    
+            <Link to="/" className="hidden sm:block absolute top-0 left-0 p-3">
+                <IoMdArrowRoundBack className="text-2xl"/>
+            </Link>
+
             <MobileNavigation />
+            
             <div className="block w-[65%] 2xl:w-1/2 grow lg:grow-0 shrink sm:mb-0 mb-10">
                 {/* Profile Info Container */}
                 <div className="flex flex-col sm:flex-row w-full h-max p-6">
@@ -31,8 +38,6 @@ export default function Profile() {
                         {/* <button className="ms-4 mt-8 rounded-sm bg-mainGreen text-white px-6 py-2">Follow</button> */}
                         {/* <button className="ms-4 mt-8 rounded-sm border border-mainGreen text-mainGreen px-6 py-2">Unfollow</button> */}
                     </div>
-
-                    {/* Profile Info Section */}
 
                 </div>
 
