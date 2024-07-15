@@ -11,5 +11,15 @@
     .no-scrollbar {
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
-  }
+    }
+}
+
+@layer components {
+    .profile-select-button {
+        @apply border-t-2 border-t-mainGreen text-mainGreen
+    }
+
+    .profile-select-hover {
+        @apply transition hover:text-mainGreen
+    }
 }
