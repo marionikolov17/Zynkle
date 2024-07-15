@@ -13,9 +13,7 @@ export default function Home() {
       {/* Navigation - mobile */}
       <MobileNavigation />
       {/* Navigation section - desktop */}
-      <section className="hidden sm:flex flex-auto grow-0 justify-end border-e-2 border-slate-200 sticky top-0">
-        <DesktopNavigation />
-      </section>
+      <DesktopNavigation />
       {/* Content section */}
       <section className="max-h-full min-h-full flex-auto grow lg:border-e-2 border-slate-200 block overflow-x-hidden overflow-y-scroll no-scrollbar">
         <header className="flex justify-center py-10 border-b-2 sm:border-b-0">
