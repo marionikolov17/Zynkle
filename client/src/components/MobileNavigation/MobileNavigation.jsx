@@ -8,7 +8,7 @@ export default function MobileNavigation() {
       <Link to="/">
         <CiHome className="text-2xl my-auto text-mainGreen" />
       </Link>
-      <Link>
+      <Link to="/search">
         <CiSearch className="text-2xl my-auto" />
       </Link>
       <Link to="/create">
