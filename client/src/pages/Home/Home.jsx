@@ -4,16 +4,10 @@ import HomePost from "../../features/home/components/HomePost/HomePost";
 import NoPosts from "../../features/home/components/NoPosts/NoPosts";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import TopCreator from "../../features/home/components/TopCreator/TopCreator";
-import DesktopNavigation from "../../components/DesktopNavigation/DesktopNavigation";
-import MobileNavigation from "../../components/MobileNavigation/MobileNavigation";
 
 export default function Home() {
   return (
-    <main className="absolute w-full h-full flex justify-center min-h-screen overflow-x-hidden bg-mainWhite font-montserrat">
-      {/* Navigation - mobile */}
-      <MobileNavigation />
-      {/* Navigation section - desktop */}
-      <DesktopNavigation />
+    <>
       {/* Content section */}
       <section className="max-h-full min-h-full flex-auto grow lg:border-e-2 border-slate-200 block overflow-x-hidden overflow-y-scroll no-scrollbar">
         <header className="flex justify-center py-10 border-b-2 sm:border-b-0">
@@ -44,6 +38,6 @@ export default function Home() {
         <TopCreator />
         <TopCreator />
       </section>
-    </main>
+    </>
   );
 }

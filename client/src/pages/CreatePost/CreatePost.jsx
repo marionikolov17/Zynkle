@@ -1,16 +1,11 @@
 import { Link } from "react-router-dom";
-import DesktopNavigation from "../../components/DesktopNavigation/DesktopNavigation";
-import MobileNavigation from "../../components/MobileNavigation/MobileNavigation";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import { BsFiletypePng } from "react-icons/bs";
 import { FaXmark } from "react-icons/fa6";
 
 export default function CreatePost() {
   return (
-    <main className="w-full min-h-full max-h-max overflow-y-scroll overflow-x-hidden absolute bg-mainWhite flex justify-center font-montserrat no-scrollbar">
-      <MobileNavigation />
-      <DesktopNavigation />
-
+    <>
       <div className="grow flex justify-center items-center mb-10 sm:mb-0">
         <form className="block w-[65%] grow lg:grow-0 2xl:w-[600px] shrink p-6">
           <Link to="/" className="text-2xl">
@@ -63,6 +58,6 @@ export default function CreatePost() {
             </div>
         </form>
       </div>
-    </main>
+    </>
   );
 }

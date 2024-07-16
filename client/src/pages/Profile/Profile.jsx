@@ -2,17 +2,12 @@ import { useNavigate } from "react-router-dom";
 import ProfilePicture from "./../../components/ProfilePicture/ProfilePicture";
 import { CiBookmark, CiGrid41 } from "react-icons/ci";
 import ProfilePost from "../../features/profile/components/ProfilePost/ProfilePost";
-import MobileNavigation from "./../../components/MobileNavigation/MobileNavigation";
-import DesktopNavigation from "../../components/DesktopNavigation/DesktopNavigation";
 
 export default function Profile() {
   const navigate = useNavigate();
 
   return (
-    <main className="w-full min-h-full max-h-max overflow-y-scroll overflow-x-hidden absolute bg-mainWhite flex justify-center font-montserrat no-scrollbar">
-      <MobileNavigation />
-
-      <DesktopNavigation />
+    <>
       <div className="grow flex justify-center">
         <div className="block w-[65%] 2xl:w-1/2 grow lg:grow-0 shrink sm:mb-0 mb-10">
           {/* Profile Info Container */}
@@ -85,6 +80,6 @@ export default function Profile() {
           </div>
         </div>
       </div>
-    </main>
+    </>
   );
 }
