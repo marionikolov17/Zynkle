@@ -13,7 +13,7 @@ export default function DesktopNavigation() {
           <CiHome className="my-auto" />
           <p className="my-auto ms-2">Home</p>
         </Link>
-        <Link className="flex align-middle text-xl mb-4 p-2 cursor-pointer hover:text-mainGreen">
+        <Link to="/create" className="flex align-middle text-xl mb-4 p-2 cursor-pointer hover:text-mainGreen">
           <CiCirclePlus className="my-auto" />
           <p className="my-auto ms-2">Create</p>
         </Link>
@@ -31,7 +31,7 @@ export default function DesktopNavigation() {
         <Link to="/" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
           <CiHome className="my-auto" />
         </Link>
-        <Link className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
+        <Link to="/create" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
           <CiCirclePlus className="my-auto" />
         </Link>
         <Link className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">

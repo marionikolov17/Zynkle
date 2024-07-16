@@ -17,10 +17,10 @@ export default function Home() {
       {/* Content section */}
       <section className="max-h-full min-h-full flex-auto grow lg:border-e-2 border-slate-200 block overflow-x-hidden overflow-y-scroll no-scrollbar">
         <header className="flex justify-center py-10 border-b-2 sm:border-b-0">
-          <button className="flex text-lg sm:text-xl text-mainGreen py-2 px-10 border-mainGreen border-2 rounded-lg">
+          <Link to="/create" className="flex text-lg sm:text-xl text-mainGreen py-2 px-10 border-mainGreen border-2 rounded-lg">
             <CiCirclePlus className="my-auto" />
             <p className="my-auto ms-2">Create a new post</p>
-          </button>
+          </Link>
         </header>
         <div className="block">
           {/* Posts wrapper */}
