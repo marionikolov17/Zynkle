@@ -4,7 +4,7 @@ import { PiShareFat } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import ProfilePicture from "../../../../components/ProfilePicture/ProfilePicture";
 
-export default function Post() {
+export default function HomePost() {
     return (
         <div className="w-full flex justify-center mt-1 mb-0 sm:mt-3 sm:mb-5">
             <div className="w-[600px] shrink sm:border sm:rounded-lg block py-3 sm:py-4">
