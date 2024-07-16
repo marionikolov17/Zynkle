@@ -16,7 +16,7 @@ export default function Profile() {
             <div className="flex justify-center shrink grow sm:grow sm:p-4">
               <ProfilePicture className="w-20 h-20 sm:w-24 sm:h-24" />
               <h3 className="sm:hidden text-lg ms-4 my-auto">
-                @marionikolov17
+                <span className="text-mainGreen">@</span>marionikolov17
               </h3>{" "}
               {/* Username - mobile */}
             </div>
@@ -24,7 +24,7 @@ export default function Profile() {
             {/* Profile Info Section - Desktop*/}
             <div className="block grow p-4">
               <h3 className="hidden sm:block text-lg ms-4 mb-2">
-                @marionikolov17
+                <span className="text-mainGreen">@</span>marionikolov17
               </h3>{" "}
               {/* Username */}
               <div className="w-full flex justify-center sm:justify-start">
@@ -47,7 +47,10 @@ export default function Profile() {
               </p>{" "}
               {/* Description */}
               {/* Action Buttons */}
-              <button className="sm:ms-4 mt-8 rounded-sm border border-black px-6 py-2" onClick={() => navigate('/profile/edit')}>
+              <button
+                className="sm:ms-4 mt-8 rounded-sm border border-black px-6 py-2"
+                onClick={() => navigate("/profile/edit")}
+              >
                 Edit Profile
               </button>
               <button className="sm:ms-4 mt-8 rounded-sm border border-red-600 text-red-600 px-6 py-2 ms-2">
