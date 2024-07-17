@@ -15,7 +15,7 @@ export default function App() {
       {/* Main app layout */}
       <Route path="/" element={<Layout />}>
         <Route index Component={Home}/>
-        <Route exact path="/profile" Component={Profile} />
+        <Route path="/profile" Component={Profile} />
         <Route path="/profile/:userId" Component={Profile} />
         <Route path="/create" Component={CreatePost}/>
         <Route path="/search" Component={Search}/>
@@ -23,7 +23,7 @@ export default function App() {
       {/* Different layouts */}
       <Route path="/login" Component={Login}/>
       <Route path="/register" Component={Register}/>
-      <Route exact path="/profile/edit" Component={ProfileEdit}/>
+      <Route path="/profile/edit" Component={ProfileEdit}/>
       <Route path="/post/:postId" Component={Post}/>
     </Routes>
   )
