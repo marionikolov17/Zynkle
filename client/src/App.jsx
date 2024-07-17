@@ -8,6 +8,7 @@ import CreatePost from "./pages/CreatePost/CreatePost";
 import Search from "./pages/Search/Search";
 import Layout from "./pages/Layout/Layout";
 import Post from "./pages/Post/Post";
+import NotFound from "./pages/NotFound/NotFound";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
       <Route path="/register" Component={Register}/>
       <Route path="/profile/edit" Component={ProfileEdit}/>
       <Route path="/post/:postId" Component={Post}/>
+      <Route path="*" Component={NotFound}/>
     </Routes>
   )
 }
