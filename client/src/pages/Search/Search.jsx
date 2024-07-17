@@ -1,10 +1,11 @@
 import { CiSearch } from "react-icons/ci";
+import FoundUser from "../../features/search/components/FoundUser/FoundUser";
 
 export default function Search() {
   return (
     <>
       <div className="grow flex justify-center">
-        <div className="block p-6 w-[65%] 2xl:w-1/2">
+        <div className="block p-6 w-full lg:w-[65%] 2xl:w-1/2">
             {/* Search Form */}
           <form className="w-full">
             <label
@@ -34,6 +35,10 @@ export default function Search() {
           </form>
 
           {/* Search results */}
+          <div className="block mt-8">
+            <FoundUser />
+            {/* <p>No users found.</p> */}
+          </div>
         </div>
       </div>
     </>
