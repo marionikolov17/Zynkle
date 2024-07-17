@@ -16,6 +16,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index Component={Home}/>
           <Route path="/profile" Component={Profile} />
+          <Route path="/profile/:id" Component={Profile} />
           <Route path="/create" Component={CreatePost}/>
           <Route path="/search" Component={Search}/>
         </Route>
