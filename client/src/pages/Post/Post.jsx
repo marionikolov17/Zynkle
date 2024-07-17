@@ -1,5 +1,7 @@
 export default function Post() {
     return (
-        <h1>Post</h1>
+        <main className="absolute min-h-screen max-h-max w-full bg-mainWhite">
+
+        </main>
     )
 }
