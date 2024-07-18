@@ -1,5 +1,6 @@
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import AddCommentForm from "../../features/post/components/AddCommentForm/AddCommentForm";
+import Comment from "../../features/post/components/Comment/Comment";
 import PostStats from "../../features/post/components/PostStats/PostStats";
 
 export default function Post() {
@@ -25,7 +26,9 @@ export default function Post() {
               </h3>
             </div>
             {/* Comments */}
-            <div className="block grow overflow-y-scroll no-scrollbar border-b"></div>
+            <div className="block grow overflow-y-scroll no-scrollbar border-b">
+                <Comment />
+            </div>
             {/* Post Stats */}
             <PostStats />
             {/* Add comment form */}
