@@ -17,7 +17,7 @@ export default function Post() {
             />
           </div>
           {/* Post details and comments */}
-          <div className="grow flex flex-col w-[65%]">
+          <div className="grow flex flex-col w-[95%] lg:w-[65%]">
             {/* Owner info */}
             <div className="flex items-center py-3 px-6 border-b">
               <ProfilePicture className="w-10 h-10" />
@@ -25,7 +25,7 @@ export default function Post() {
                 <span className="text-mainGreen">@</span>marionikolov17
               </h3>
             </div>
-            {/* Comments */}
+            {/* Comments and Post Description */}
             <div className="block grow overflow-y-scroll no-scrollbar border-b">
                 <Comment />
             </div>
