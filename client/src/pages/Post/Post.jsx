@@ -1,7 +1,6 @@
-import { CiBookmark, CiHeart } from "react-icons/ci";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
-import { AiOutlineComment } from "react-icons/ai";
-import { PiShareFat } from "react-icons/pi";
+import AddCommentForm from "../../features/post/components/AddCommentForm/AddCommentForm";
+import PostStats from "../../features/post/components/PostStats/PostStats";
 
 export default function Post() {
   return (
@@ -28,39 +27,9 @@ export default function Post() {
             {/* Comments */}
             <div className="block grow overflow-y-scroll no-scrollbar border-b"></div>
             {/* Post Stats */}
-            <div className="block grow-0 border-b py-3">
-              {/* Action buttons */}
-              <div className="w-full flex justify-around align-middle px-4">
-                <div className="flex grow justify-start">
-                  <CiHeart className="text-3xl cursor-pointer" />
-                  <label htmlFor="commentInput"><AiOutlineComment className="ms-4 text-3xl cursor-pointer" /></label>
-                  <PiShareFat className="ms-4 text-3xl cursor-pointer" />
-                </div>
-                <div className="flex grow justify-end">
-                  <CiBookmark className="text-3xl cursor-pointer" />
-                </div>
-              </div>
-              {/* Post Analytics */}
-              <div className="ms-4 mt-2">
-                <p className="text-base font-bold">1 245 likes</p>
-                <p className="text-xs opacity-70">2 days ago</p>
-              </div>
-            </div>
+            <PostStats />
             {/* Add comment form */}
-            <form className="w-full flex p-4">
-                <input 
-                    type="text" 
-                    className="grow max-w-full outline-none"
-                    name="commentInput"
-                    id="commentInput"
-                    placeholder="Add comment..."
-                    required
-                />
-                <button className="grow-0 shrink max-w-max text-mainGreen">
-                    Comment
-                </button>
-            </form>
-
+            <AddCommentForm />
           </div>
         </div>
       </div>
