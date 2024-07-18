@@ -23,6 +23,13 @@ export default function PostStats() {
         <p className="text-sm sm:text-base font-bold">1 245 likes</p>
         <p className="text-xs opacity-70">2 days ago</p>
       </div>
+      {/* Post Description - Mobile only */}
+      <div className="ms-4 mt-2 sm:hidden">
+        <p className="text-[13px]">
+          <span className="font-bold me-2">marionikolov17</span>
+          This is the post description and I want to extend it as far as possilbe to test it.!!
+        </p>
+      </div>
     </div>
   );
 }
