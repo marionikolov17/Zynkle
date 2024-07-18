@@ -37,7 +37,7 @@ export default function DesktopNavigation() {
         <Link to="/search" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
           <CiSearch className="my-auto" />
         </Link>
-        <Link className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
+        <Link to="/profile" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
           <CiUser className="my-auto" />
         </Link>
       </nav>

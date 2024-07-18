@@ -6,7 +6,7 @@ import Profile from "./pages/Profile/Profile";
 import ProfileEdit from "./pages/ProfileEdit/ProfileEdit";
 import CreatePost from "./pages/CreatePost/CreatePost";
 import Search from "./pages/Search/Search";
-import Layout from "./pages/Layout/Layout";
+import Layout from "./layouts/Layout/Layout";
 import Post from "./pages/Post/Post";
 import NotFound from "./pages/NotFound/NotFound";
 
