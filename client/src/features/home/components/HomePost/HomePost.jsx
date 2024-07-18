@@ -36,7 +36,7 @@ export default function HomePost() {
                 {/* Post Stats */}
                 <div className="mt-2 block px-4">
                     <p className="text-sm font-bold">1 289 likes</p>
-                    <Link className="text-sm mt-1 opacity-50">View all 228 comments</Link>
+                    <Link to="/post/1" className="text-sm mt-1 opacity-50">View all 228 comments</Link>
                 </div>
             </div>
         </div>
