@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import ProfilePicture from "../../../components/ProfilePicture/ProfilePicture";
 import AddCommentForm from "../../../features/post/components/AddCommentForm/AddCommentForm";
 import Comment from "../../../features/post/components/Comment/Comment";
 import PostStats from "../../../features/post/components/PostStats/PostStats";
+import { IoMdClose } from "react-icons/io";
 
 export default function DesktopPost() {
   return (
@@ -19,11 +21,14 @@ export default function DesktopPost() {
           {/* Post details and comments */}
           <div className="grow flex flex-col w-[95%] lg:w-[65%]">
             {/* Owner info */}
-            <div className="flex items-center py-3 px-6 border-b">
+            <div className="flex items-center py-3 px-6 border-b relative">
               <ProfilePicture className="w-10 h-10" />
               <h3 className="text-sm ms-3 font-bold">
                 <span className="text-mainGreen">@</span>marionikolov17
               </h3>
+              <Link to="/" className="absolute end-0 me-4 my-auto">
+                <IoMdClose className="text-xl"/>
+              </Link>
             </div>
             {/* Comments and Post Description */}
             <div className="block grow overflow-y-scroll no-scrollbar border-b">
