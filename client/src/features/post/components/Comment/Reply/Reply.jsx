@@ -3,7 +3,7 @@ import ProfilePicture from "../../../../../components/ProfilePicture/ProfilePict
 
 export default function Reply() {
   return (
-    <div className="flex w-full ps-12 my-4">
+    <div className="flex w-full ps-6 sm:ps-12 my-4">
       <div className="ps-6">
         {" "}
         {/* Comment Owner Image */}
@@ -15,7 +15,7 @@ export default function Reply() {
           <span className="text-mainGreen">@</span>ivantodorov
         </h3>
         {/* Comment text content */}
-        <p className="text-sm">
+        <p className="text-[13px] sm:text-sm">
           This is an awesome coment and I want to read it out loud!!
         </p>
         {/* Comment buttons */}

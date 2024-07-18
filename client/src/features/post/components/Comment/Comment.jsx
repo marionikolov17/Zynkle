@@ -18,7 +18,7 @@ export default function Comment() {
                         <span className="text-mainGreen">@</span>ivantodorov
                     </h3>
                     {/* Comment text content */}
-                    <p className="text-sm">
+                    <p className="text-[13px] sm:text-sm">
                         This is an awesome coment and I want to read it out loud!!
                     </p>
                     {/* Comment buttons */}
@@ -33,7 +33,7 @@ export default function Comment() {
                 </div>
             </div>
             {/* Reply form */}
-            {/* <ReplyForm /> */}
+            <ReplyForm />
             {/* Toggle replies */}
             {/* <button className="w-full text-center text-sm opacity-70">View replies(4)</button> */}
             <button className="w-full text-center text-sm opacity-70">Hide replies</button>

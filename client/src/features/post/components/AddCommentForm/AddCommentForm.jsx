@@ -3,7 +3,7 @@ export default function AddCommentForm() {
     <form className="w-full flex px-4 py-3">
       <input
         type="text"
-        className="grow max-w-full outline-none text-sm"
+        className="grow max-w-full outline-none text-sm bg-transparent"
         name="commentInput"
         id="commentInput"
         placeholder="Add comment..."

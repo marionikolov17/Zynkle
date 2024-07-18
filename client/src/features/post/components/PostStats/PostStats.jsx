@@ -20,7 +20,7 @@ export default function PostStats() {
       </div>
       {/* Post Analytics */}
       <div className="ms-4 mt-2">
-        <p className="text-base font-bold">1 245 likes</p>
+        <p className="text-sm sm:text-base font-bold">1 245 likes</p>
         <p className="text-xs opacity-70">2 days ago</p>
       </div>
     </div>
