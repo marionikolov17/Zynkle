@@ -21,12 +21,13 @@ export default function Post() {
             {/* Owner info */}
             <div className="flex items-center py-3 px-6 border-b">
               <ProfilePicture className="w-10 h-10" />
-              <h3 className="text-sm ms-4 font-bold">
+              <h3 className="text-sm ms-3 font-bold">
                 <span className="text-mainGreen">@</span>marionikolov17
               </h3>
             </div>
             {/* Comments and Post Description */}
             <div className="block grow overflow-y-scroll no-scrollbar border-b">
+                <Comment />
                 <Comment />
             </div>
             {/* Post Stats */}

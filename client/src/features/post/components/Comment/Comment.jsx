@@ -2,6 +2,7 @@ import { CiHeart } from "react-icons/ci";
 import ProfilePicture from "../../../../components/ProfilePicture/ProfilePicture";
 // eslint-disable-next-line no-unused-vars
 import ReplyForm from "./ReplyForm/ReplyForm";
+import Reply from "./Reply/Reply";
 
 export default function Comment() {
     return (
@@ -22,9 +23,9 @@ export default function Comment() {
                     </p>
                     {/* Comment buttons */}
                     <div className="flex mt-2">
-                        <p className="text-sm opacity-70">2 days</p>
-                        <p className="text-sm ms-4 cursor-pointer">3 likes</p>
-                        <button className="text-sm ms-4">Reply</button>
+                        <p className="text-xs lg:text-sm opacity-70">2 days</p>
+                        <p className="text-xs lg:text-sm ms-4 cursor-pointer">3 likes</p>
+                        <button className="text-xs lg:text-sm ms-4">Reply</button>
                     </div>
                 </div>
                 <div className="p-3">
@@ -37,6 +38,10 @@ export default function Comment() {
             {/* <button className="w-full text-center text-sm opacity-70">View replies(4)</button> */}
             <button className="w-full text-center text-sm opacity-70">Hide replies</button>
             {/* Replies */}
+            <div>
+                <Reply />
+                <Reply />
+            </div>
         </div>
     )
 }
