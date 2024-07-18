@@ -1,5 +1,6 @@
 import { CiHeart } from "react-icons/ci";
 import ProfilePicture from "../../../../components/ProfilePicture/ProfilePicture";
+// eslint-disable-next-line no-unused-vars
 import ReplyForm from "./ReplyForm/ReplyForm";
 
 export default function Comment() {
@@ -31,9 +32,10 @@ export default function Comment() {
                 </div>
             </div>
             {/* Reply form */}
-            <ReplyForm />
+            {/* <ReplyForm /> */}
             {/* Toggle replies */}
-            <button className="w-full text-center text-sm opacity-70">View replies(4)</button>
+            {/* <button className="w-full text-center text-sm opacity-70">View replies(4)</button> */}
+            <button className="w-full text-center text-sm opacity-70">Hide replies</button>
             {/* Replies */}
         </div>
     )
