@@ -3,6 +3,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
+import router from "./routes";
+
 import expressConfig from "./config/express.config";
 import { authMiddleware } from "./middlewares/auth.middleware";
 
@@ -17,6 +19,8 @@ app.use(
 expressConfig(app);
 
 app.use(authMiddleware);
+
+app.use("/api/v1", router);
 
 const PORT = process.env.PORT || 3000;
 
