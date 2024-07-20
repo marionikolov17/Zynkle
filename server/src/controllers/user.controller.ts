@@ -1,6 +1,7 @@
 import express from "express";
 import * as authService from "./../services/auth.service";
 import PATH from "./../constants/path.constants";
+import RESPONSE_STATUS from "./../constants/response-statuses.constants";
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.post(
         await authService.registerUser(req.body);
 
       res.status(200).json({
-        status: "success",
+        status: RESPONSE_STATUS.SUCCESS,
         data: {
           session,
           accessToken,
@@ -21,7 +22,7 @@ router.post(
       });
     } catch (err) {
       res.status(400).json({
-        status: "fail",
+        status: RESPONSE_STATUS.FAILED,
         data: {
           message: err.message,
         },

@@ -3,3 +3,5 @@ const RESPONSE_STATUS = {
     SUCCESS: "success",
     ERROR: "error"
 }
+
+export default RESPONSE_STATUS;

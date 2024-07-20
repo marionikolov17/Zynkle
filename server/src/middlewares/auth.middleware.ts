@@ -2,6 +2,7 @@ import { NextFunction, Response } from "express";
 import * as jwt from "./../lib/jwt.lib";
 import { Secret } from "jsonwebtoken";
 import Session from "./../interfaces/session.interface";
+import RESPONSE_STATUS from "./../constants/response-statuses.constants";
 
 const verifyToken = async (token: string, secret: Secret) => {
   return await jwt.verify(token, secret);
@@ -83,7 +84,7 @@ export const checkRefreshToken = async (
 export const isAuth = (req: any, res: Response, next: NextFunction) => {
   if (!req.user) {
     return res.status(401).json({
-      status: "fail",
+      status: RESPONSE_STATUS.FAILED,
       data: {
         error: "You must login",
       },
