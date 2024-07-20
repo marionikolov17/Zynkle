@@ -11,6 +11,9 @@ export const registerUserValidators: ValidationChain[] = checkSchema({
         in: ["body"],
         exists: {
             errorMessage: "email is required"
+        },
+        isEmail: {
+            errorMessage: "email must be valid"
         }
     },
     firstName: {
