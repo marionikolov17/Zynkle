@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import expressConfig from "./config/express.config";
+import { authMiddleware } from "./middlewares/auth.middleware";
 
 const app = express();
 app.use(
@@ -14,6 +15,8 @@ app.use(
 );
 
 expressConfig(app);
+
+app.use(authMiddleware);
 
 const PORT = process.env.PORT || 3000;
 
