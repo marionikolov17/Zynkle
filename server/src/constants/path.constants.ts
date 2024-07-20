@@ -1,6 +1,7 @@
 const PATH = {
     USERS: {
-        REGISTER: "/register"
+        REGISTER: "/register",
+        LOGIN: "/login"
     }
 }
 
