@@ -20,7 +20,7 @@ export const loginUser = async (data: Record<string, any>) => {
         throw new Error("Invalid email or password");
     }
 
-    if(!(await verifyPassword(data?.password, user.password))) {
+    if(!(await verifyPassword(data?.password, user.password as string))) {
         throw new Error("Invalid email or password");
     }
 
