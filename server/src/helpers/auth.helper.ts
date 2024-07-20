@@ -2,6 +2,7 @@ import * as bcrypt from "bcrypt";
 import * as jwt from "../lib/jwt.lib";
 import { Secret } from "jsonwebtoken";
 import { createSession } from "./../services/user.session";
+import { Types } from "mongoose";
 
 export const generatePasswordHash = async (password: string) => {
   return bcrypt.hash(password, 12);
@@ -12,14 +13,13 @@ export const verifyPassword = async (password: string, hash: string) => {
 };
 
 const generateAccessToken = async (
-  user: Record<string, any>,
+  _id: Types.ObjectId,
   sessionId: string,
   secret: Secret,
   expiresIn: string
 ) => {
   const payload = {
-    id: user.id,
-    role: user.user_role,
+    _id,
     sessionId,
   };
 
@@ -40,11 +40,11 @@ const generateRefreshToken = async (
   return token;
 };
 
-export const createTokensAndSession = async (user: Record<string, any>) => {
-  const session = createSession(user._id);
+export const createTokensAndSession = async (_id: Types.ObjectId) => {
+  const session = createSession(_id);
 
   const accessToken = await generateAccessToken(
-    user,
+    _id,
     session.sessionId,
     process.env.ACCESS_TOKEN_SECRET,
     "2m"
