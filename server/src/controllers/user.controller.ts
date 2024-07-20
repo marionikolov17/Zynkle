@@ -1,10 +1,11 @@
 import express from "express";
 import * as authService from "./../services/auth.service";
+import PATH from "./../constants/path.constants";
 
 const router = express.Router();
 
 router.post(
-  "/register",
+  PATH.USERS.REGISTER,
   async (req: express.Request, res: express.Response) => {
     try {
       const [accessToken, refreshToken, session] =
