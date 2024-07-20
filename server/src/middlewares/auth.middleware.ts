@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import * as jwt from "./../lib/jwt.lib";
 
 export const authMiddleware = async (
