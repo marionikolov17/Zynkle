@@ -1,6 +1,5 @@
 import { checkSchema, ValidationChain } from "express-validator";
 
-
 export const registerUserValidators: ValidationChain[] = checkSchema({
     username: {
         in: ["body"],
