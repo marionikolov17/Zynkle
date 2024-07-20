@@ -6,7 +6,7 @@ import cors from "cors";
 import router from "./routes";
 
 import expressConfig from "./config/express.config";
-import { authMiddleware } from "./middlewares/auth.middleware";
+import { checkAccessToken, checkRefreshToken } from "./middlewares/auth.middleware";
 
 const app = express();
 app.use(
@@ -18,7 +18,7 @@ app.use(
 
 expressConfig(app);
 
-app.use(authMiddleware);
+app.use(checkAccessToken, checkRefreshToken);
 
 app.use("/api/v1", router);
 

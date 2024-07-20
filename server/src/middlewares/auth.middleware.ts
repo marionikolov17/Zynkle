@@ -1,31 +1,93 @@
 import { NextFunction, Response } from "express";
 import * as jwt from "./../lib/jwt.lib";
+import { Secret } from "jsonwebtoken";
+import Session from "./../interfaces/session.interface";
 
-export const authMiddleware = async (
+const verifyToken = async (token: string, secret: Secret) => {
+  return await jwt.verify(token, secret);
+};
+
+const generateToken = async (session: Session) => {
+  return await jwt.sign(
+    { _id: session._id, sessionId: session.sessionId },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: "2m" }
+  );
+};
+
+export const checkAccessToken = async (
   req: any,
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.get("Authorization");
+  const accessToken = req.get("accessToken");
 
-  if (!token) return next();
+  if (!accessToken) {
+    return next();
+  }
 
   try {
-    const decoded = await jwt.verify(token, process.env.SECRET);
-
-    req.user = decoded;
+    req.user = await verifyToken(accessToken, process.env.ACCESS_TOKEN_SECRET);
 
     next();
-  } catch {
+  } catch (err) {
+    if (err.name === "TokenExpiredError") {
+      req.expiredAccessToken = true;
+    } else {
+      console.log(err);
+    }
+
+    next();
+  }
+};
+
+export const checkRefreshToken = async (
+  req: any,
+  res: Response,
+  next: NextFunction
+) => {
+  if (!req.expiredAccessToken) return next();
+
+  const refreshToken = req.get("refreshToken");
+
+  if (!refreshToken) {
+    return next();
+  }
+
+  try {
+    const refreshPayload = await verifyToken(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET
+    );
+
+    // @ts-ignore
+    const session = getSession(refreshPayload.sessionId);
+    if (!session) {
+      return next();
+    }
+
+    const newAccessToken = await generateToken(session);
+
+    res.setHeader("accessToken", newAccessToken as string);
+
+    // @ts-ignore
+    req.user = await verifyToken(newAccessToken, ACCESS_TOKEN_SECRET_KEY);
+
+    next();
+  } catch (err) {
+    console.error(err.message, "- REFRESH TOKEN");
     next();
   }
 };
 
 export const isAuth = (req: any, res: Response, next: NextFunction) => {
   if (!req.user) {
-    return res
-      .status(401)
-      .json({ status: "fail", data: { message: "You must login!" } });
+    return res.status(401).json({
+      status: "fail",
+      data: {
+        error: "You must login",
+      },
+    });
   }
 
   next();
