@@ -6,10 +6,10 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: "zynkle.firebaseapp.com",
-  projectId: "zynkle",
-  storageBucket: "zynkle.appspot.com",
+  authDomain: process.env.FIREBASE_PROJECT_ID + ".firebaseapp.com",
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_PROJECT_ID + ".appspot.com",
   messagingSenderId: "748669970183",
-  appId: "1:748669970183:web:6e33a8b6d7ad58cf3807a2",
+  appId: process.env.FIREBASE_APP_ID,
   measurementId: "G-PYX3874KEV"
 };
