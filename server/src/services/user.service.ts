@@ -15,7 +15,14 @@ export const updateUser = async (
 export const followUser = async (
   currentUserId: Types.ObjectId,
   followedUserId: Types.ObjectId
-) => {};
+) => {
+    if (await isFollowedAlready(currentUserId, followedUserId)) {
+        throw new Error("You are already following this user");
+    }
+
+    await userModel.findOneAndUpdate({ _id: followedUserId }, { $push: { followers: currentUserId } });
+    await userModel.findOneAndUpdate({ _id: currentUserId }, { $push: { follows: followedUserId } });
+};
 
 export const unfollowUser = async (
   currentUserId: Types.ObjectId,
@@ -24,7 +31,13 @@ export const unfollowUser = async (
 
 const isFollowedAlready = async (
   currentUserId: Types.ObjectId,
-  followedUserId: Types.ObjectId
+  relatedUserId: Types.ObjectId
 ): Promise<boolean> => {
+    const relatedUser = await userModel.findById(relatedUserId);
+
+    if (relatedUser.followers.includes(currentUserId as any)) {
+        return true;
+    }
+
     return false;
 };
