@@ -7,6 +7,7 @@ import { inputValidationMiddleware } from "./../middlewares/validation.middlewar
 import { registerUserValidators } from "./../validators/user.validator";
 import { tryCatch } from "./../utils/tryCatch";
 import { isAuth } from "./../middlewares/auth.middleware";
+import upload from "./../config/file-upload.config";
 
 const router = express.Router();
 
@@ -44,6 +45,24 @@ router.post(
         refreshToken,
       },
     });
+  })
+);
+
+router.put(
+  PATH.USERS.UPDATE_USER,
+  isAuth,
+  upload.single('profilePicture'),
+  tryCatch(async (req: any, res: express.Response) => {
+    console.log(req.file);
+
+    await userService.updateUser(req.body, req.user._id, req.file);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        message: "Successfully updated user"
+      }
+    })
   })
 );
 
