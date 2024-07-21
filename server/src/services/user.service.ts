@@ -3,7 +3,7 @@ import userModel from "./../models/User";
 import { uploadFileToCloud } from "./../utils/storage-upload";
 
 export const getUser = async (userId: Types.ObjectId) =>
-  userModel.findById(userId);
+  userModel.findById(userId, { password: 0 });
 
 export const getUsers = async () => {
     return userModel.find();
