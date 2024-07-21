@@ -16,6 +16,10 @@ export const followUser = async (
   currentUserId: Types.ObjectId,
   followedUserId: Types.ObjectId
 ) => {
+    if (currentUserId === followedUserId) {
+        throw new Error("Same user can't follow himself");
+    }
+
     if (await isFollowedAlready(currentUserId, followedUserId)) {
         throw new Error("You are already following this user");
     }
@@ -28,6 +32,10 @@ export const unfollowUser = async (
   currentUserId: Types.ObjectId,
   unfollowedUserId: Types.ObjectId
 ) => {
+    if (currentUserId === unfollowedUserId) {
+        throw new Error("Same user can't unfollow himself");
+    }
+
     if (!(await isFollowedAlready(currentUserId, unfollowedUserId))) {
         throw new Error("You are not following this user");
     }
