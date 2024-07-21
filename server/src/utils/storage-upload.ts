@@ -4,7 +4,7 @@ const storage = getStorage();
 
 export const uploadFileToCloud = async (file: Express.Multer.File) => {
   // Upload file and metadata to the object
-  const storageRef = ref(storage, file.originalname as string);
+  const storageRef = ref(storage, Date.now() + "-" + file.originalname as string);
   const fileBlob = new Blob([file.buffer]);
   const uploadTask = uploadBytesResumable(storageRef, fileBlob);
 
