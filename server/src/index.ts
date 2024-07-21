@@ -13,6 +13,7 @@ import router from "./routes";
 
 import expressConfig from "./config/express.config";
 import { checkAccessToken, checkRefreshToken } from "./middlewares/auth.middleware";
+import { errorHandler } from "./middlewares/error.middleware";
 
 const app = express();
 app.use(
@@ -27,6 +28,8 @@ expressConfig(app);
 app.use(checkAccessToken, checkRefreshToken);
 
 app.use("/api/v1", router);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
