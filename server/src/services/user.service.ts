@@ -5,7 +5,9 @@ import { uploadFileToCloud } from "./../utils/storage-upload";
 export const getUser = async (userId: Types.ObjectId) =>
   userModel.findById(userId);
 
-export const getUsers = async () => userModel.find();
+export const getUsers = async () => {
+    return userModel.find();
+};
 
 export const updateUser = async (
   data: Record<string, any>,
