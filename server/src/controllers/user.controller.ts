@@ -7,7 +7,7 @@ import upload from "./../config/file-upload.config";
 import PATH from "./../constants/path.constants";
 import RESPONSE_STATUS from "./../constants/response-statuses.constants";
 
-import { inputValidationMiddleware } from "./../middlewares/validation.middleware";
+import { fileTypeValidationMiddleware, inputValidationMiddleware } from "./../middlewares/validation.middleware";
 import { registerUserValidators } from "./../validators/user.validator";
 import { tryCatch } from "./../utils/tryCatch";
 import { isAuth } from "./../middlewares/auth.middleware";
@@ -55,6 +55,7 @@ router.put(
   PATH.USERS.UPDATE_USER,
   isAuth,
   upload.single('profilePicture'),
+  fileTypeValidationMiddleware,
   tryCatch(async (req: any, res: express.Response) => {
     await userService.updateUser(req.body, req.user._id, req.file);
 

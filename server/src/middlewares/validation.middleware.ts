@@ -50,3 +50,21 @@ export const inputValidationMiddleware = (validators: ValidationChain[]) => {
     next();
   };
 };
+
+export const fileTypeValidationMiddleware = async (
+  error: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (error) {
+    return res.status(409).json({
+      status: RESPONSE_STATUS.FAILED,
+      data: {
+        message: error.message,
+      },
+    });
+  }
+
+  next();
+};
