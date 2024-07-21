@@ -1,13 +1,16 @@
 import express from "express";
+
 import * as authService from "./../services/auth.service";
 import * as userService from "./../services/user.service";
+import upload from "./../config/file-upload.config";
+
 import PATH from "./../constants/path.constants";
 import RESPONSE_STATUS from "./../constants/response-statuses.constants";
+
 import { inputValidationMiddleware } from "./../middlewares/validation.middleware";
 import { registerUserValidators } from "./../validators/user.validator";
 import { tryCatch } from "./../utils/tryCatch";
 import { isAuth } from "./../middlewares/auth.middleware";
-import upload from "./../config/file-upload.config";
 
 const router = express.Router();
 
