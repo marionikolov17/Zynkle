@@ -27,7 +27,14 @@ export const followUser = async (
 export const unfollowUser = async (
   currentUserId: Types.ObjectId,
   unfollowedUserId: Types.ObjectId
-) => {};
+) => {
+    if (!(await isFollowedAlready(currentUserId, unfollowedUserId))) {
+        throw new Error("You are not following this user");
+    }
+
+    await userModel.findOneAndUpdate({ _id: unfollowedUserId }, { $pull: { followers: currentUserId } });
+    await userModel.findOneAndUpdate({ _id: currentUserId }, { $pull: { follows: unfollowedUserId } });
+};
 
 const isFollowedAlready = async (
   currentUserId: Types.ObjectId,
