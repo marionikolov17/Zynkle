@@ -13,3 +13,10 @@ export default function ProfilePicture({ className }) {
   );
 }
 
+/* 
+https://firebasestorage.googleapis.com/v0/b/zynkle.appspot.com/o/11640168385jtmh7kpmvna5ddyynoxsjy5leb1nmpvqooaavkrjmt9zs7vtvuqi4lcwofkzsaejalxn7ggpim4hkg0wbwtzsrp1ldijzbdbsj5z.png?alt=media&token=aac82a1b-f429-4811-a35e-b8f261ad03ad
+*/
+
+/* 
+https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
+*/

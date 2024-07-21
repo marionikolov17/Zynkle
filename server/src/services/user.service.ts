@@ -1,5 +1,6 @@
 import { Types } from "mongoose";
 import userModel from "./../models/User";
+import { uploadFileToCloud } from "./../utils/storage-upload";
 
 export const getUser = async (userId: Types.ObjectId) =>
   userModel.findById(userId);
@@ -9,8 +10,10 @@ export const getUsers = async () => userModel.find();
 export const updateUser = async (
   data: Record<string, any>,
   userId: Types.ObjectId,
-  file: Express.Multer.File | { [fieldname: string]: Express.Multer.File }
-) => {};
+  file: Express.Multer.File 
+) => {
+    const profilePictureUrl = await uploadFileToCloud(file);
+};
 
 export const followUser = async (
   currentUserId: Types.ObjectId,

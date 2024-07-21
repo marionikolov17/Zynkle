@@ -53,14 +53,12 @@ router.put(
   isAuth,
   upload.single('profilePicture'),
   tryCatch(async (req: any, res: express.Response) => {
-    console.log(req.file);
-
     await userService.updateUser(req.body, req.user._id, req.file);
 
     res.status(200).json({
       status: RESPONSE_STATUS.SUCCESS,
       data: {
-        message: "Successfully updated user"
+        message: "Success"
       }
     })
   })
