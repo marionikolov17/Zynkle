@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { initializeApp } from "firebase/app";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -7,6 +8,10 @@ import router from "./routes";
 
 import expressConfig from "./config/express.config";
 import { checkAccessToken, checkRefreshToken } from "./middlewares/auth.middleware";
+import { firebaseConfig } from "./config/firebase.config";
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
 
 const app = express();
 app.use(
