@@ -11,6 +11,7 @@ import { fileTypeValidationMiddleware, inputValidationMiddleware } from "./../mi
 import { registerUserValidators, updateUserValidators } from "./../validators/user.validator";
 import { tryCatch } from "./../utils/tryCatch";
 import { isAuth } from "./../middlewares/auth.middleware";
+import { Types } from "mongoose";
 
 const router = express.Router();
 
@@ -64,6 +65,21 @@ router.put(
       status: RESPONSE_STATUS.SUCCESS,
       data: {
         message: "Successfully updated user"
+      }
+    })
+  })
+);
+
+/* Get User public profile */
+router.get(
+  PATH.USERS.GET_USER,
+  tryCatch(async (req: express.Request, res: express.Response) => {
+    const user = await userService.getUser(req.params.userId as any);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        ...user
       }
     })
   })
