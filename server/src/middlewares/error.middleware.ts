@@ -9,7 +9,7 @@ export const errorHandler = (
     next: NextFunction
 ) => {
     console.log(error.message)
-    if (error instanceof multer.MulterError) {
+    if (error instanceof multer.MulterError) { // File uploading, file size, etc.
         return res.status(409).json({
             status: RESPONSE_STATUS.FAILED,
             data: {
