@@ -3,6 +3,7 @@ import * as jwt from "./../lib/jwt.lib";
 import { Secret } from "jsonwebtoken";
 import Session from "./../interfaces/session.interface";
 import RESPONSE_STATUS from "./../constants/response-statuses.constants";
+import { getSession } from "./../services/user.session";
 
 const verifyToken = async (token: string, secret: Secret) => {
   return await jwt.verify(token, secret);
