@@ -11,7 +11,6 @@ import { fileTypeValidationMiddleware, inputValidationMiddleware } from "./../mi
 import { registerUserValidators, updateUserValidators } from "./../validators/user.validator";
 import { tryCatch } from "./../utils/tryCatch";
 import { isAuth } from "./../middlewares/auth.middleware";
-import { Types } from "mongoose";
 
 const router = express.Router();
 
