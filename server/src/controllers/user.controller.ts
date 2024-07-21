@@ -79,4 +79,19 @@ router.put(
   })
 )
 
+router.put(
+  PATH.USERS.UNFOLLOW_USER,
+  isAuth,
+  tryCatch(async (req: any, res: express.Response) => {
+    await userService.unfollowUser(req.user._id, req.params.userId);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        message: "Successfully unfollowed this user"
+      }
+    })
+  })
+)
+
 export default router;
