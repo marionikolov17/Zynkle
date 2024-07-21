@@ -13,55 +13,38 @@ const router = express.Router();
 router.post(
   PATH.USERS.REGISTER,
   inputValidationMiddleware(registerUserValidators),
-  async (req: express.Request, res: express.Response) => {
-    try {
-      const [accessToken, refreshToken, session] =
-        await authService.registerUser(req.body);
+  tryCatch(async (req: express.Request, res: express.Response) => {
+    const [accessToken, refreshToken, session] = await authService.registerUser(
+      req.body
+    );
 
-      res.status(200).json({
-        status: RESPONSE_STATUS.SUCCESS,
-        data: {
-          session,
-          accessToken,
-          refreshToken,
-        },
-      });
-    } catch (err) {
-      res.status(400).json({
-        status: RESPONSE_STATUS.FAILED,
-        data: {
-          message: err.message,
-        },
-      });
-    }
-  }
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        session,
+        accessToken,
+        refreshToken,
+      },
+    });
+  })
 );
 
 router.post(
   PATH.USERS.LOGIN,
-  async (req: express.Request, res: express.Response) => {
-    try {
-      const [accessToken, refreshToken, session] = await authService.loginUser(
-        req.body
-      );
+  tryCatch(async (req: express.Request, res: express.Response) => {
+    const [accessToken, refreshToken, session] = await authService.loginUser(
+      req.body
+    );
 
-      res.status(200).json({
-        status: RESPONSE_STATUS.SUCCESS,
-        data: {
-          session,
-          accessToken,
-          refreshToken,
-        },
-      });
-    } catch (err) {
-      res.status(400).json({
-        status: RESPONSE_STATUS.FAILED,
-        data: {
-          message: err.message,
-        },
-      });
-    }
-  }
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        session,
+        accessToken,
+        refreshToken,
+      },
+    });
+  })
 );
 
 router.put(
@@ -73,11 +56,11 @@ router.put(
     res.status(200).json({
       status: RESPONSE_STATUS.SUCCESS,
       data: {
-        message: "Successfully followed this user"
-      }
-    })
+        message: "Successfully followed this user",
+      },
+    });
   })
-)
+);
 
 router.put(
   PATH.USERS.UNFOLLOW_USER,
@@ -88,10 +71,10 @@ router.put(
     res.status(200).json({
       status: RESPONSE_STATUS.SUCCESS,
       data: {
-        message: "Successfully unfollowed this user"
-      }
-    })
+        message: "Successfully unfollowed this user",
+      },
+    });
   })
-)
+);
 
 export default router;
