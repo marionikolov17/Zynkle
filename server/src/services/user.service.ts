@@ -10,9 +10,15 @@ export const getUsers = async () => userModel.find();
 export const updateUser = async (
   data: Record<string, any>,
   userId: Types.ObjectId,
-  file: Express.Multer.File 
+  file?: Express.Multer.File 
 ) => {
+    if (!file) {
+        await userModel.findOneAndUpdate({ _id: userId }, data);
+        return;
+    }
     const profilePictureUrl = await uploadFileToCloud(file);
+
+    await userModel.findOneAndUpdate({ _id: userId }, { ...data, profilePicture: profilePictureUrl });
 };
 
 export const followUser = async (
