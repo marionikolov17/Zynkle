@@ -8,7 +8,7 @@ import PATH from "./../constants/path.constants";
 import RESPONSE_STATUS from "./../constants/response-statuses.constants";
 
 import { fileTypeValidationMiddleware, inputValidationMiddleware } from "./../middlewares/validation.middleware";
-import { registerUserValidators } from "./../validators/user.validator";
+import { registerUserValidators, updateUserValidators } from "./../validators/user.validator";
 import { tryCatch } from "./../utils/tryCatch";
 import { isAuth } from "./../middlewares/auth.middleware";
 
@@ -56,13 +56,14 @@ router.put(
   isAuth,
   upload.single('profilePicture'),
   fileTypeValidationMiddleware,
+  inputValidationMiddleware(updateUserValidators),
   tryCatch(async (req: any, res: express.Response) => {
     await userService.updateUser(req.body, req.user._id, req.file);
 
     res.status(200).json({
       status: RESPONSE_STATUS.SUCCESS,
       data: {
-        message: "Success"
+        message: "Successfully updated user"
       }
     })
   })

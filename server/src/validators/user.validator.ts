@@ -41,3 +41,30 @@ export const registerUserValidators: ValidationChain[] = checkSchema({
         }
     },
 });
+
+export const updateUserValidators: ValidationChain[] = checkSchema({
+    username: {
+        in: ["body"],
+        exists: {
+            errorMessage: "username is required"
+        }
+    },
+    firstName: {
+        in: ["body"],
+        exists: {
+            errorMessage: "firstName is required"
+        }
+    },
+    lastName: {
+        in: ["body"],
+        exists: {
+            errorMessage: "lastName is required"
+        }
+    },
+    country: {
+        in: ["body"],
+        exists: {
+            errorMessage: "country is required"
+        }
+    },
+});
