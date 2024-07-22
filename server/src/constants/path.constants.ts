@@ -6,7 +6,8 @@ const PATH = {
         GET_USER: "/:userId",
         UPDATE_USER: "/",
         FOLLOW_USER: "/:userId/follow",
-        UNFOLLOW_USER: "/:userId/unfollow"
+        UNFOLLOW_USER: "/:userId/unfollow",
+        SEARCH_USERS: "/search"
     },
     POSTS: {}
 }
