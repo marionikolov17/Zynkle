@@ -35,6 +35,10 @@ export const createPost = async (
 };
 
 export const deletePost = async (postId: Types.ObjectId, userId: Types.ObjectId) => {
+    if(!(await isPostOwner(postId, userId))) {
+        throw new Error("You are unauthorized to delete this post");
+    }
+
     // Remove from saved for all the users that have saved it
    await userModel.updateMany({ savedPosts: postId }, { $pull: { savedPosts: postId } })
 
@@ -45,3 +49,14 @@ export const deletePost = async (postId: Types.ObjectId, userId: Types.ObjectId)
     await postModel.findOneAndDelete({ _id: postId });
     await userModel.findOneAndUpdate({ _id: userId }, { $pull: { posts: postId } });
 };
+
+const isPostOwner = async (
+    postId: Types.ObjectId,
+    userId: Types.ObjectId
+): Promise<boolean> => {
+    const post = await postModel.findById(postId);
+
+    if (post.creator != userId) return false;
+
+    return true;
+}
