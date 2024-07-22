@@ -29,4 +29,19 @@ router.post(
     })
 )
 
+router.delete(
+  PATH.POSTS.DELETE_POST,
+  isAuth,
+  tryCatch(async (req: any, res: express.Response) => {
+    await postService.deletePost(req.params.postId, req.user._id);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        message: "Successfully deleted post"
+      }
+    })
+  })
+)
+
 export default router;
