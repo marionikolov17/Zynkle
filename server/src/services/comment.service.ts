@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import commentModel from "./../models/Comment";
 import postModel from "./../models/Post";
+import replyModel from "./../models/Reply";
 
 export const createComment = async (
   data: Record<string, any>,
@@ -21,6 +22,8 @@ export const deleteComment = async (
     }
 
     await commentModel.findByIdAndDelete(commentId);
+    // Delete all related replies
+    await replyModel.deleteMany({ commentId: commentId });
 }
 
 const isCommentOwner = async (
