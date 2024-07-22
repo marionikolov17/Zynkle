@@ -97,7 +97,6 @@ router.get(
   })
 )
 
-/* Get User public profile */
 router.get(
   PATH.USERS.GET_USER,
   tryCatch(async (req: express.Request, res: express.Response) => {
