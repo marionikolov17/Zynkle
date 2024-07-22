@@ -3,7 +3,7 @@ import userModel from "./../models/User";
 import { uploadFileToCloud } from "./../utils/storage-upload";
 
 export const getUser = async (userId: Types.ObjectId) =>
-  userModel.findById(userId, { password: 0 });
+  userModel.findById(userId, { password: 0 }).populate("posts").populate("savedPosts");
 
 export const getUsers = async () => {
     return userModel.find();
