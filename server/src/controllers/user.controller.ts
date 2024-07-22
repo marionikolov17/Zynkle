@@ -70,6 +70,20 @@ router.put(
 );
 
 router.get(
+  PATH.USERS.GET_TOP_CREATORS,
+  tryCatch(async (req: express.Request, res: express.Response) => {
+    const users = await userService.getUsers();
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        users
+      }
+    })
+  })
+)
+
+router.get(
   PATH.USERS.SEARCH_USERS,
   tryCatch(async (req: express.Request, res: express.Response) => {
     const users = await userService.searchUsers(req.query.search as string);
