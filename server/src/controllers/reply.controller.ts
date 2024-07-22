@@ -20,7 +20,7 @@ router.post(
         await replyService.createReply(req.body, req.params.commentId, req.user._id);
 
         res.status(201).json({
-            status: RESPONSE_STATUS,
+            status: RESPONSE_STATUS.SUCCESS,
             data: {
                 message: "Successfully created reply"
             }
