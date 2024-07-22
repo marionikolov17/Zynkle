@@ -9,8 +9,13 @@ import { isAuth } from "./../middlewares/auth.middleware";
 import { tryCatch } from "./../utils/tryCatch";
 import { inputValidationMiddleware } from "./../middlewares/validation.middleware";
 import { createReplyValidators } from "./../validators/reply.validator";
+import { checkPostId, checkCommentId, checkReplyId} from "./../middlewares/params.middleware";
 
 const router = express.Router();
+
+router.param("postId", checkPostId);
+router.param("commentId", checkCommentId);
+router.param("replyId", checkReplyId);
 
 router.post(
     PATH.REPLIES.CREATE_REPLY,

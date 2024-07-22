@@ -14,7 +14,6 @@ import router from "./routes";
 import expressConfig from "./config/express.config";
 import { checkAccessToken, checkRefreshToken } from "./middlewares/auth.middleware";
 import { errorHandler } from "./middlewares/error.middleware";
-import { checkCommentId, checkPostId, checkReplyId } from "./middlewares/params.middleware";
 
 const app = express();
 app.use(
@@ -27,11 +26,6 @@ app.use(
 expressConfig(app);
 
 app.use(checkAccessToken, checkRefreshToken);
-
-// Params middlewares
-app.param("postId", checkPostId);
-app.param("commentId", checkCommentId);
-app.param("replyId", checkReplyId);
 
 app.use("/api/v1", router);
 

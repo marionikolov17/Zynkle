@@ -9,8 +9,11 @@ import upload from "./../config/file-upload.config";
 import { isAuth } from "./../middlewares/auth.middleware";
 import { fileTypeValidationMiddleware } from "./../middlewares/validation.middleware";
 import { tryCatch } from "./../utils/tryCatch";
+import { checkPostId } from "./../middlewares/params.middleware";
 
 const router = express.Router();
+
+router.param("postId", checkPostId);
 
 router.post(
   PATH.POSTS.CREATE_POST,
