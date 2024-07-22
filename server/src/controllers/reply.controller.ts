@@ -17,7 +17,7 @@ router.post(
     isAuth,
     inputValidationMiddleware(createReplyValidators),
     tryCatch(async (req: any, res: express.Response) => {
-        await replyService.createReply(req.body, req.params.commentId, req.user._id);
+        await replyService.createReply(req.body, req.params.postId, req.params.commentId, req.user._id);
 
         res.status(201).json({
             status: RESPONSE_STATUS.SUCCESS,

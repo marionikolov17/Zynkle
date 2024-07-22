@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const replySchema = new mongoose.Schema({
+    postId: {
+        type: mongoose.Types.ObjectId,
+        ref: "Post"
+    },
     commentId: {
         type: mongoose.Types.ObjectId,
         ref: "Comment"

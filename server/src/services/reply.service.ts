@@ -5,10 +5,11 @@ import postModel from "./../models/Post";
 
 export const createReply = async (
     data: Record<string, any>,
+    postId: Types.ObjectId,
     commentId: Types.ObjectId,
     userId: Types.ObjectId
 ) => {
-    const createdReply = await replyModel.create({...data, commentId: commentId, creator: userId});
+    const createdReply = await replyModel.create({...data, postId: postId, commentId: commentId, creator: userId});
     await commentModel.findOneAndUpdate({ _id: commentId }, { $push: { replies: createdReply._id } });
 }
 

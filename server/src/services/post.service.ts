@@ -1,6 +1,8 @@
 import { Types } from "mongoose";
 import postModel from "./../models/Post";
 import userModel from "./../models/User";
+import commentModel from "./../models/Comment";
+import replyModel from "./../models/Reply";
 
 import { uploadFileToCloud } from "./../utils/storage-upload";
 
@@ -33,14 +35,12 @@ export const createPost = async (
 };
 
 export const deletePost = async (postId: Types.ObjectId, userId: Types.ObjectId) => {
-    const post = await getPost(postId);
+    // Remove from saved for all the users that have saved it
+   await userModel.updateMany({ savedPosts: postId }, { $pull: { savedPosts: postId } })
 
-    // Remove from saved for all the users that has saved it
-    for (let savedUserId of post.savedBy) {
-        await userModel.findOneAndUpdate({ _id: savedUserId }, { $pull: { savedPosts: postId } });
-    }
-
-    // Must delete all related comments and replies
+    // Delete all related comments and replies
+    await commentModel.deleteMany({ postId: postId });
+    await replyModel.deleteMany({ postId: postId })
 
     await postModel.findOneAndDelete({ _id: postId });
     await userModel.findOneAndUpdate({ _id: userId }, { $pull: { posts: postId } });
