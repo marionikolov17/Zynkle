@@ -28,4 +28,19 @@ router.post(
     })
 );
 
+router.delete(
+    PATH.COMMENTS.DELETE_COMMENT,
+    isAuth,
+    tryCatch(async (req: any, res: express.Response) => {
+        await commentService.deleteComment(req.params.postId, req.params.commentId, req.user._id);
+
+        res.status(200).json({
+            status: RESPONSE_STATUS.SUCCESS,
+            data: {
+                message: "Successfully deleted comment"
+            }
+        });
+    })
+)
+
 export default router;
