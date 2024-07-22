@@ -40,3 +40,13 @@ const isReplyOwner = async (
 
     return true;
 }
+
+export const checkIfReplyExsists = async (
+    replyId: Types.ObjectId
+): Promise<boolean> => {
+    const reply = await replyModel.findById(replyId);
+
+    if (!reply) return false;
+
+    return true;
+}

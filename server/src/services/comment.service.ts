@@ -38,3 +38,13 @@ const isCommentOwner = async (
 
     return true;
 }
+
+export const checkIfCommentExsists = async (
+    commentId: Types.ObjectId
+): Promise<boolean> => {
+    const comment = await commentModel.findById(commentId);
+
+    if (!comment) return false;
+
+    return true;
+}

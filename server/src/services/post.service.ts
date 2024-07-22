@@ -60,3 +60,13 @@ const isPostOwner = async (
 
     return true;
 }
+
+export const checkIfPostExsists = async (
+    postId: Types.ObjectId
+): Promise<boolean> => {
+    const post = await postModel.findById(postId);
+
+    if (!post) return false;
+
+    return true;
+}
