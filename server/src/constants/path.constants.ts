@@ -21,14 +21,14 @@ const PATH = {
     COMMENTS: {
         CREATE_COMMENT: "/:postId",
         GET_COMMENTS: "/:postId",
-        DELETE_COMMENT: "/:commentId",
+        DELETE_COMMENT: "/:postId/:commentId",
         LIKE_COMMENT: "/:commentId/like",
         DISLIKE_COMMENT: "/:commentId/dislike"
     },
     REPLIES: {
         CREATE_REPLY: "/:postId/:commentId",
         GET_REPLIES: "/:postId/:commentId",
-        DELETE_REPLY: "/:replyId",
+        DELETE_REPLY: "/:postId/:replyId",
         LIKE_REPLY: "/:replyId/like",
         DISLIKE_REPLY: "/:replyId/dislike"
     }
