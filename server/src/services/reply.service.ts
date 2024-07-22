@@ -23,6 +23,8 @@ export const deleteReply = async (
     }
 
     await replyModel.findByIdAndDelete(replyId);
+    // Delete comment relation
+    await commentModel.findOneAndUpdate({ replies: replyId }, { $pull: { replies: replyId } });
 }
 
 const isReplyOwner = async (
@@ -33,7 +35,8 @@ const isReplyOwner = async (
     const reply = await replyModel.findById(replyId);
     const post = await postModel.findById(postId);
 
-    if (reply.creator != userId || post.creator !== userId) return false;
+    console.log(reply.creator, userId)
+    if (reply.creator != userId || post.creator != userId) return false;
 
     return true;
 }

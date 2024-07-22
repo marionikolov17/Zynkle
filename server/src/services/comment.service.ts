@@ -34,7 +34,7 @@ const isCommentOwner = async (
     const comment = await commentModel.findById(commentId);
     const post = await postModel.findById(postId);
 
-    if (comment.creator != userId || post.creator !== userId) return false;
+    if (comment.creator != userId || post.creator != userId) return false;
 
     return true;
 }
