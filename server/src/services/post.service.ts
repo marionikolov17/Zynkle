@@ -9,9 +9,13 @@ export const createPost = async (
   userId: Types.ObjectId,
   file: Express.Multer.File
 ) => {
+    if(!file) {
+        throw new Error("You must upload post picture");
+    }
+
     const imageUri = await uploadFileToCloud(file);
 
     const createdPost = await postModel.create({ ...data, creator: userId, imageUri: imageUri });
 
-    await userModel.findOneAndUpdate({ _id: userId }, { posts: { $push: createdPost._id } });
+    await userModel.findOneAndUpdate({ _id: userId }, { $push: { posts: createdPost._id } });
 };

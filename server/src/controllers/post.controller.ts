@@ -18,7 +18,7 @@ router.post(
     upload.single("imageUri"),
     fileTypeValidationMiddleware,
     tryCatch(async (req: any, res: express.Response) => {
-        await postService.createPost(req.body, req.user._id, req.file);
+        await postService.createPost(req.body, req.user._id as any, req.file);
 
         res.status(201).json({
             status: RESPONSE_STATUS.SUCCESS,
