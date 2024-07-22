@@ -13,21 +13,21 @@ import { tryCatch } from "./../utils/tryCatch";
 const router = express.Router();
 
 router.post(
-    PATH.POSTS.CREATE_POST,
-    isAuth,
-    upload.single("imageUri"),
-    fileTypeValidationMiddleware,
-    tryCatch(async (req: any, res: express.Response) => {
-        await postService.createPost(req.body, req.user._id as any, req.file);
+  PATH.POSTS.CREATE_POST,
+  isAuth,
+  upload.single("imageUri"),
+  fileTypeValidationMiddleware,
+  tryCatch(async (req: any, res: express.Response) => {
+    await postService.createPost(req.body, req.user._id as any, req.file);
 
-        res.status(201).json({
-            status: RESPONSE_STATUS.SUCCESS,
-            data: {
-              message: "Successfully created post"
-            }
-          })
-    })
-)
+    res.status(201).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        message: "Successfully created post",
+      },
+    });
+  })
+);
 
 router.delete(
   PATH.POSTS.DELETE_POST,
@@ -38,10 +38,10 @@ router.delete(
     res.status(200).json({
       status: RESPONSE_STATUS.SUCCESS,
       data: {
-        message: "Successfully deleted post"
-      }
-    })
+        message: "Successfully deleted post",
+      },
+    });
   })
-)
+);
 
 export default router;
