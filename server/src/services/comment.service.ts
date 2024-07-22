@@ -20,7 +20,7 @@ export const deleteComment = async (
         throw new Error("You are unauthorized to delete this comment");
     }
 
-    await commentModel.findOneAndDelete({ _id: commentId });
+    await commentModel.findByIdAndDelete(commentId);
 }
 
 const isCommentOwner = async (

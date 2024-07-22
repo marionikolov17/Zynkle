@@ -20,6 +20,8 @@ export const deleteReply = async (
     if(!(await isReplyOwner(postId, replyId, userId))) {
         throw new Error("You are unauthorized to delete this reply");
     }
+
+    await replyModel.findByIdAndDelete(replyId);
 }
 
 const isReplyOwner = async (
