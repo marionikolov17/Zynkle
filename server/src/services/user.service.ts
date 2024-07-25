@@ -6,7 +6,7 @@ export const getUser = async (userId: Types.ObjectId) =>
   userModel.findById(userId, { password: 0 }).populate('posts').populate('savedPosts'); // Must populate 
 
 export const getUsers = async () => {
-    return userModel.find();
+    return userModel.find({}, { password: 0 });
 };
 
 export const searchUsers = async (query: string) => userModel.find({ username: { "$regex":  query} });
