@@ -8,43 +8,87 @@ export const createComment = async (
   postId: Types.ObjectId,
   userId: Types.ObjectId
 ) => {
-    const createdComment = await commentModel.create({ ...data, postId: postId, creator: userId });
-    await postModel.findOneAndUpdate({ _id: postId }, { $push: { comments: createdComment._id } });
+  const createdComment = await commentModel.create({
+    ...data,
+    postId: postId,
+    creator: userId,
+  });
+  await postModel.findOneAndUpdate(
+    { _id: postId },
+    { $push: { comments: createdComment._id } }
+  );
 };
 
 export const deleteComment = async (
-    postId: Types.ObjectId,
-    commentId: Types.ObjectId,
-    userId: Types.ObjectId
+  postId: Types.ObjectId,
+  commentId: Types.ObjectId,
+  userId: Types.ObjectId
 ) => {
-    if(!(await isCommentOwner(postId, commentId, userId))) {
-        throw new Error("You are unauthorized to delete this comment");
-    }
+  if (!(await isCommentOwner(postId, commentId, userId))) {
+    throw new Error("You are unauthorized to delete this comment");
+  }
 
-    await commentModel.findByIdAndDelete(commentId);
-    // Delete all related replies
-    await replyModel.deleteMany({ commentId: commentId });
-}
+  await commentModel.findByIdAndDelete(commentId);
+  // Delete all related replies
+  await replyModel.deleteMany({ commentId: commentId });
+};
+
+export const likeComment = async (
+  commentId: Types.ObjectId,
+  userId: Types.ObjectId
+) => {
+  if (await hasLikedComment(commentId, userId)) {
+    throw new Error("You have already liked this comment");
+  }
+
+  await commentModel.findByIdAndUpdate(commentId, {
+    $push: { likedBy: userId },
+  });
+};
+
+export const dislikeComment = async (
+  commentId: Types.ObjectId,
+  userId: Types.ObjectId
+) => {
+  if (!(await hasLikedComment(commentId, userId))) {
+    throw new Error("You haven't liked this comment");
+  }
+
+  await commentModel.findByIdAndUpdate(commentId, {
+    $pull: { likedBy: userId },
+  });
+};
 
 const isCommentOwner = async (
-    postId: Types.ObjectId,
-    commentId: Types.ObjectId,
-    userId: Types.ObjectId
+  postId: Types.ObjectId,
+  commentId: Types.ObjectId,
+  userId: Types.ObjectId
 ): Promise<boolean> => {
-    const comment = await commentModel.findById(commentId);
-    const post = await postModel.findById(postId);
+  const comment = await commentModel.findById(commentId);
+  const post = await postModel.findById(postId);
 
-    if (comment.creator != userId || post.creator != userId) return false;
+  if (comment.creator != userId || post.creator != userId) return false;
 
-    return true;
-}
+  return true;
+};
+
+const hasLikedComment = async (
+  commentId: Types.ObjectId,
+  userId: Types.ObjectId
+): Promise<boolean> => {
+  const comment = await commentModel.findById(commentId);
+
+  if (comment.likedBy.includes(userId as any)) return true;
+
+  return false;
+};
 
 export const checkIfCommentExsists = async (
-    commentId: Types.ObjectId
+  commentId: Types.ObjectId
 ): Promise<boolean> => {
-    const comment = await commentModel.findById(commentId);
+  const comment = await commentModel.findById(commentId);
 
-    if (!comment) return false;
+  if (!comment) return false;
 
-    return true;
-}
+  return true;
+};
