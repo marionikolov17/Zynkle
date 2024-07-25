@@ -50,6 +50,26 @@ export const deletePost = async (postId: Types.ObjectId, userId: Types.ObjectId)
     await userModel.findOneAndUpdate({ _id: userId }, { $pull: { posts: postId } });
 };
 
+export const likePost = async (
+  postId: Types.ObjectId,
+  userId: Types.ObjectId
+) => {}
+
+export const dislikePost = async (
+  postId: Types.ObjectId,
+  userId: Types.ObjectId
+) => {}
+
+export const savePost = async (
+  postId: Types.ObjectId,
+  userId: Types.ObjectId
+) => {}
+
+export const unsavePost = async (
+  postId: Types.ObjectId,
+  userId: Types.ObjectId
+) => {}
+
 const isPostOwner = async (
     postId: Types.ObjectId,
     userId: Types.ObjectId
@@ -59,6 +79,28 @@ const isPostOwner = async (
     if (post.creator != userId) return false;
 
     return true;
+}
+
+const hasLikedPost = async (
+  postId: Types.ObjectId,
+  userId: Types.ObjectId
+): Promise<boolean> => {
+  const post = await postModel.findById(postId);
+
+  if (post.likedBy.includes(userId as any)) return true;
+
+  return false;
+}
+
+const hasSavedPost = async (
+  postId: Types.ObjectId,
+  userId: Types.ObjectId
+) => {
+  const post = await postModel.findById(postId);
+
+  if (post.savedBy.includes(userId as any)) return true;
+
+  return false;
 }
 
 export const checkIfPostExsists = async (
