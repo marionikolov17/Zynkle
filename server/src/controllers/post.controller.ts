@@ -15,6 +15,18 @@ const router = express.Router();
 
 router.param("postId", checkPostId);
 
+router.get(
+  PATH.POSTS.GET_POSTS,
+  tryCatch(async (req: express.Request, res: express.Response) => {
+    const posts = await postService.getPosts();
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: posts
+    })
+  })
+)
+
 router.post(
   PATH.POSTS.CREATE_POST,
   isAuth,

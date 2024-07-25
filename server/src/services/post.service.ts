@@ -6,10 +6,14 @@ import replyModel from "./../models/Reply";
 
 import { uploadFileToCloud } from "./../utils/storage-upload";
 
-export const getPosts = async () => postModel.find().populate("creator");
+export const getPosts = async () =>
+  postModel.find().populate("creator", "_id username profilePicture");
 
 export const getPost = async (postId: Types.ObjectId) =>
-  (await postModel.findById(postId)).populate("creator"); // Must populate comments
+  await postModel
+    .findById(postId)
+    .populate("creator", "_id username profilePicture")
+    .populate("comments"); // Must populate comments
 
 export const createPost = async (
   data: Record<string, any>,
@@ -34,20 +38,29 @@ export const createPost = async (
   );
 };
 
-export const deletePost = async (postId: Types.ObjectId, userId: Types.ObjectId) => {
-    if(!(await isPostOwner(postId, userId))) {
-        throw new Error("You are unauthorized to delete this post");
-    }
+export const deletePost = async (
+  postId: Types.ObjectId,
+  userId: Types.ObjectId
+) => {
+  if (!(await isPostOwner(postId, userId))) {
+    throw new Error("You are unauthorized to delete this post");
+  }
 
-    // Remove from saved for all the users that have saved it
-   await userModel.updateMany({ savedPosts: postId }, { $pull: { savedPosts: postId } })
+  // Remove from saved for all the users that have saved it
+  await userModel.updateMany(
+    { savedPosts: postId },
+    { $pull: { savedPosts: postId } }
+  );
 
-    // Delete all related comments and replies
-    await commentModel.deleteMany({ postId: postId });
-    await replyModel.deleteMany({ postId: postId })
+  // Delete all related comments and replies
+  await commentModel.deleteMany({ postId: postId });
+  await replyModel.deleteMany({ postId: postId });
 
-    await postModel.findOneAndDelete({ _id: postId });
-    await userModel.findOneAndUpdate({ _id: userId }, { $pull: { posts: postId } });
+  await postModel.findOneAndDelete({ _id: postId });
+  await userModel.findOneAndUpdate(
+    { _id: userId },
+    { $pull: { posts: postId } }
+  );
 };
 
 export const likePost = async (
@@ -59,7 +72,7 @@ export const likePost = async (
   }
 
   await postModel.findByIdAndUpdate(postId, { $push: { likedBy: userId } });
-}
+};
 
 export const dislikePost = async (
   postId: Types.ObjectId,
@@ -70,7 +83,7 @@ export const dislikePost = async (
   }
 
   await postModel.findByIdAndUpdate(postId, { $pull: { likedBy: userId } });
-}
+};
 
 export const savePost = async (
   postId: Types.ObjectId,
@@ -82,7 +95,7 @@ export const savePost = async (
 
   await postModel.findByIdAndUpdate(postId, { $push: { savedBy: userId } });
   await userModel.findByIdAndUpdate(userId, { $push: { savedPosts: postId } });
-}
+};
 
 export const unsavePost = async (
   postId: Types.ObjectId,
@@ -94,18 +107,18 @@ export const unsavePost = async (
 
   await postModel.findByIdAndUpdate(postId, { $pull: { savedBy: userId } });
   await userModel.findByIdAndUpdate(userId, { $pull: { savedPosts: postId } });
-}
+};
 
 const isPostOwner = async (
-    postId: Types.ObjectId,
-    userId: Types.ObjectId
+  postId: Types.ObjectId,
+  userId: Types.ObjectId
 ): Promise<boolean> => {
-    const post = await postModel.findById(postId);
+  const post = await postModel.findById(postId);
 
-    if (post.creator != userId) return false;
+  if (post.creator != userId) return false;
 
-    return true;
-}
+  return true;
+};
 
 const hasLikedPost = async (
   postId: Types.ObjectId,
@@ -116,25 +129,22 @@ const hasLikedPost = async (
   if (post.likedBy.includes(userId as any)) return true;
 
   return false;
-}
+};
 
-const hasSavedPost = async (
-  postId: Types.ObjectId,
-  userId: Types.ObjectId
-) => {
+const hasSavedPost = async (postId: Types.ObjectId, userId: Types.ObjectId) => {
   const post = await postModel.findById(postId);
 
   if (post.savedBy.includes(userId as any)) return true;
 
   return false;
-}
+};
 
 export const checkIfPostExsists = async (
-    postId: Types.ObjectId
+  postId: Types.ObjectId
 ): Promise<boolean> => {
-    const post = await postModel.findById(postId);
+  const post = await postModel.findById(postId);
 
-    if (!post) return false;
+  if (!post) return false;
 
-    return true;
-}
+  return true;
+};
