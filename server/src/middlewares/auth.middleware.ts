@@ -4,6 +4,7 @@ import { Secret } from "jsonwebtoken";
 import Session from "./../interfaces/session.interface";
 import RESPONSE_STATUS from "./../constants/response-statuses.constants";
 import { getSession } from "./../services/user.session";
+import { invalidAccessTokens } from "./../services/token.session";
 
 const verifyToken = async (token: string, secret: Secret) => {
   return await jwt.verify(token, secret);
@@ -27,6 +28,8 @@ export const checkAccessToken = async (
   if (!accessToken) {
     return next();
   }
+
+  if (invalidAccessTokens.includes(accessToken)) return next();
 
   try {
     req.user = await verifyToken(accessToken, process.env.ACCESS_TOKEN_SECRET);

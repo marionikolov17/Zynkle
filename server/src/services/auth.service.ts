@@ -1,5 +1,7 @@
 import { createTokensAndSession, verifyPassword } from "./../helpers/auth.helper";
 import userModel from "./../models/User";
+import { invalidateAccessToken } from "./token.session";
+import { invalidateSession } from "./user.session";
 
 export const registerUser = async (data: Record<string, any>) => {
     const user = await userModel.findOne({ email: data?.email });
@@ -26,3 +28,8 @@ export const loginUser = async (data: Record<string, any>) => {
 
     return createTokensAndSession(user._id);
 }
+
+export const logoutUser = (sessionId: string, token: string) => {
+    invalidateSession(sessionId);
+    invalidateAccessToken(token);
+};

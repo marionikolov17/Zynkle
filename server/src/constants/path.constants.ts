@@ -2,6 +2,7 @@ const PATH = {
     USERS: {
         REGISTER: "/register",
         LOGIN: "/login",
+        LOGOUT: "/logout",
         GET_TOP_CREATORS: "/topCreators",
         GET_USER: "/:userId",
         UPDATE_USER: "/",

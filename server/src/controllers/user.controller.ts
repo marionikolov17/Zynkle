@@ -51,6 +51,16 @@ router.post(
   })
 );
 
+router.post(
+  PATH.USERS.LOGOUT,
+  isAuth,
+  tryCatch(async (req: any, res: express.Response) => {
+    authService.logoutUser(req.user.sessionId, req.get("accessToken"));
+
+    res.status(204).end();
+  })
+)
+
 router.put(
   PATH.USERS.UPDATE_USER,
   isAuth,
