@@ -53,7 +53,13 @@ export const deletePost = async (postId: Types.ObjectId, userId: Types.ObjectId)
 export const likePost = async (
   postId: Types.ObjectId,
   userId: Types.ObjectId
-) => {}
+) => {
+  if (await hasLikedPost(postId, userId)) {
+    throw new Error("You have already liked this post");
+  }
+
+  await postModel.findByIdAndUpdate(postId, { $push: { likedBy: userId } });
+}
 
 export const dislikePost = async (
   postId: Types.ObjectId,
