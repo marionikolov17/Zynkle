@@ -4,7 +4,7 @@ import { Secret } from "jsonwebtoken";
 import Session from "./../interfaces/session.interface";
 import RESPONSE_STATUS from "./../constants/response-statuses.constants";
 import { getSession } from "./../services/user.session";
-import { invalidAccessTokens } from "./../services/token.session";
+import { invalidAccessTokens } from "../services/invalid-tokens";
 
 const verifyToken = async (token: string, secret: Secret) => {
   return await jwt.verify(token, secret);

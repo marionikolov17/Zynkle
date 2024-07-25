@@ -1,35 +1,38 @@
-import { createTokensAndSession, verifyPassword } from "./../helpers/auth.helper";
+import {
+  createTokensAndSession,
+  verifyPassword,
+} from "./../helpers/auth.helper";
 import userModel from "./../models/User";
-import { invalidateAccessToken } from "./token.session";
+import { invalidateAccessToken } from "./invalid-tokens";
 import { invalidateSession } from "./user.session";
 
 export const registerUser = async (data: Record<string, any>) => {
-    const user = await userModel.findOne({ email: data?.email });
+  const user = await userModel.findOne({ email: data?.email });
 
-    if (user) {
-        throw new Error("User already exsists");
-    }
+  if (user) {
+    throw new Error("User already exsists");
+  }
 
-    const createdUser = await userModel.create(data);
+  const createdUser = await userModel.create(data);
 
-    return createTokensAndSession(createdUser._id);
-}
+  return createTokensAndSession(createdUser._id);
+};
 
 export const loginUser = async (data: Record<string, any>) => {
-    const user = await userModel.findOne({ email: data?.email });
+  const user = await userModel.findOne({ email: data?.email });
 
-    if (!user) {
-        throw new Error("Invalid email or password");
-    }
+  if (!user) {
+    throw new Error("Invalid email or password");
+  }
 
-    if(!(await verifyPassword(data?.password, user.password as string))) {
-        throw new Error("Invalid email or password");
-    }
+  if (!(await verifyPassword(data?.password, user.password as string))) {
+    throw new Error("Invalid email or password");
+  }
 
-    return createTokensAndSession(user._id);
-}
+  return createTokensAndSession(user._id);
+};
 
 export const logoutUser = (sessionId: string, token: string) => {
-    invalidateSession(sessionId);
-    invalidateAccessToken(token);
+  invalidateSession(sessionId);
+  invalidateAccessToken(token);
 };
