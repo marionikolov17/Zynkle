@@ -92,4 +92,19 @@ router.put(
   })
 )
 
+router.put(
+  PATH.POSTS.UNSAVE_POST,
+  isAuth,
+  tryCatch(async (req: any, res: express.Response) => {
+    await postService.unsavePost(req.params.postId, req.user._id);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        message: "Successfully unsaved post",
+      },
+    });
+  })
+)
+
 export default router;
