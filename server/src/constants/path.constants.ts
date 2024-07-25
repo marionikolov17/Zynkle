@@ -27,7 +27,7 @@ const PATH = {
     },
     REPLIES: {
         CREATE_REPLY: "/:postId/:commentId",
-        GET_REPLIES: "/:postId/:commentId",
+        GET_REPLIES: "/:commentId",
         DELETE_REPLY: "/:postId/:replyId",
         LIKE_REPLY: "/:replyId/like",
         DISLIKE_REPLY: "/:replyId/dislike"
