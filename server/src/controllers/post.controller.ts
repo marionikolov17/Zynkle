@@ -77,4 +77,19 @@ router.put(
   })
 )
 
+router.put(
+  PATH.POSTS.SAVE_POST,
+  isAuth,
+  tryCatch(async (req: any, res: express.Response) => {
+    await postService.savePost(req.params.postId, req.user._id);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        message: "Successfully saved post",
+      },
+    });
+  })
+)
+
 export default router;
