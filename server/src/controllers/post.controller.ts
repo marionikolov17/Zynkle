@@ -62,4 +62,19 @@ router.put(
   })
 )
 
+router.put(
+  PATH.POSTS.DISLIKE_POST,
+  isAuth,
+  tryCatch(async (req: any, res: express.Response) => {
+    await postService.dislikePost(req.params.postId, req.user._id);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        message: "Successfully disliked post",
+      },
+    });
+  })
+)
+
 export default router;
