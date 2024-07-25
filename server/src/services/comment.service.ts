@@ -5,7 +5,7 @@ import replyModel from "./../models/Reply";
 
 export const getComments = async (
     postId: Types.ObjectId
-) => commentModel.find({ postId: postId });
+) => commentModel.find({ postId: postId }).populate("creator", "_id username profilePicture");
 
 export const createComment = async (
   data: Record<string, any>,
