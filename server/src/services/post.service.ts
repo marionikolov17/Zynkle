@@ -87,7 +87,14 @@ export const savePost = async (
 export const unsavePost = async (
   postId: Types.ObjectId,
   userId: Types.ObjectId
-) => {}
+) => {
+  if (!(await hasSavedPost(postId, userId))) {
+    throw new Error("You haven't saved this post");
+  }
+
+  await postModel.findByIdAndUpdate(postId, { $pull: { savedBy: userId } });
+  await userModel.findByIdAndUpdate(userId, { $pull: { savedPosts: postId } });
+}
 
 const isPostOwner = async (
     postId: Types.ObjectId,
