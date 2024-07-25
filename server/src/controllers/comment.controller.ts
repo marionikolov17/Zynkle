@@ -16,6 +16,18 @@ const router = express.Router();
 router.param("postId", checkPostId);
 router.param("commentId", checkCommentId);
 
+router.get(
+    PATH.COMMENTS.GET_COMMENTS,
+    tryCatch(async (req: express.Request, res: express.Response) => {
+        const comments = await commentService.getComments(req.params.postId as any);
+
+        res.status(200).json({
+            status: RESPONSE_STATUS.SUCCESS,
+            data: comments
+        })
+    })
+)
+
 router.post(
     PATH.COMMENTS.CREATE_COMMENT,
     isAuth,
