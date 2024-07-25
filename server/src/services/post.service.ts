@@ -13,7 +13,6 @@ export const getPost = async (postId: Types.ObjectId) =>
   await postModel
     .findById(postId)
     .populate("creator", "_id username profilePicture")
-    .populate("comments"); // Must populate comments
 
 export const createPost = async (
   data: Record<string, any>,

@@ -44,6 +44,18 @@ router.post(
   })
 );
 
+router.get(
+  PATH.POSTS.GET_POST,
+  tryCatch(async (req: express.Request, res: express.Response) => {
+    const post = await postService.getPost(req.params.postId as any);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: post
+    })
+  })
+)
+
 router.delete(
   PATH.POSTS.DELETE_POST,
   isAuth,
