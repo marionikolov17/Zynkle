@@ -47,4 +47,34 @@ router.delete(
     })
 )
 
+router.put(
+    PATH.COMMENTS.LIKE_COMMENT,
+    isAuth,
+    tryCatch(async (req: any, res: express.Response) => {
+        await commentService.likeComment(req.params.commentId, req.user._id);
+
+        res.status(200).json({
+            status: RESPONSE_STATUS.SUCCESS,
+            data: {
+                message: "Successfully liked comment"
+            }
+        });
+    })
+)
+
+router.put(
+    PATH.COMMENTS.DISLIKE_COMMENT,
+    isAuth,
+    tryCatch(async (req: any, res: express.Response) => {
+        await commentService.dislikeComment(req.params.commentId, req.user._id);
+
+        res.status(200).json({
+            status: RESPONSE_STATUS.SUCCESS,
+            data: {
+                message: "Successfully disliked comment"
+            }
+        });
+    })
+)
+
 export default router;
