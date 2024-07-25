@@ -75,7 +75,14 @@ export const dislikePost = async (
 export const savePost = async (
   postId: Types.ObjectId,
   userId: Types.ObjectId
-) => {}
+) => {
+  if (await hasSavedPost(postId, userId)) {
+    throw new Error("You have already saved this post");
+  }
+
+  await postModel.findByIdAndUpdate(postId, { $push: { savedBy: userId } });
+  await userModel.findByIdAndUpdate(userId, { $push: { savedPosts: postId } });
+}
 
 export const unsavePost = async (
   postId: Types.ObjectId,
