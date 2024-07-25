@@ -12,6 +12,7 @@ const PATH = {
     POSTS: {
         GET_POSTS: "/",
         CREATE_POST: "/",
+        GET_POST: "/:postId",
         DELETE_POST: "/:postId",
         LIKE_POST: "/:postId/like",
         DISLIKE_POST: "/:postId/dislike",
