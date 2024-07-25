@@ -9,7 +9,7 @@ export const getUsers = async () => {
     return userModel.find({}, { password: 0 });
 };
 
-export const searchUsers = async (query: string) => userModel.find({ username: { "$regex":  query} });
+export const searchUsers = async (query: string) => userModel.find({ username: { "$regex":  query} }, { password: 0 });
 
 export const updateUser = async (
   data: Record<string, any>,
