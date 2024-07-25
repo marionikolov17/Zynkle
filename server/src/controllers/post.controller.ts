@@ -47,4 +47,19 @@ router.delete(
   })
 );
 
+router.put(
+  PATH.POSTS.LIKE_POST,
+  isAuth,
+  tryCatch(async (req: any, res: express.Response) => {
+    await postService.likePost(req.params.postId, req.user._id);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: {
+        message: "Successfully liked post",
+      },
+    });
+  })
+)
+
 export default router;
