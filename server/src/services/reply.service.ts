@@ -3,6 +3,10 @@ import replyModel from "./../models/Reply";
 import commentModel from "./../models/Comment";
 import postModel from "./../models/Post";
 
+export const getReplies = async (
+    commentId: Types.ObjectId
+) => replyModel.find({ commentId: commentId });
+
 export const createReply = async (
   data: Record<string, any>,
   postId: Types.ObjectId,
