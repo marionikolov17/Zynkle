@@ -3,6 +3,10 @@ import commentModel from "./../models/Comment";
 import postModel from "./../models/Post";
 import replyModel from "./../models/Reply";
 
+export const getComments = async (
+    postId: Types.ObjectId
+) => commentModel.find({ postId: postId });
+
 export const createComment = async (
   data: Record<string, any>,
   postId: Types.ObjectId,
