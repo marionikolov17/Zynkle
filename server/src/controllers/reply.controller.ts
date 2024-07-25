@@ -48,4 +48,34 @@ router.delete(
     })
 )
 
+router.put(
+    PATH.REPLIES.LIKE_REPLY,
+    isAuth,
+    tryCatch(async (req: any, res: express.Response) => {
+        await replyService.likeReply(req.params.replyId, req.user._id);
+
+        res.status(200).json({
+            status: RESPONSE_STATUS.SUCCESS,
+            data: {
+                message: "Successfully liked reply"
+            }
+        });
+    })
+)
+
+router.put(
+    PATH.REPLIES.DISLIKE_REPLY,
+    isAuth,
+    tryCatch(async (req: any, res: express.Response) => {
+        await replyService.dislikeReply(req.params.replyId, req.user._id);
+
+        res.status(200).json({
+            status: RESPONSE_STATUS.SUCCESS,
+            data: {
+                message: "Successfully disliked reply"
+            }
+        });
+    })
+)
+
 export default router;
