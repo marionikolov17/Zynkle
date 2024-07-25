@@ -64,7 +64,13 @@ export const likePost = async (
 export const dislikePost = async (
   postId: Types.ObjectId,
   userId: Types.ObjectId
-) => {}
+) => {
+  if (!(await hasLikedPost(postId, userId))) {
+    throw new Error("You haven't liked this post");
+  }
+
+  await postModel.findByIdAndUpdate(postId, { $pull: { likedBy: userId } });
+}
 
 export const savePost = async (
   postId: Types.ObjectId,
