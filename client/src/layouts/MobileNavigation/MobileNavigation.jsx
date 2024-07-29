@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { CiHome, CiSearch, CiCirclePlus } from "react-icons/ci";
-import ProfilePicture from "../ProfilePicture/ProfilePicture";
+import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 
 export default function MobileNavigation() {
   return (
