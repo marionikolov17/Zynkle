@@ -1,4 +1,4 @@
-import * as apiService from "./../../../services/rest-api.service";
+import * as apiService from "../../../shared/services/rest-api.service";
 import PATHS from "../../../shared/configs/paths.config";
 
 export const login = async (data) => {
