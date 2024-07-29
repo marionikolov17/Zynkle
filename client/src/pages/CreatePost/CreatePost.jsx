@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import { BsFiletypePng } from "react-icons/bs";
 import { FaXmark } from "react-icons/fa6";
+import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 
 export default function CreatePost() {
   return (

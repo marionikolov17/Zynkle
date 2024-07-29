@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import ProfilePicture from "../../../components/ProfilePicture/ProfilePicture";
 import AddCommentForm from "../../../features/post/components/AddCommentForm/AddCommentForm";
 import Comment from "../../../features/post/components/Comment/Comment";
 import PostStats from "../../../features/post/components/PostStats/PostStats";
 import { IoMdClose } from "react-icons/io";
+import ProfilePicture from "../../../shared/components/ProfilePicture/ProfilePicture";
 
 export default function DesktopPost() {
   return (

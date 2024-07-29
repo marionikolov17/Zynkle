@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import ProfilePicture from "./../../components/ProfilePicture/ProfilePicture";
 import { CiBookmark, CiGrid41 } from "react-icons/ci";
 import ProfilePost from "../../features/profile/components/ProfilePost/ProfilePost";
+import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 
 export default function Profile() {
   const navigate = useNavigate();

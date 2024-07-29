@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { CiCirclePlus } from "react-icons/ci";
 import HomePost from "../../features/home/components/HomePost/HomePost";
 import NoPosts from "../../features/home/components/NoPosts/NoPosts";
-import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import TopCreator from "../../features/home/components/TopCreator/TopCreator";
+import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 
 export default function Home() {
   return (

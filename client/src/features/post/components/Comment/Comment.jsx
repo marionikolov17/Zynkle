@@ -1,5 +1,5 @@
 import { CiHeart } from "react-icons/ci";
-import ProfilePicture from "../../../../components/ProfilePicture/ProfilePicture";
+import ProfilePicture from "../../../../shared/components/ProfilePicture/ProfilePicture";
 // eslint-disable-next-line no-unused-vars
 import ReplyForm from "./ReplyForm/ReplyForm";
 import Reply from "./Reply/Reply";

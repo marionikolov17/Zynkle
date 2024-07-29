@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 
 export default function ProfileEdit() {
   return (

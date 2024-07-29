@@ -2,7 +2,7 @@ import { CiHeart, CiBookmark } from "react-icons/ci";
 import { AiOutlineComment } from "react-icons/ai";
 import { PiShareFat } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import ProfilePicture from "../../../../components/ProfilePicture/ProfilePicture";
+import ProfilePicture from "../../../../shared/components/ProfilePicture/ProfilePicture";
 
 export default function HomePost() {
     return (
