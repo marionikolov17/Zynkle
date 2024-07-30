@@ -9,9 +9,11 @@ import Search from "./pages/Search/Search";
 import Layout from "./layouts/Layout/Layout";
 import Post from "./pages/Post/Post";
 import NotFound from "./pages/NotFound/NotFound";
+import useAuthenticate from "./entities/users/hooks/useAuthenticate";
 
 export default function App() {
   // App entry point - handle authentication
+  useAuthenticate();
 
   return (
     <Routes>

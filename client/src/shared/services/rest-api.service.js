@@ -5,6 +5,10 @@ const BASE_URL = "http://localhost:3000/api/v1/";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
+  headers: {
+    "AccessToken": localStorage.getItem("accessToken") || "",
+    "RefreshToken": localStorage.getItem("refreshToken") || ""
+  }
 });
 
 // Handle network and connection error
@@ -18,8 +22,6 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-//TODO: Add authentication interceptor
 
 export const get = async (url, config = null) => {
   return axiosInstance.get(url, config);

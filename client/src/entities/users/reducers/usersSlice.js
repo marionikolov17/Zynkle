@@ -10,10 +10,16 @@ const usersSlice = createSlice({
         lastName: ""
     },
     reducers: {
-        authenticate: (state, action) => {
-            state = {...action.payload, isAuthenticated: true};
+        authenticate: (state, action) => { 
+            state.isAuthenticated= true,
+            state.username= action.payload.username,
+            state.profilePicture= action.payload.profilePicture,
+            state.firstName= action.payload.firstName,
+            state.lastName= action.payload.lastName
         }
     }
 });
+
+export const { authenticate } = usersSlice.actions;
 
 export default usersSlice.reducer;
