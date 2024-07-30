@@ -5,11 +5,15 @@ const usersSlice = createSlice({
     initialState: {
         isAuthenticated: false,
         username: "",
-        profilePictureUri: "",
+        profilePicture: "",
         firstName: "",
         lastName: ""
     },
-    reducers: {}
+    reducers: {
+        authenticate: (state, action) => {
+            state = {...action.payload, isAuthenticated: true};
+        }
+    }
 });
 
 export default usersSlice.reducer;
