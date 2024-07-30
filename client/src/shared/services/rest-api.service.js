@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import axios, { CanceledError } from "axios";
 
 const BASE_URL = "http://localhost:3000/api/v1/";
@@ -8,12 +9,13 @@ const axiosInstance = axios.create({
 
 // Handle network and connection error
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  null,
   (error) => {
     if (error instanceof CanceledError || error.message === "Network Error") {
-      alert("server is not working!")
+      return alert("server is not working!")
       // Show maintenance page
-    }
+    } 
+    return Promise.reject(error);
   }
 );
 
