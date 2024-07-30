@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form"
+import FormErrorMessage from "../../shared/components/FormErrorMessage/FormErrorMessage";
 
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: {errors}
+  } = useForm();
+
+  const onLoginSubmit = (data) => {
+    console.log(data)
+  }
+
   return (
     <main className="min-h-full w-full absolute top-0 flex justify-center items-center font-montserrat bg-mainWhite">
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -12,7 +24,7 @@ export default function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={handleSubmit(onLoginSubmit)} className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -23,13 +35,13 @@ export default function Login() {
               <div className="mt-2">
                 <input
                   id="email"
-                  name="email"
+                  {...register("email", { required: "This field is required" })}
                   type="email"
-                  required
                   autoComplete="email"
                   className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 />
               </div>
+              {errors.email && <FormErrorMessage message={errors.email.message}/>}
             </div>
 
             <div>
@@ -52,12 +64,12 @@ export default function Login() {
               <div className="mt-2">
                 <input
                   id="password"
-                  name="password"
+                  {...register("password", { required: "This field is required" })}
                   type="password"
-                  required
                   autoComplete="current-password"
                   className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 />
+                {errors.password && <FormErrorMessage message={errors.password.message}/>}
               </div>
             </div>
 
