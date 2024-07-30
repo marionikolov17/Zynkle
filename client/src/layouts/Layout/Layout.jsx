@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import DesktopNavigation from "./../DesktopNavigation/DesktopNavigation";
-import MobileNavigation from "./../MobileNavigation/MobileNavigation";
+import DesktopNavigation from "../../features/layout/DesktopNavigation/DesktopNavigation";
+import MobileNavigation from "../../features/layout/MobileNavigation/MobileNavigation";
 
 export default function Layout() {
   return (
