@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios, { CanceledError } from "axios";
-import useLocalStorage from "./useLocalStorage";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const BASE_URL = "http://localhost:3000/api/v1/";
 
@@ -11,13 +11,12 @@ const axiosInstance = axios.create({
 });
 
 export default function useAxios() {
-  const [accessToken, setAccessToken] = useLocalStorage("accessToken", "");
-  const [refreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
+  const tokens = useSelector(state => state.tokens);
 
   const requestOnFullfilled = (config) => {
     config.headers = {
-      AccessToken: accessToken,
-      RefreshToken: refreshToken,
+      AccessToken: tokens.accessToken,
+      RefreshToken: tokens.refreshToken,
     };
     return config;
   };
@@ -33,6 +32,7 @@ export default function useAxios() {
   };
 
   useEffect(() => {
+    console.log("yes", tokens.accessToken)
     const requestInterceptor = axiosInstance.interceptors.request.use(requestOnFullfilled, requestOnError);
     const responseInterceptor = axiosInstance.interceptors.response.use(null, responseOnError);
 
@@ -40,7 +40,7 @@ export default function useAxios() {
         axiosInstance.interceptors.request.eject(requestInterceptor);
         axiosInstance.interceptors.response.eject(responseInterceptor);
     }
-  }, [accessToken, refreshToken]);
+  }, [tokens.accessToken, tokens.refreshToken]);
 
   return { axiosInstance }
 }

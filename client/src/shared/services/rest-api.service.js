@@ -6,8 +6,8 @@ const BASE_URL = "http://localhost:3000/api/v1/";
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
-    "AccessToken": localStorage.getItem("accessToken") || "",
-    "RefreshToken": localStorage.getItem("refreshToken") || ""
+    "AccessToken": localStorage.getItem("accessToken"),
+    "RefreshToken": localStorage.getItem("refreshToken"),
   }
 });
 

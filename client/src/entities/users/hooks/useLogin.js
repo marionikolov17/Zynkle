@@ -1,20 +1,28 @@
+/* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
-import * as userService from "./../services/user.service";
+import { useDispatch } from "react-redux";
+import useAxios from "../../../shared/hooks/useAxios";
+import { setTokens } from "../../../shared/reducers/tokensSlice";
 
 export default function useLogin() {
-    const navigate = useNavigate();
+  const { axiosInstance } = useAxios();
 
-    const login = async (data) => {
-        try {
-            const result = await userService.login(data);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-            localStorage.setItem("accessToken", result.data.data.accessToken);
-            localStorage.setItem("refreshToken", result.data.data.refreshToken);
-            navigate("/");
-        } catch (error) {
-            throw new Error(error.response.data.data.message);
-        }
+  const login = async (data) => {
+    try {
+      const result = await axiosInstance.post("users/login", data);
+
+      localStorage.setItem("accessToken", result.data.data.accessToken);
+      localStorage.setItem("refreshToken", result.data.data.refreshToken);
+      dispatch(setTokens({ accessToken: result.data.data.accessToken, refreshToken: result.data.data.refreshToken }));
+      navigate("/")
+    } catch (error) {
+      throw new Error(error.response.data.data.message);
     }
+  };
 
-    return { login };
+  return { login };
 }
+
