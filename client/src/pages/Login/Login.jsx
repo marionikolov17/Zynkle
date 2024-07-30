@@ -22,6 +22,7 @@ export default function Login() {
     setIsLoading(true);
     try {
       await login(data);
+      setHasLoginError(false);
     } catch (error) {
       setHasLoginError(true);
       setLoginError(error.message);
