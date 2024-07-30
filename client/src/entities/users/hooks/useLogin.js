@@ -8,9 +8,6 @@ export default function useLogin() {
         try {
             const result = await userService.login(data);
 
-            console.log(result);
-
-            // Set tokens to local storage
             localStorage.setItem("accessToken", result.data.data.accessToken);
             localStorage.setItem("refreshToken", result.data.data.refreshToken);
             navigate("/");
