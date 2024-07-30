@@ -11,6 +11,8 @@ import Post from "./pages/Post/Post";
 import NotFound from "./pages/NotFound/NotFound";
 
 export default function App() {
+  // App entry point - handle authentication
+
   return (
     <Routes>
       {/* Main app layout */}
