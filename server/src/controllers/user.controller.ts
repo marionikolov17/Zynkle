@@ -14,6 +14,19 @@ import { isAuth } from "./../middlewares/auth.middleware";
 
 const router = express.Router();
 
+router.get(
+  PATH.USERS.GET_CURRENT_USER,
+  isAuth, 
+  tryCatch(async (req: any, res: express.Response) => {
+    const user = await userService.getCurrentUser(req.user._id);
+
+    res.status(200).json({
+      status: RESPONSE_STATUS.SUCCESS,
+      data: user
+    })
+  })
+)
+
 router.post(
   PATH.USERS.REGISTER,
   inputValidationMiddleware(registerUserValidators),
