@@ -11,8 +11,11 @@ import { fileTypeValidationMiddleware, inputValidationMiddleware } from "./../mi
 import { registerUserValidators, updateUserValidators } from "./../validators/user.validator";
 import { tryCatch } from "./../utils/tryCatch";
 import { isAuth } from "./../middlewares/auth.middleware";
+import { checkUserId } from "./../middlewares/params.middleware";
 
 const router = express.Router();
+
+router.param("userId", checkUserId);
 
 router.get(
   PATH.USERS.GET_CURRENT_USER,

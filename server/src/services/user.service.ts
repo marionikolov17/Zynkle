@@ -2,77 +2,112 @@ import { Types } from "mongoose";
 import userModel from "./../models/User";
 import { uploadFileToCloud } from "./../utils/storage-upload";
 
-export const getCurrentUser = async (userId: Types.ObjectId) => userModel.findById(userId, { password: 0 });
+export const getCurrentUser = async (userId: Types.ObjectId) =>
+  userModel.findById(userId, { password: 0 });
 
-export const getUser = async (userId: Types.ObjectId, currentUserId?: Types.ObjectId) => {
+export const getUser = async (
+  userId: Types.ObjectId,
+  currentUserId?: Types.ObjectId
+) => {
   let excludeObject: Record<string, any> = { password: 0 };
   if (currentUserId != userId) {
     excludeObject["savedPosts"] = 0;
   }
-  return userModel.findById(userId, excludeObject).populate('posts', '_id imageUri').populate('savedPosts', '_id imageUri');
-} // Must populate 
+  return userModel
+    .findById(userId, excludeObject)
+    .populate("posts", "_id imageUri")
+    .populate("savedPosts", "_id imageUri");
+}; // Must populate
 
 export const getUsers = async () => {
-    return userModel.find({}, { password: 0 });
+  return userModel.find({}, { password: 0 });
 };
 
-export const searchUsers = async (query: string) => userModel.find({ username: { "$regex":  query} }, { password: 0 });
+export const searchUsers = async (query: string) =>
+  userModel.find({ username: { $regex: query } }, { password: 0 });
 
 export const updateUser = async (
   data: Record<string, any>,
   userId: Types.ObjectId,
-  file?: Express.Multer.File 
+  file?: Express.Multer.File
 ) => {
-    if (!file) {
-        await userModel.findOneAndUpdate({ _id: userId }, data);
-        return;
-    }
-    const profilePictureUrl = await uploadFileToCloud(file);
+  if (!file) {
+    await userModel.findOneAndUpdate({ _id: userId }, data);
+    return;
+  }
+  const profilePictureUrl = await uploadFileToCloud(file);
 
-    await userModel.findOneAndUpdate({ _id: userId }, { ...data, profilePicture: profilePictureUrl });
+  await userModel.findOneAndUpdate(
+    { _id: userId },
+    { ...data, profilePicture: profilePictureUrl }
+  );
 };
 
 export const followUser = async (
   currentUserId: Types.ObjectId,
   followedUserId: Types.ObjectId
 ) => {
-    if (currentUserId === followedUserId) {
-        throw new Error("Same user can't follow himself");
-    }
+  if (currentUserId === followedUserId) {
+    throw new Error("Same user can't follow himself");
+  }
 
-    if (await isFollowedAlready(currentUserId, followedUserId)) {
-        throw new Error("You are already following this user");
-    }
+  if (await isFollowedAlready(currentUserId, followedUserId)) {
+    throw new Error("You are already following this user");
+  }
 
-    await userModel.findOneAndUpdate({ _id: followedUserId }, { $push: { followers: currentUserId } });
-    await userModel.findOneAndUpdate({ _id: currentUserId }, { $push: { follows: followedUserId } });
+  await userModel.findOneAndUpdate(
+    { _id: followedUserId },
+    { $push: { followers: currentUserId } }
+  );
+  await userModel.findOneAndUpdate(
+    { _id: currentUserId },
+    { $push: { follows: followedUserId } }
+  );
 };
 
 export const unfollowUser = async (
   currentUserId: Types.ObjectId,
   unfollowedUserId: Types.ObjectId
 ) => {
-    if (currentUserId === unfollowedUserId) {
-        throw new Error("Same user can't unfollow himself");
-    }
+  if (currentUserId === unfollowedUserId) {
+    throw new Error("Same user can't unfollow himself");
+  }
 
-    if (!(await isFollowedAlready(currentUserId, unfollowedUserId))) {
-        throw new Error("You are not following this user");
-    }
+  if (!(await isFollowedAlready(currentUserId, unfollowedUserId))) {
+    throw new Error("You are not following this user");
+  }
 
-    await userModel.findOneAndUpdate({ _id: unfollowedUserId }, { $pull: { followers: currentUserId } });
-    await userModel.findOneAndUpdate({ _id: currentUserId }, { $pull: { follows: unfollowedUserId } });
+  await userModel.findOneAndUpdate(
+    { _id: unfollowedUserId },
+    { $pull: { followers: currentUserId } }
+  );
+  await userModel.findOneAndUpdate(
+    { _id: currentUserId },
+    { $pull: { follows: unfollowedUserId } }
+  );
 };
 
 const isFollowedAlready = async (
   currentUserId: Types.ObjectId,
   relatedUserId: Types.ObjectId
 ): Promise<boolean> => {
-    const relatedUser = await userModel.findById(relatedUserId);
+  const relatedUser = await userModel.findById(relatedUserId);
 
-    if (relatedUser.followers.includes(currentUserId as any)) {
-        return true;
-    }
+  if (relatedUser.followers.includes(currentUserId as any)) {
+    return true;
+  }
 
+  return false;
+};
+
+export const checkUserId = async (userId: any): Promise<boolean> => {
+  try {
+    const user = await userModel.findById(userId);
+
+    if (!user) return false;
+
+    return true;
+  } catch {
     return false;
+  }
 };

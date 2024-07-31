@@ -10,9 +10,13 @@ export default function Profile() {
   const currentUser = useSelector((state) => state.user);
   const { userId } = useParams();
 
+  const navigate = useNavigate();
+
   const { user, isLoading, error } = useGetProfile(userId ? userId : currentUser._id);
 
-  const navigate = useNavigate();
+  if (error) {
+    console.log(error)
+  }
 
   return (
     <>
@@ -23,7 +27,7 @@ export default function Profile() {
           <div className="flex flex-col sm:flex-row w-full h-max p-6">
             {/* Profile Image Section */}
             <div className="flex justify-center shrink grow sm:grow sm:p-4">
-              <ProfilePicture className="w-20 h-20 sm:w-24 sm:h-24" />
+              <ProfilePicture imageUrl={user?.profilePicture} className="w-20 h-20 sm:w-24 sm:h-24" />
               <h3 className="sm:hidden text-lg ms-4 my-auto">
                 <span className="text-mainGreen">@</span>{ user?.username }
               </h3>{" "}
