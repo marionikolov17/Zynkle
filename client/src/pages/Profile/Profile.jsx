@@ -5,7 +5,7 @@ import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePictur
 import { useSelector } from "react-redux";
 
 export default function Profile() {
-  const user = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.user);
   const { userId } = useParams();
 
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ export default function Profile() {
               </p>{" "}
               {/* Description */}
               {/* Action Buttons */}
-              {user.isAuthenticated && (!userId || userId == user._id) ? (
+              {currentUser.isAuthenticated && (!userId || userId == currentUser._id) ? (
                 <>
                   <button
                     className="sm:ms-4 mt-8 rounded-sm border border-black px-6 py-2"
@@ -79,7 +79,7 @@ export default function Profile() {
             <button className="mx-6 py-2 text-lg profile-select-button flex items-center justify-center profile-select-hover">
               <CiGrid41 className="me-2" /> Posts
             </button>
-            {user.isAuthenticated && (!userId || userId == user._id) && (
+            {currentUser.isAuthenticated && (!userId || userId == currentUser._id) && (
               <button className="mx-6 py-2 text-lg flex items-center justify-center profile-select-hover">
                 <CiBookmark className="me-2" /> Saved
               </button>
