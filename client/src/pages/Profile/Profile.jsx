@@ -66,7 +66,7 @@ export default function Profile() {
               <p className="text-lg sm:ms-4 mt-8 font-bold">{user?.firstName} {user?.lastName}</p>{" "}
               {/* Name */}
               <p className="text-sm sm:text-base sm:ms-4 mt-1">
-                {user?.bio}
+                {user?.description}
               </p>{" "}
               {/* Description */}
               {/* Action Buttons */}
