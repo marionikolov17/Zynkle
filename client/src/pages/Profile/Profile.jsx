@@ -18,6 +18,16 @@ export default function Profile() {
 
   const { user, isLoading } = useGetProfile(userId ? userId : currentUser._id);
 
+  const handleShowPosts = () => {
+    setPostsShown(true);
+    setSavedPostsShown(false);
+  }
+
+  const handleShowSavedPosts = () => {
+    setPostsShown(false);
+    setSavedPostsShown(true);
+  }
+
   return (
     <>
       {isLoading && <Loader />}
@@ -85,11 +95,27 @@ export default function Profile() {
 
           {/* Profile Select Buttons */}
           <div className="flex mt-2 sm:mt-8 w-full justify-center border-t">
-            <button className="mx-6 py-2 text-lg profile-select-button flex items-center justify-center profile-select-hover">
+            <button 
+              onClick={handleShowPosts} 
+              className={
+                postsShown ?
+                "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover profile-select-button"
+                :
+                "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover"
+              }
+            >
               <CiGrid41 className="me-2" /> Posts
             </button>
             {currentUser.isAuthenticated && (!userId || userId == currentUser._id) && (
-              <button className="mx-6 py-2 text-lg flex items-center justify-center profile-select-hover">
+              <button 
+                onClick={handleShowSavedPosts} 
+                className={
+                  savedPostsShown ?
+                  "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover profile-select-button"
+                  :
+                  "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover"
+                }
+              >
                 <CiBookmark className="me-2" /> Saved
               </button>
             )}
@@ -103,6 +129,13 @@ export default function Profile() {
               &&
               <>
                 {user?.posts.map(post => <ProfilePost key={post._id} post={post}/>)}
+              </>
+            }
+            {
+              savedPostsShown
+              &&
+              <>
+                {user?.savedPosts.map(post => <ProfilePost key={post._id} post={post}/>)}
               </>
             }
             {/* Profile Saved - Private only */}
