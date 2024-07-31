@@ -131,6 +131,7 @@ export default function Profile() {
                 {user?.posts.map(post => <ProfilePost key={post._id} post={post}/>)}
               </>
             }
+            {postsShown && user?.posts?.length == 0 && <p>User has not published anything, yet.</p>}
             {
               savedPostsShown
               &&
@@ -138,6 +139,7 @@ export default function Profile() {
                 {user?.savedPosts.map(post => <ProfilePost key={post._id} post={post}/>)}
               </>
             }
+            {savedPostsShown && user?.savedPosts?.length == 0 && <p>You have not saved any posts, yet.</p>}
             {/* Profile Saved - Private only */}
             {/* <p>User has not published anything, yet.</p> */}{" "}
             {/* No Posts Message */}
