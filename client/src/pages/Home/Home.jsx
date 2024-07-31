@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 import { CiCirclePlus } from "react-icons/ci";
 import HomePost from "../../features/home/components/HomePost/HomePost";
@@ -6,6 +8,8 @@ import TopCreator from "../../features/home/components/TopCreator/TopCreator";
 import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 
 export default function Home() {
+  const user = useSelector(state => state.user);
+
   return (
     <>
       {/* Content section */}
@@ -25,10 +29,10 @@ export default function Home() {
       </section>
       <section className="hidden lg:block flex-auto shrink grow-0 w-[25%] sticky top-0">
         <div className="flex p-6 mt-4">
-          <ProfilePicture className="w-12 h-12" />
+          <ProfilePicture className="w-12 h-12" imageUrl={user.profilePicture} />
           <div className="block ms-2">
-            <Link to="/profile" className="my-auto text-sm font-bold">marionikolov17</Link>
-            <p className="my-auto text-sm opacity-60">Mario Nikolov</p>
+            <Link to="/profile" className="my-auto text-sm font-bold">{user.username}</Link>
+            <p className="my-auto text-sm opacity-60">{user.firstName + " " + user.lastName}</p>
           </div>
         </div>
         <h3 className="md:hidden lg:block ms-6 font-bold text-lg mb-2">
