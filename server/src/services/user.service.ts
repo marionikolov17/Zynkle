@@ -4,8 +4,13 @@ import { uploadFileToCloud } from "./../utils/storage-upload";
 
 export const getCurrentUser = async (userId: Types.ObjectId) => userModel.findById(userId, { password: 0 });
 
-export const getUser = async (userId: Types.ObjectId) =>
-  userModel.findById(userId, { password: 0 }).populate('posts', '_id imageUri').populate('savedPosts', '_id imageUri'); // Must populate 
+export const getUser = async (userId: Types.ObjectId, currentUserId?: Types.ObjectId) => {
+  let excludeObject: Record<string, any> = { password: 0 };
+  if (currentUserId != userId) {
+    excludeObject["savedPosts"] = 0;
+  }
+  return userModel.findById(userId, excludeObject).populate('posts', '_id imageUri').populate('savedPosts', '_id imageUri');
+} // Must populate 
 
 export const getUsers = async () => {
     return userModel.find({}, { password: 0 });

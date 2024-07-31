@@ -3,16 +3,20 @@ import { CiBookmark, CiGrid41 } from "react-icons/ci";
 import ProfilePost from "../../features/profile/components/ProfilePost/ProfilePost";
 import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 import { useSelector } from "react-redux";
+import useGetProfile from "../../entities/users/hooks/useGetProfile";
+import Loader from "../../shared/components/Loader/Loader";
 
 export default function Profile() {
   const currentUser = useSelector((state) => state.user);
   const { userId } = useParams();
 
+  const { user, isLoading, error } = useGetProfile(userId ? userId : currentUser._id);
 
   const navigate = useNavigate();
 
   return (
     <>
+      {isLoading && <Loader />}
       <div className="grow flex justify-center">
         <div className="block w-[65%] 2xl:w-1/2 grow lg:grow-0 shrink sm:mb-0 mb-10">
           {/* Profile Info Container */}
@@ -21,7 +25,7 @@ export default function Profile() {
             <div className="flex justify-center shrink grow sm:grow sm:p-4">
               <ProfilePicture className="w-20 h-20 sm:w-24 sm:h-24" />
               <h3 className="sm:hidden text-lg ms-4 my-auto">
-                <span className="text-mainGreen">@</span>{ "marionikolov17" }
+                <span className="text-mainGreen">@</span>{ user?.username }
               </h3>{" "}
               {/* Username - mobile */}
             </div>
@@ -29,26 +33,26 @@ export default function Profile() {
             {/* Profile Info Section - Desktop*/}
             <div className="block grow p-4">
               <h3 className="hidden sm:block text-lg ms-4 mb-2">
-                <span className="text-mainGreen">@</span>marionikolov17
+                <span className="text-mainGreen">@</span>{user?.username}
               </h3>{" "}
               {/* Username */}
               <div className="w-full flex justify-center sm:justify-start">
                 {" "}
                 {/* Stats */}
                 <p className="sm:text-lg mx-4">
-                  <b>22</b> Posts
+                  <b>{user?.posts?.length}</b> Posts
                 </p>
                 <p className="sm:text-lg ms-4 me-0 sm:mx-4">
-                  <b>2,500</b> Followers
+                  <b>{user?.followers?.length}</b> Followers
                 </p>
                 <p className="sm:text-lg mx-4">
-                  <b>734</b> Following
+                  <b>{user?.follows?.length}</b> Following
                 </p>
               </div>
-              <p className="text-lg sm:ms-4 mt-8 font-bold">Mario Nikolov</p>{" "}
+              <p className="text-lg sm:ms-4 mt-8 font-bold">{user?.firstName} {user?.lastName}</p>{" "}
               {/* Name */}
               <p className="text-sm sm:text-base sm:ms-4 mt-1">
-                Doing everything with passion! Follow for more.
+                {user?.bio}
               </p>{" "}
               {/* Description */}
               {/* Action Buttons */}

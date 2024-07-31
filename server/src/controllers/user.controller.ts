@@ -122,8 +122,8 @@ router.get(
 
 router.get(
   PATH.USERS.GET_USER,
-  tryCatch(async (req: express.Request, res: express.Response) => {
-    const user = await userService.getUser(req.params.userId as any);
+  tryCatch(async (req: any, res: express.Response) => {
+    const user = await userService.getUser(req.params.userId, req.user._id);
 
     res.status(200).json({
       status: RESPONSE_STATUS.SUCCESS,
