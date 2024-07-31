@@ -5,11 +5,23 @@ const BASE_URL = "http://localhost:3000/api/v1/";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  headers: {
-    "AccessToken": localStorage.getItem("accessToken"),
-    "RefreshToken": localStorage.getItem("refreshToken"),
-  }
 });
+
+axiosInstance.interceptors.request.use(
+  function(config) {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    
+    if (accessToken && refreshToken) {
+      config.headers["AccessToken"] = accessToken;
+      config.headers["RefreshToken"] = refreshToken;
+    }
+
+    return config;
+  }, function(error) {
+    return Promise.reject(error);
+  }
+)
 
 // Handle network and connection error
 axiosInstance.interceptors.response.use(

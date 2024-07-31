@@ -8,6 +8,7 @@ export default function Profile() {
   const currentUser = useSelector((state) => state.user);
   const { userId } = useParams();
 
+
   const navigate = useNavigate();
 
   return (
@@ -20,7 +21,7 @@ export default function Profile() {
             <div className="flex justify-center shrink grow sm:grow sm:p-4">
               <ProfilePicture className="w-20 h-20 sm:w-24 sm:h-24" />
               <h3 className="sm:hidden text-lg ms-4 my-auto">
-                <span className="text-mainGreen">@</span>marionikolov17
+                <span className="text-mainGreen">@</span>{ "marionikolov17" }
               </h3>{" "}
               {/* Username - mobile */}
             </div>
