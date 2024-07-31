@@ -10,3 +10,5 @@ export const register = async (data) => {
 }
 
 export const getCurrentUser = async () => apiService.get(PATHS.USERS + "current");
+
+export const getUser = async (userId) => apiService.get(PATHS.USERS + userId);
