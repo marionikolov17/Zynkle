@@ -1,9 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CiBookmark, CiGrid41 } from "react-icons/ci";
 import ProfilePost from "../../features/profile/components/ProfilePost/ProfilePost";
 import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
+  const user = useSelector((state) => state.user);
+  const { userId } = useParams();
+
   const navigate = useNavigate();
 
   return (
@@ -47,17 +51,26 @@ export default function Profile() {
               </p>{" "}
               {/* Description */}
               {/* Action Buttons */}
-              <button
-                className="sm:ms-4 mt-8 rounded-sm border border-black px-6 py-2"
-                onClick={() => navigate("/profile/edit")}
-              >
-                Edit Profile
-              </button>
-              <button className="sm:ms-4 mt-8 rounded-sm border border-red-600 text-red-600 px-6 py-2 ms-2">
-                Log out
-              </button>
-              {/* <button className="ms-4 mt-8 rounded-sm bg-mainGreen text-white px-6 py-2">Follow</button> */}
-              {/* <button className="ms-4 mt-8 rounded-sm border border-mainGreen text-mainGreen px-6 py-2">Unfollow</button> */}
+              {user.isAuthenticated && (!userId || userId == user._id) ? (
+                <>
+                  <button
+                    className="sm:ms-4 mt-8 rounded-sm border border-black px-6 py-2"
+                    onClick={() => navigate("/profile/edit")}
+                  >
+                    Edit Profile
+                  </button>
+                  <button className="sm:ms-4 mt-8 rounded-sm border border-red-600 text-red-600 px-6 py-2 ms-2">
+                    Log out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button className="ms-4 mt-8 rounded-sm bg-mainGreen text-white px-6 py-2">
+                    Follow
+                  </button>
+                  {/* <button className="ms-4 mt-8 rounded-sm border border-mainGreen text-mainGreen px-6 py-2">Unfollow</button> */}
+                </>
+              )}
             </div>
           </div>
 
@@ -66,9 +79,11 @@ export default function Profile() {
             <button className="mx-6 py-2 text-lg profile-select-button flex items-center justify-center profile-select-hover">
               <CiGrid41 className="me-2" /> Posts
             </button>
-            <button className="mx-6 py-2 text-lg flex items-center justify-center profile-select-hover">
-              <CiBookmark className="me-2" /> Saved
-            </button>
+            {user.isAuthenticated && (!userId || userId == user._id) && (
+              <button className="mx-6 py-2 text-lg flex items-center justify-center profile-select-hover">
+                <CiBookmark className="me-2" /> Saved
+              </button>
+            )}
           </div>
 
           {/* Profile Content */}
