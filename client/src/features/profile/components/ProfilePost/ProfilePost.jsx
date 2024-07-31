@@ -1,12 +1,21 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function ProfilePost() {
+export default function ProfilePost({ post }) {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <Link to="/post/1" className="row-span-3 flex">
+    <Link to={`/post/${post?._id}`} className="row-span-3 flex relative">
+      {isLoading && 
+      <div className="absolute w-full h-full z-50 loader-background flex justify-center items-center">
+        <div className="loader"></div>
+      </div>
+      }
       <img
         className="object-cover hover:brightness-75 transition"
-        src="https://img.freepik.com/free-photo/forest-landscape_71767-127.jpg"
-        alt=""
+        src={post?.imageUri}
+        onLoad={() => setIsLoading(false)}
       />
     </Link>
   );

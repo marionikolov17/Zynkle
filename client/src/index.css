@@ -12,6 +12,23 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+  .skeleton-loading {
+    background-color: rgba(0, 0, 0, 0.3);
+    animation-name: skeleton;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+  }
+  @keyframes skeleton {
+    0% {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    50% {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    100% {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
   /* Loader */
   .loader-background {
     background-color: rgba(0, 0, 0, 0.3);

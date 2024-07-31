@@ -5,8 +5,12 @@ import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePictur
 import { useSelector } from "react-redux";
 import useGetProfile from "../../entities/users/hooks/useGetProfile";
 import Loader from "../../shared/components/Loader/Loader";
+import { useState } from "react";
 
 export default function Profile() {
+  const [postsShown, setPostsShown] = useState(true);
+  const [savedPostsShown, setSavedPostsShown] = useState(false);
+
   const currentUser = useSelector((state) => state.user);
   const { userId } = useParams();
 
@@ -94,8 +98,14 @@ export default function Profile() {
           {/* Profile Content */}
           <div className="w-full grid grid-cols-3 mt-1">
             {/* Profile Posts */}
+            {
+              postsShown
+              &&
+              <>
+                {user?.posts.map(post => <ProfilePost key={post._id} post={post}/>)}
+              </>
+            }
             {/* Profile Saved - Private only */}
-            <ProfilePost />
             {/* <p>User has not published anything, yet.</p> */}{" "}
             {/* No Posts Message */}
             {/* <p>You have not saved any posts, yet.</p> */}{" "}
