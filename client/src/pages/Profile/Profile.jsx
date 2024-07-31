@@ -12,11 +12,7 @@ export default function Profile() {
 
   const navigate = useNavigate();
 
-  const { user, isLoading, error } = useGetProfile(userId ? userId : currentUser._id);
-
-  if (error) {
-    console.log(error)
-  }
+  const { user, isLoading } = useGetProfile(userId ? userId : currentUser._id);
 
   return (
     <>

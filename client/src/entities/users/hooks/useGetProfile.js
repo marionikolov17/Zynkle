@@ -1,29 +1,33 @@
 import { useEffect, useState } from "react";
 import * as userService from "./../services/user.service";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function useGetProfile(userId) {
-    const [user, setUser] = useState();
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState();
+  const [user, setUser] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
-    const { isAuthenticated } = useSelector(state => state.user)
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        setIsLoading(true);
-        (async () => {
-            try {
-                const response = await userService.getUser(userId);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
-                console.log(response.data.data.user);
-                setUser(response.data.data.user);
-            } catch (error) {
-                setError(error);
-            } finally {
-                setIsLoading(false);
-            }
-        })();
-    }, [userId, isAuthenticated]);
+  useEffect(() => {
+    setIsLoading(true);
+    (async () => {
+      if (isAuthenticated) {
+        try {
+          const response = await userService.getUser(userId);
 
-    return { user, isLoading, error }
+          console.log(response.data.data.user);
+          setUser(response.data.data.user);
+        } catch (error) {
+          navigate('/404')
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    })();
+  }, [isAuthenticated, userId, navigate]);
+
+  return { user, isLoading };
 }
