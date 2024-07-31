@@ -18,7 +18,6 @@ export default function useAuthenticate() {
       try {
         const response = await userService.getCurrentUser();
 
-        console.log(response.data.data)
         dispatch(authenticate(response.data.data));
       } catch (error) {
         console.log(error);
