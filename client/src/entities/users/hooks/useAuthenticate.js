@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { authenticate } from "../reducers/usersSlice";
+import { authenticate } from "../reducers/userSlice";
 
 import { useNavigate } from "react-router-dom";
 import useAxios from "../../../shared/hooks/useAxios";

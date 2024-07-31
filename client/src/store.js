@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import usersReducer from "./entities/users/reducers/usersSlice";
+import userReducer from "./entities/users/reducers/userSlice";
 import tokensReducer from "./shared/reducers/tokensSlice";
 
 export default configureStore({
     reducer: {
-        users: usersReducer,
+        user: userReducer,
         tokens: tokensReducer
     }
 });
