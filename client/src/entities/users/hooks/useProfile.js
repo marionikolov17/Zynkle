@@ -33,9 +33,25 @@ export function useGetProfile(userId) {
 }
 
 export function useFollowProfile() {
+  const follow = async (userId) => {
+    try {
+      await userService.followUser(userId);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 
+  return follow;
 }
 
 export function useUnfollowProfile() {
-  
+  const unfollow = async (userId) => {
+    try {
+      await userService.unfollowUser(userId);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  return unfollow;
 }
