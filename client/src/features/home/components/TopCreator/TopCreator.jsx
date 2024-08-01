@@ -32,7 +32,7 @@ export default function TopCreator({ creator }) {
                 Follow
               </button>
             ) : (
-              <button className="text-white rounded-lg py-2 px-8 h-max hidden 2xl:flex bg-slate-400">Edit</button>
+              <Link to="/profile/edit" className="text-white rounded-lg py-2 px-8 h-max hidden 2xl:flex bg-slate-400">Edit</Link>
             )}
           </>
         )}
