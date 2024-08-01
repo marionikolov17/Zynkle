@@ -1,7 +1,27 @@
 import { CiSearch } from "react-icons/ci";
 import FoundUser from "../../features/search/components/FoundUser/FoundUser";
+import { useState } from "react";
+import useSearchUser from "../../entities/users/hooks/useSearchUser";
 
 export default function Search() {
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const search = useSearchUser();
+
+  const handleSearchChange = async (event) => {
+    const query = event.target.value;
+
+    setIsLoading(true);
+    try {
+      await search(query, setUsers);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <>
       <div className="grow flex justify-center">
@@ -23,10 +43,10 @@ export default function Search() {
                 id="default-search"
                 className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 outline-none focus:ring-mainGreen focus:border-mainGreen"
                 placeholder="Search username..."
-                required
+                onChange={(e) => handleSearchChange(e)}
               />
               <button
-                type="submit"
+                type="button"
                 className="text-white absolute end-2.5 bottom-2.5 bg-mainGreen focus:ring-4 focus:outline-none focus:ring-mainGreen font-medium rounded-lg text-sm px-4 py-2"
               >
                 Search
@@ -35,8 +55,17 @@ export default function Search() {
           </form>
 
           {/* Search results */}
-          <div className="block mt-8">
-            <FoundUser />
+          <div className="block mt-8 relative">
+            {isLoading &&
+              <div className="absolute w-full z-30 flex justify-center">
+                <div className="loader"></div>
+              </div>
+            }
+            {users.length == 0 && <p>No users found. Start searching</p>}
+            {
+              users.map(user => <FoundUser key={user._id} user={user}/>)
+            }
+            {/* <FoundUser /> */}
             {/* <p>No users found.</p> */}
           </div>
         </div>
