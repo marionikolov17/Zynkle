@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 export default function Register() {
+    const {
+      register,
+      handleSubmit,
+      formState: { errors }
+    } = useForm();
+
     return (
         <main className="min-h-full w-full absolute top-0 flex justify-center items-center font-montserrat bg-mainWhite">
           <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

@@ -21,7 +21,7 @@ export default function useAuthenticate() {
         dispatch(authenticate(response.data.data));
       } catch (error) {
         console.log(error);
-        navigate("/login");
+        //navigate("/login");
       }
     })();
   }, [dispatch, navigate]);
