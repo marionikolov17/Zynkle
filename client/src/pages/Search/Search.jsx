@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import FoundUser from "../../features/search/components/FoundUser/FoundUser";
-import { useState } from "react";
 import useSearchUser from "../../entities/users/hooks/useSearchUser";
 
 export default function Search() {
