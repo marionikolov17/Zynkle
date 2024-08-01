@@ -7,6 +7,7 @@ import { useGetProfile, useFollowProfile, useUnfollowProfile } from "../../entit
 import Loader from "../../shared/components/Loader/Loader";
 import { useState } from "react";
 import ErrorToast from "../../shared/components/ErrorToast/ErrorToast";
+import useLogout from "../../entities/users/hooks/useLogout";
 
 export default function Profile() {
   const [isPending, setIsPending] = useState(false);
@@ -21,6 +22,20 @@ export default function Profile() {
   const { user, isLoading, updateOnFollow, updateOnUnfollow } = useGetProfile(userId ? userId : currentUser._id);
   const follow = useFollowProfile();
   const unfollow = useUnfollowProfile();
+
+  const logout = useLogout();
+
+  const onLogout = async () => {
+    setIsPending(true);
+    try {
+      await logout();
+    } catch (error) {
+      setHasActionError(true);
+      setActionError("An error occured")
+    } finally {
+      setIsPending(false);
+    }
+  }
 
   const onFollow = async () => {
     setIsPending(true)
@@ -119,7 +134,7 @@ export default function Profile() {
                   >
                     Edit Profile
                   </button>
-                  <button className="sm:ms-4 mt-8 rounded-sm border border-red-600 text-red-600 px-6 py-2 ms-2">
+                  <button className="sm:ms-4 mt-8 rounded-sm border border-red-600 text-red-600 px-6 py-2 ms-2" onClick={onLogout}>
                     Log out
                   </button>
                 </>
