@@ -17,6 +17,8 @@ export const getCurrentUser = async () => apiService.get(PATHS.USERS + "current"
 
 export const getUser = async (userId) => apiService.get(PATHS.USERS + userId);
 
+export const updateUser = async (data) => apiService.put(PATHS.USERS, data);
+
 export const followUser = async (userId) => apiService.put(PATHS.USERS + userId + "/follow");
 
 export const unfollowUser = async (userId) => apiService.put(PATHS.USERS + userId + "/unfollow");

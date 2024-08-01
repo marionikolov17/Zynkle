@@ -56,8 +56,10 @@ export default function ProfileEdit() {
   }
 
   const populateForm = () => {
+    const requiredKeys = ['username', 'description', 'profilePicture', 'firstName', 'lastName', 'email']
     if (user) {
       for (let [key, value] of Object.entries(user)) {
+        if (!requiredKeys.includes(key)) continue;
         setValue(key, value);
         if (key === 'profilePicture') setCurrentProfilePicture(value)
       }
