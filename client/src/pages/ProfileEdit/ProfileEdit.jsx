@@ -136,13 +136,12 @@ export default function ProfileEdit() {
                   <div className="mt-2">
                     <textarea
                       id="about"
-                      {...register("description", { required: "This field is required" })}
+                      {...register("description")}
                       rows={3}
                       className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       defaultValue={""}
                     />
                   </div>
-                  {errors.description && <FormErrorMessage message={errors.description.message}/>}
                   <p className="mt-3 text-sm leading-6 text-gray-600">
                     Write a few sentences about yourself.
                   </p>
