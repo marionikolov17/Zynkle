@@ -18,6 +18,14 @@ const userSlice = createSlice({
             state.profilePicture= action.payload.profilePicture,
             state.firstName= action.payload.firstName,
             state.lastName= action.payload.lastName
+        },
+        logout: (state) => {
+            state._id = "";
+            state.isAuthenticated= false,
+            state.username= "",
+            state.profilePicture= "",
+            state.firstName= "",
+            state.lastName= ""
         }
     }
 });
