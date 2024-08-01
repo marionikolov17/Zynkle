@@ -8,7 +8,7 @@ export default function ProfilePost({ post }) {
   return (
     <Link to={`/post/${post?._id}`} className="row-span-3 flex relative">
       {isLoading && 
-      <div className="absolute w-full h-full z-50 loader-background flex justify-center items-center">
+      <div className="absolute w-full h-full z-30 loader-background flex justify-center items-center">
         <div className="loader"></div>
       </div>
       }
