@@ -44,6 +44,7 @@ export default function TopCreator({ creator }) {
       <div className="px-6 my-5 flex justify-around">
         <div className="flex grow justify-start">
           <ProfilePicture
+            profileId={creator?._id}
             className="w-12 h-12"
             imageUrl={creator?.profilePicture}
           />
