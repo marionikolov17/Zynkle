@@ -57,8 +57,7 @@ export default function ProfileEdit() {
     const file = files[files.length - 1];
     if (!allowedImageMimeTypes.includes(file.type)) {
       // Show message
-      setImageError("Invalid file type. Only images allowed")
-      return;
+      return setImageError("Invalid file type. Only images allowed")
     }
     // Visualize image
     const reader = new FileReader();
