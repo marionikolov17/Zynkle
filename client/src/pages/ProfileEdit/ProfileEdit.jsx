@@ -7,6 +7,7 @@ import Loader from "../../shared/components/Loader/Loader";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import ErrorToast from "../../shared/components/ErrorToast/ErrorToast";
+import useUpdateProfile from "../../entities/users/hooks/useUpdateProfile";
 
 const allowedImageMimeTypes = [
   'image/jpeg',
@@ -21,9 +22,11 @@ const allowedImageMimeTypes = [
 
 export default function ProfileEdit() {
   const currentUser = useSelector((state) => state.user);
-  const { user, isLoading } = useGetProfile(currentUser._id);
+  const [isPending, setIsPending] = useState(false);
   const [currentProfilePicture, setCurrentProfilePicture] = useState();
   const [imageError, setImageError] = useState("");
+  const [error, setError] = useState();
+  const { user, isLoading } = useGetProfile(currentUser._id);
 
   const {
     register,
@@ -32,8 +35,18 @@ export default function ProfileEdit() {
     formState: {errors}
   } = useForm()
 
+  const updateUser = useUpdateProfile();
+
   const onUpdate = async (data) => {
-    console.log(data);
+    setIsPending(true);
+    try {
+      await updateUser(data);
+    } catch (error) {
+      console.log(error);
+      setError(error);
+    } finally {
+      setIsPending(false);
+    }
   }
 
   const onImageUpload = (event) => {
@@ -72,7 +85,7 @@ export default function ProfileEdit() {
 
   return (
     <>
-      {isLoading && <Loader />}
+      {isLoading || isPending && <Loader />}
       <main className="min-h-full max-h-max w-full absolute overflow-x-hidden overflow-y-scroll bg-mainWhite flex justify-center no-scrollbar">
         <form className="p-6" onSubmit={handleSubmit(onUpdate)}>
           <div className="space-y-12">

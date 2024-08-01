@@ -56,9 +56,6 @@ const userSchema = new mongoose.Schema(
             ref: "Post"
         }
     ],
-    country: {
-      type: String,
-    },
     createdAt: {
       type: Date,
       default: Date.now(),

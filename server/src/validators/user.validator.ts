@@ -61,10 +61,4 @@ export const updateUserValidators: ValidationChain[] = checkSchema({
             errorMessage: "lastName is required"
         }
     },
-    country: {
-        in: ["body"],
-        exists: {
-            errorMessage: "country is required"
-        }
-    },
 });
