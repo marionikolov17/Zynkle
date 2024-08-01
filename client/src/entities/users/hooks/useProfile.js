@@ -18,7 +18,6 @@ export function useGetProfile(userId) {
         try {
           const response = await userService.getUser(userId);
 
-          console.log(response.data.data.user);
           setUser(response.data.data.user);
         } catch (error) {
           navigate("/404");
