@@ -10,7 +10,7 @@ export default function useUpdateProfile() {
 
             navigate("/profile");
         } catch (error) {
-            throw new Error(error.response.data.data.message);
+            throw new Error(error.response.data.data[0].message);
         }
     }
 

@@ -45,7 +45,7 @@ export default function ProfileEdit() {
     try {
       await updateUser(toFormData(data));
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       setError(error.message);
     } finally {
       setIsPending(false);
@@ -236,7 +236,7 @@ export default function ProfileEdit() {
                     <input
                       id="email"
                       {...register("email", { required: "This field is required" })}
-                      type="email"
+                      type="text"
                       autoComplete="email"
                       className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     />
@@ -283,6 +283,7 @@ export default function ProfileEdit() {
               Save
             </button>
           </div>
+          {error && <p className="text-center text-md text-red-500">{error}</p>}
         </form>
       </main>
     </>
