@@ -23,7 +23,6 @@ export default function useAuthenticate() {
 
         dispatch(authenticate(response.data.data));
       } catch (error) {
-        //console.log(error);
         if (publicPathnames.includes(location.pathname)) return;
         navigate("/login");
       }
