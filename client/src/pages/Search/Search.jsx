@@ -65,8 +65,6 @@ export default function Search() {
             {
               users.map(user => <FoundUser key={user._id} user={user}/>)
             }
-            {/* <FoundUser /> */}
-            {/* <p>No users found.</p> */}
           </div>
         </div>
       </div>
