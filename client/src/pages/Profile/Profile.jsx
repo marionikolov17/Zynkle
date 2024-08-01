@@ -3,20 +3,52 @@ import { CiBookmark, CiGrid41 } from "react-icons/ci";
 import ProfilePost from "../../features/profile/components/ProfilePost/ProfilePost";
 import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 import { useSelector } from "react-redux";
-import { useGetProfile } from "../../entities/users/hooks/useProfile";
+import { useGetProfile, useFollowProfile, useUnfollowProfile } from "../../entities/users/hooks/useProfile";
 import Loader from "../../shared/components/Loader/Loader";
 import { useState } from "react";
+import ErrorToast from "../../shared/components/ErrorToast/ErrorToast";
 
 export default function Profile() {
+  const [isPending, setIsPending] = useState(false);
+  const [hasActionError, setHasActionError] = useState(false);
+  const [actionError, setActionError] = useState("");
   const [postsShown, setPostsShown] = useState(true);
   const [savedPostsShown, setSavedPostsShown] = useState(false);
-
   const currentUser = useSelector((state) => state.user);
   const { userId } = useParams();
-
   const navigate = useNavigate();
 
-  const { user, isLoading } = useGetProfile(userId ? userId : currentUser._id);
+  const { user, isLoading, updateOnFollow, updateOnUnfollow } = useGetProfile(userId ? userId : currentUser._id);
+  const follow = useFollowProfile();
+  const unfollow = useUnfollowProfile();
+
+  const onFollow = async () => {
+    setIsPending(true)
+    try {
+      await follow(userId);
+      setHasActionError(false);
+      updateOnFollow(currentUser._id);
+    } catch (error) {
+      setHasActionError(true);
+      setActionError("An error occured")
+    } finally {
+      setIsPending(false);
+    }
+  }
+
+  const onUnfollow = async () => {
+    setIsPending(true)
+    try {
+      await unfollow(userId);
+      setHasActionError(false);
+      updateOnUnfollow(currentUser._id);
+    } catch (error) {
+      setHasActionError(true);
+      setActionError("An error occured")
+    } finally {
+      setIsPending(false);
+    }
+  }
 
   const handleShowPosts = () => {
     setPostsShown(true);
@@ -30,7 +62,8 @@ export default function Profile() {
 
   return (
     <>
-      {isLoading && <Loader />}
+      {hasActionError && <ErrorToast text={actionError}/>}
+      {isLoading || isPending && <Loader />}
       <div className="grow flex justify-center">
         <div className="block w-[65%] 2xl:w-1/2 grow lg:grow-0 shrink sm:mb-0 mb-10">
           {/* Profile Info Container */}
@@ -92,10 +125,14 @@ export default function Profile() {
                 </>
               ) : (
                 <>
-                  <button className="ms-4 mt-8 rounded-sm bg-mainGreen text-white px-6 py-2">
+                  {!user?.followers?.includes(currentUser._id)
+                  ?
+                  <button className="ms-4 mt-8 rounded-sm bg-mainGreen text-white px-6 py-2" onClick={onFollow}>
                     Follow
                   </button>
-                  {/* <button className="ms-4 mt-8 rounded-sm border border-mainGreen text-mainGreen px-6 py-2">Unfollow</button> */}
+                  :
+                  <button className="ms-4 mt-8 rounded-sm border border-mainGreen text-mainGreen px-6 py-2" onClick={onUnfollow}>Unfollow</button>
+                  }
                 </>
               )}
             </div>
@@ -129,6 +166,12 @@ export default function Profile() {
           </div>
 
           {/* Profile Content */}
+          {postsShown && user?.posts?.length == 0 && (
+              <p className="p-6 sm:p-0">User has not published anything, yet.</p>
+          )}
+          {savedPostsShown && user?.savedPosts?.length == 0 && (
+              <p className="p-6 sm:p-0">You have not saved any posts, yet.</p>
+          )}
           <div className="w-full grid grid-cols-3 mt-1">
             {/* Profile Posts */}
             {postsShown && (
@@ -138,9 +181,6 @@ export default function Profile() {
                 ))}
               </>
             )}
-            {postsShown && user?.posts?.length == 0 && (
-              <p>User has not published anything, yet.</p>
-            )}
             {savedPostsShown && (
               <>
                 {user?.savedPosts.map((post) => (
@@ -148,14 +188,6 @@ export default function Profile() {
                 ))}
               </>
             )}
-            {savedPostsShown && user?.savedPosts?.length == 0 && (
-              <p>You have not saved any posts, yet.</p>
-            )}
-            {/* Profile Saved - Private only */}
-            {/* <p>User has not published anything, yet.</p> */}{" "}
-            {/* No Posts Message */}
-            {/* <p>You have not saved any posts, yet.</p> */}{" "}
-            {/* No Saved Posts Message */}
           </div>
         </div>
       </div>

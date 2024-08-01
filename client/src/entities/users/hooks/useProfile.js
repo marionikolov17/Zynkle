@@ -29,7 +29,24 @@ export function useGetProfile(userId) {
     })();
   }, [isAuthenticated, userId, navigate]);
 
-  return { user, isLoading };
+  const updateOnFollow = (followerId) => {
+    setUser(currentUser => {
+      let currentFollowers = currentUser.followers;
+      currentFollowers.push(followerId);
+      currentUser.followers = currentFollowers;
+      return currentUser;
+    });
+  }
+
+  const updateOnUnfollow = (followerId) => {
+    setUser(currentUser => {
+      let currentFollowers = currentUser.followers.filter(id => id != followerId);
+      currentUser.followers = currentFollowers;
+      return currentUser;
+    })
+  }
+
+  return { user, isLoading, updateOnFollow, updateOnUnfollow };
 }
 
 export function useFollowProfile() {
@@ -37,7 +54,7 @@ export function useFollowProfile() {
     try {
       await userService.followUser(userId);
     } catch (error) {
-      throw new Error(error.message);
+      throw new Error(error);
     }
   }
 
@@ -49,7 +66,7 @@ export function useUnfollowProfile() {
     try {
       await userService.unfollowUser(userId);
     } catch (error) {
-      throw new Error(error.message);
+      throw new Error(error);
     }
   }
 

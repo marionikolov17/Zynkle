@@ -4,7 +4,7 @@ import ProfilePicture from "./../../../shared/components/ProfilePicture/ProfileP
 
 export default function MobileNavigation() {
   return (
-    <div className="flex items-center justify-around w-full fixed bottom-0 bg-mainWhite border-t-2 h-10 z-50 sm:hidden">
+    <div className="flex items-center justify-around w-full fixed bottom-0 bg-mainWhite border-t-2 h-10 z-40 sm:hidden">
       <Link to="/">
         <CiHome className="text-2xl my-auto text-mainGreen" />
       </Link>
