@@ -11,6 +11,8 @@ export const register = async (data) => {
 
 export const logout = async () => apiService.post(PATHS.USERS + "logout");
 
+export const getTopCreators = async () => apiService.get(PATHS.USERS + "topCreators");
+
 export const getCurrentUser = async () => apiService.get(PATHS.USERS + "current");
 
 export const getUser = async (userId) => apiService.get(PATHS.USERS + userId);
