@@ -9,6 +9,8 @@ export const register = async (data) => {
     return apiService.post(PATHS.USERS + "register", data);
 }
 
+export const logout = async () => apiService.post(PATHS.USERS + "logout");
+
 export const getCurrentUser = async () => apiService.get(PATHS.USERS + "current");
 
 export const getUser = async (userId) => apiService.get(PATHS.USERS + userId);
