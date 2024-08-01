@@ -1,19 +1,36 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import FormErrorMessage from "../../shared/components/FormErrorMessage/FormErrorMessage";
+import useRegister from "../../entities/users/hooks/useRegister";
+import { useState } from "react";
+import Loader from "../../shared/components/Loader/Loader";
 
 export default function Register() {
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
+
     const {
       register,
       handleSubmit,
       formState: { errors }
     } = useForm();
 
+    const handleRegister = useRegister();
+
     const onRegister = async (data) => {
-      console.log(data)
+      setIsLoading(true);
+      try {
+        await handleRegister(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     return (
+      <>
+        {isLoading && <Loader />}
         <main className="min-h-full w-full absolute top-0 flex justify-center items-center font-montserrat bg-mainWhite">
           <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -151,6 +168,7 @@ export default function Register() {
                   >
                     Register
                   </button>
+                  {error && <FormErrorMessage className="text-center mt-4" message={error}/>}
                 </div>
               </form>
     
@@ -166,5 +184,6 @@ export default function Register() {
             </div>
           </div>
         </main>
+      </>
       );
 }
