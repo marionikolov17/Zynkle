@@ -19,19 +19,19 @@ export default function App() {
     <Routes>
       {/* Main app layout */}
       <Route path="/" element={<Layout />}>
-        <Route index Component={Home}/>
+        <Route index Component={Home} />
         <Route path="/profile" Component={Profile} />
         <Route path="/profile/:userId" Component={Profile} />
-        <Route path="/create" Component={CreatePost}/>
-        <Route path="/search" Component={Search}/>
+        <Route path="/create" Component={CreatePost} />
+        <Route path="/search" Component={Search} />
       </Route>
-      {/* Different layouts */}
-      <Route path="/login" Component={Login}/>
-      <Route path="/register" Component={Register}/>
-      <Route path="/profile/edit" Component={ProfileEdit}/>
-      <Route path="/post/:postId" Component={Post}/>
-      <Route path="*" Component={NotFound}/>
-    </Routes>
-  )
-}
 
+      {/* Different layouts */}
+      <Route path="/login" Component={Login} />
+      <Route path="/register" Component={Register} />
+      <Route path="/profile/edit" Component={ProfileEdit} />
+      <Route path="/post/:postId" Component={Post} />
+      <Route path="*" Component={NotFound} />
+    </Routes>
+  );
+}

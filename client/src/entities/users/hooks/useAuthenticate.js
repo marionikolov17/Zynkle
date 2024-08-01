@@ -7,11 +7,14 @@ import { authenticate } from "../reducers/userSlice";
 
 import * as userService from "./../services/user.service";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const publicPathnames = ['/register'];
 
 export default function useAuthenticate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     (async () => {
@@ -21,7 +24,8 @@ export default function useAuthenticate() {
         dispatch(authenticate(response.data.data));
       } catch (error) {
         console.log(error);
-        //navigate("/login");
+        if (publicPathnames.includes(location.pathname)) return;
+        navigate("/login");
       }
     })();
   }, [dispatch, navigate]);
