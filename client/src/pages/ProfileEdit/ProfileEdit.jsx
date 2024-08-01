@@ -5,10 +5,25 @@ import { useGetProfile } from "../../entities/users/hooks/useProfile";
 import { useSelector } from "react-redux";
 import Loader from "../../shared/components/Loader/Loader";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+
+const allowedImageMimeTypes = [
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/bmp',
+  'image/tiff',
+  'image/webp',
+  'image/heif',
+  'image/heic',
+]
 
 export default function ProfileEdit() {
   const currentUser = useSelector((state) => state.user);
   const { user, isLoading } = useGetProfile(currentUser._id);
+  const [currentProfilePicture, setCurrentProfilePicture] = useState();
+  const [imageError, setImageError] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -23,6 +38,19 @@ export default function ProfileEdit() {
   const onImageUpload = (event) => {
     const files = event.target.files;
     const file = files[files.length - 1];
+    if (!allowedImageMimeTypes.includes(file.type)) {
+      // Show message
+      setImageError("Invalid file type. Only images allowed")
+      return;
+    }
+    // Visualize image
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = (readerEvent) => {
+      setCurrentProfilePicture(readerEvent.target?.result)
+    }
+    setImageError(null);
     setValue('profilePicture', file);
   }
 
@@ -96,7 +124,7 @@ export default function ProfileEdit() {
                   </label>
                   <div className="mt-2 flex items-center gap-x-3">
                     {/* <UserCircleIcon aria-hidden="true" className="h-12 w-12 text-gray-300" /> */}
-                    <ProfilePicture className="w-12 h-12" />
+                    <ProfilePicture imageUrl={currentProfilePicture} className="w-12 h-12" />
                     <label
                       htmlFor="profilePicture"
                       className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
@@ -111,6 +139,7 @@ export default function ProfileEdit() {
                       id="profilePicture" 
                     />
                   </div>
+                {imageError && <p className="text-sm mt-4 text-red-600">{imageError}</p>}
                 </div>
               </div>
             </div>
