@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Link } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
@@ -8,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import ErrorToast from "../../shared/components/ErrorToast/ErrorToast";
 import useUpdateProfile from "../../entities/users/hooks/useUpdateProfile";
+import { toFormData } from "axios";
 
 const allowedImageMimeTypes = [
   'image/jpeg',
@@ -40,10 +42,10 @@ export default function ProfileEdit() {
   const onUpdate = async (data) => {
     setIsPending(true);
     try {
-      await updateUser(data);
+      await updateUser(toFormData(data));
     } catch (error) {
       console.log(error);
-      setError(error);
+      setError(error.message);
     } finally {
       setIsPending(false);
     }
