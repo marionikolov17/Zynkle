@@ -12,11 +12,18 @@ export default function ProfileEdit() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: {errors}
   } = useForm()
 
   const onUpdate = async (data) => {
     console.log(data);
+  }
+
+  const onImageUpload = (event) => {
+    const files = event.target.files;
+    const file = files[files.length - 1];
+    setValue('profilePicture', file);
   }
 
   return (
@@ -99,7 +106,8 @@ export default function ProfileEdit() {
                     <input 
                       type="file" 
                       className="hidden" 
-                      {...register("profilePicture", { required: "This field is required" })}
+                      name="profilePicture"
+                      onChange={(e) => onImageUpload(e)}
                       id="profilePicture" 
                     />
                   </div>
