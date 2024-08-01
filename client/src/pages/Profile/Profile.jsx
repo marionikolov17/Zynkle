@@ -167,7 +167,9 @@ export default function Profile() {
 
           {/* Profile Content */}
           {postsShown && user?.posts?.length == 0 && (
-              <p className="p-6 sm:p-0">User has not published anything, yet.</p>
+              <p className="p-6 sm:p-0">
+                { userId == currentUser._id || !userId ? "You have not published anything, yet." : "User has not published anything, yet." }
+              </p>
           )}
           {savedPostsShown && user?.savedPosts?.length == 0 && (
               <p className="p-6 sm:p-0">You have not saved any posts, yet.</p>
