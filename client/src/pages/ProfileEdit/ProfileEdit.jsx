@@ -5,7 +5,8 @@ import { useGetProfile } from "../../entities/users/hooks/useProfile";
 import { useSelector } from "react-redux";
 import Loader from "../../shared/components/Loader/Loader";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ErrorToast from "../../shared/components/ErrorToast/ErrorToast";
 
 const allowedImageMimeTypes = [
   'image/jpeg',
@@ -53,6 +54,19 @@ export default function ProfileEdit() {
     setImageError(null);
     setValue('profilePicture', file);
   }
+
+  const populateForm = () => {
+    if (user) {
+      for (let [key, value] of Object.entries(user)) {
+        setValue(key, value);
+        if (key === 'profilePicture') setCurrentProfilePicture(value)
+      }
+    }
+  }
+
+  useEffect(() => {
+    populateForm()
+  }, [user])
 
   return (
     <>
@@ -139,7 +153,7 @@ export default function ProfileEdit() {
                       id="profilePicture" 
                     />
                   </div>
-                {imageError && <p className="text-sm mt-4 text-red-600">{imageError}</p>}
+                {imageError && <ErrorToast text={imageError}/>}
                 </div>
               </div>
             </div>
