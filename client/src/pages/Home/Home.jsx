@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { CiCirclePlus } from "react-icons/ci";
 import HomePost from "../../features/home/components/HomePost/HomePost";
 import NoPosts from "../../features/home/components/NoPosts/NoPosts";
-import TopCreator from "../../features/home/components/TopCreator/TopCreator";
 import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
+import TopCreators from "../../features/home/components/TopCreators/TopCreators";
 
 export default function Home() {
   const user = useSelector(state => state.user);
@@ -35,12 +35,7 @@ export default function Home() {
             <p className="my-auto text-sm opacity-60">{user.firstName + " " + user.lastName}</p>
           </div>
         </div>
-        <h3 className="md:hidden lg:block ms-6 font-bold text-lg mb-2">
-          Top Creators
-        </h3>
-        {/* <p className="ms-6 mt-1 text-sm">There are no top creators.</p> */}
-        <TopCreator />
-        <TopCreator />
+        <TopCreators />
       </section>
     </>
   );
