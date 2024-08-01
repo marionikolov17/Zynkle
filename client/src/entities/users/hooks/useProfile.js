@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import * as userService from "./../services/user.service";
+import * as userService from "../services/user.service";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export default function useGetProfile(userId) {
+export function useGetProfile(userId) {
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,7 +21,7 @@ export default function useGetProfile(userId) {
           console.log(response.data.data.user);
           setUser(response.data.data.user);
         } catch (error) {
-          navigate('/404')
+          navigate("/404");
         } finally {
           setIsLoading(false);
         }
@@ -30,4 +30,12 @@ export default function useGetProfile(userId) {
   }, [isAuthenticated, userId, navigate]);
 
   return { user, isLoading };
+}
+
+export function useFollowProfile() {
+
+}
+
+export function useUnfollowProfile() {
+  
 }

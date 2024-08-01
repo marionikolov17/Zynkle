@@ -3,7 +3,7 @@ import { CiBookmark, CiGrid41 } from "react-icons/ci";
 import ProfilePost from "../../features/profile/components/ProfilePost/ProfilePost";
 import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 import { useSelector } from "react-redux";
-import useGetProfile from "../../entities/users/hooks/useGetProfile";
+import { useGetProfile } from "../../entities/users/hooks/useProfile";
 import Loader from "../../shared/components/Loader/Loader";
 import { useState } from "react";
 
@@ -21,12 +21,12 @@ export default function Profile() {
   const handleShowPosts = () => {
     setPostsShown(true);
     setSavedPostsShown(false);
-  }
+  };
 
   const handleShowSavedPosts = () => {
     setPostsShown(false);
     setSavedPostsShown(true);
-  }
+  };
 
   return (
     <>
@@ -37,9 +37,13 @@ export default function Profile() {
           <div className="flex flex-col sm:flex-row w-full h-max p-6">
             {/* Profile Image Section */}
             <div className="flex justify-center shrink grow sm:grow sm:p-4">
-              <ProfilePicture imageUrl={user?.profilePicture} className="w-20 h-20 sm:w-24 sm:h-24" />
+              <ProfilePicture
+                imageUrl={user?.profilePicture}
+                className="w-20 h-20 sm:w-24 sm:h-24"
+              />
               <h3 className="sm:hidden text-lg ms-4 my-auto">
-                <span className="text-mainGreen">@</span>{ user?.username }
+                <span className="text-mainGreen">@</span>
+                {user?.username}
               </h3>{" "}
               {/* Username - mobile */}
             </div>
@@ -47,7 +51,8 @@ export default function Profile() {
             {/* Profile Info Section - Desktop*/}
             <div className="block grow p-4">
               <h3 className="hidden sm:block text-lg ms-4 mb-2">
-                <span className="text-mainGreen">@</span>{user?.username}
+                <span className="text-mainGreen">@</span>
+                {user?.username}
               </h3>{" "}
               {/* Username */}
               <div className="w-full flex justify-center sm:justify-start">
@@ -63,14 +68,17 @@ export default function Profile() {
                   <b>{user?.follows?.length}</b> Following
                 </p>
               </div>
-              <p className="text-lg sm:ms-4 mt-8 font-bold">{user?.firstName} {user?.lastName}</p>{" "}
+              <p className="text-lg sm:ms-4 mt-8 font-bold">
+                {user?.firstName} {user?.lastName}
+              </p>{" "}
               {/* Name */}
               <p className="text-sm sm:text-base sm:ms-4 mt-1">
                 {user?.description}
               </p>{" "}
               {/* Description */}
               {/* Action Buttons */}
-              {currentUser.isAuthenticated && (!userId || userId == currentUser._id) ? (
+              {currentUser.isAuthenticated &&
+              (!userId || userId == currentUser._id) ? (
                 <>
                   <button
                     className="sm:ms-4 mt-8 rounded-sm border border-black px-6 py-2"
@@ -95,51 +103,54 @@ export default function Profile() {
 
           {/* Profile Select Buttons */}
           <div className="flex mt-2 sm:mt-8 w-full justify-center border-t">
-            <button 
-              onClick={handleShowPosts} 
+            <button
+              onClick={handleShowPosts}
               className={
-                postsShown ?
-                "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover profile-select-button"
-                :
-                "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover"
+                postsShown
+                  ? "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover profile-select-button"
+                  : "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover"
               }
             >
               <CiGrid41 className="me-2" /> Posts
             </button>
-            {currentUser.isAuthenticated && (!userId || userId == currentUser._id) && (
-              <button 
-                onClick={handleShowSavedPosts} 
-                className={
-                  savedPostsShown ?
-                  "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover profile-select-button"
-                  :
-                  "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover"
-                }
-              >
-                <CiBookmark className="me-2" /> Saved
-              </button>
-            )}
+            {currentUser.isAuthenticated &&
+              (!userId || userId == currentUser._id) && (
+                <button
+                  onClick={handleShowSavedPosts}
+                  className={
+                    savedPostsShown
+                      ? "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover profile-select-button"
+                      : "mx-6 py-2 text-lg flex items-center justify-center profile-select-hover"
+                  }
+                >
+                  <CiBookmark className="me-2" /> Saved
+                </button>
+              )}
           </div>
 
           {/* Profile Content */}
           <div className="w-full grid grid-cols-3 mt-1">
             {/* Profile Posts */}
-            {
-              postsShown
-              &&
+            {postsShown && (
               <>
-                {user?.posts.map(post => <ProfilePost key={post._id} post={post}/>)}
+                {user?.posts.map((post) => (
+                  <ProfilePost key={post._id} post={post} />
+                ))}
               </>
-            }
-            {postsShown && user?.posts?.length == 0 && <p>User has not published anything, yet.</p>}
-            {
-              savedPostsShown
-              &&
+            )}
+            {postsShown && user?.posts?.length == 0 && (
+              <p>User has not published anything, yet.</p>
+            )}
+            {savedPostsShown && (
               <>
-                {user?.savedPosts.map(post => <ProfilePost key={post._id} post={post}/>)}
+                {user?.savedPosts.map((post) => (
+                  <ProfilePost key={post._id} post={post} />
+                ))}
               </>
-            }
-            {savedPostsShown && user?.savedPosts?.length == 0 && <p>You have not saved any posts, yet.</p>}
+            )}
+            {savedPostsShown && user?.savedPosts?.length == 0 && (
+              <p>You have not saved any posts, yet.</p>
+            )}
             {/* Profile Saved - Private only */}
             {/* <p>User has not published anything, yet.</p> */}{" "}
             {/* No Posts Message */}
