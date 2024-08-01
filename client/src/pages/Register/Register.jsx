@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import FormErrorMessage from "../../shared/components/FormErrorMessage/FormErrorMessage";
 
 export default function Register() {
     const {
@@ -7,6 +8,10 @@ export default function Register() {
       handleSubmit,
       formState: { errors }
     } = useForm();
+
+    const onRegister = async (data) => {
+      console.log(data)
+    }
 
     return (
         <main className="min-h-full w-full absolute top-0 flex justify-center items-center font-montserrat bg-mainWhite">
@@ -19,7 +24,7 @@ export default function Register() {
             </div>
     
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-              <form action="#" method="POST" className="space-y-6">
+              <form onSubmit={handleSubmit(onRegister)} className="space-y-6">
               <div>
                   <label
                     htmlFor="username"
@@ -31,12 +36,13 @@ export default function Register() {
                     <input
                       id="username"
                       name="username"
+                      {...register("username", { required: "This field is required" })}
                       type="text"
-                      required
                       autoComplete="username"
                       className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     />
                   </div>
+                  {errors.username && <FormErrorMessage message={errors.username.message}/>}
                 </div>
 
                 <div>
@@ -50,12 +56,13 @@ export default function Register() {
                     <input
                       id="email"
                       name="email"
+                      {...register("email", { required: "This field is required" })}
                       type="email"
-                      required
                       autoComplete="email"
                       className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     />
                   </div>
+                  {errors.email && <FormErrorMessage message={errors.email.message}/>}
                 </div>
     
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -67,11 +74,13 @@ export default function Register() {
                             <input
                             id="first-name"
                             name="first-name"
+                            {...register("firstName", { required: "This field is required" })}
                             type="text"
                             autoComplete="given-name"
                             className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 sm:text-sm sm:leading-6"
                             />
                         </div>
+                        {errors.firstName && <FormErrorMessage message={errors.firstName.message}/>}
                     </div>
                     <div className="sm:col-span-3">
                         <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-gray-900">
@@ -81,11 +90,13 @@ export default function Register() {
                             <input
                             id="last-name"
                             name="last-name"
+                            {...register("lastName", { required: "This field is required" })}
                             type="text"
                             autoComplete="family-name"
                             className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 sm:text-sm sm:leading-6"
                             />
                         </div>
+                        {errors.lastName && <FormErrorMessage message={errors.lastName.message}/>}
                     </div>
                 </div>
 
@@ -102,12 +113,13 @@ export default function Register() {
                     <input
                       id="password"
                       name="password"
+                      {...register("password", { required: "This field is required" })}
                       type="password"
-                      required
                       autoComplete="current-password"
                       className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     />
                   </div>
+                  {errors.password && <FormErrorMessage message={errors.password.message}/>}
                 </div>
 
                 <div>
@@ -124,11 +136,12 @@ export default function Register() {
                       id="rePassword"
                       name="rePassword"
                       type="password"
-                      required
+                      {...register("rePassword", { required: "This field is required" })}
                       autoComplete="rePassword"
                       className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     />
                   </div>
+                  {errors.rePassword && <FormErrorMessage message={errors.rePassword.message}/>}
                 </div>
     
                 <div>
