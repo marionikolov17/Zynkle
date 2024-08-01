@@ -49,7 +49,7 @@ export default function TopCreator({ creator }) {
             imageUrl={creator?.profilePicture}
           />
           <div className="block ms-2">
-            <Link className="my-auto text-sm font-bold">{creator?.username}</Link>
+            <Link className="my-auto text-sm font-bold" to={`/profile/${creator._id}`}>{creator?.username}</Link>
             <p className="my-auto text-sm opacity-60">
               {creator?.firstName + " " + creator?.lastName}
             </p>
