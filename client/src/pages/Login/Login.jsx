@@ -12,20 +12,17 @@ export default function Login() {
     handleSubmit,
     formState: {errors}
   } = useForm();
-  const { login } = useLogin();
+  const login = useLogin();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [hasLoginError, setHasLoginError] = useState(false);
-  const [loginError, setLoginError] = useState("");
+  const [error, setError] = useState();
 
   const onLoginSubmit = async (data) => {
     setIsLoading(true);
     try {
       await login(data);
-      setHasLoginError(false);
     } catch (error) {
-      setHasLoginError(true);
-      setLoginError(error.message);
+      setError(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -101,7 +98,7 @@ export default function Login() {
                 >
                   Sign in
                 </button>
-                {hasLoginError && <FormErrorMessage className="text-center mt-2" message={loginError} />}
+                {error && <FormErrorMessage className="text-center mt-2" message={error} />}
               </div>
             </form>
 
