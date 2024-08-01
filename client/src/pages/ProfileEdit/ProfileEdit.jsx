@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import ErrorToast from "../../shared/components/ErrorToast/ErrorToast";
 import useUpdateProfile from "../../entities/users/hooks/useUpdateProfile";
 import { toFormData } from "axios";
+import FormErrorMessage from "../../shared/components/FormErrorMessage/FormErrorMessage";
 
 const allowedImageMimeTypes = [
   'image/jpeg',
@@ -122,6 +123,7 @@ export default function ProfileEdit() {
                         className="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       />
                     </div>
+                    {errors.username && <FormErrorMessage message={errors.username.message}/>}
                   </div>
                 </div>
 
@@ -141,6 +143,7 @@ export default function ProfileEdit() {
                       defaultValue={""}
                     />
                   </div>
+                  {errors.description && <FormErrorMessage message={errors.description.message}/>}
                   <p className="mt-3 text-sm leading-6 text-gray-600">
                     Write a few sentences about yourself.
                   </p>
@@ -200,6 +203,7 @@ export default function ProfileEdit() {
                       className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     />
                   </div>
+                  {errors.firstName && <FormErrorMessage message={errors.firstName.message}/>}
                 </div>
 
                 <div className="sm:col-span-3">
@@ -218,6 +222,7 @@ export default function ProfileEdit() {
                       className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     />
                   </div>
+                  {errors.lastName && <FormErrorMessage message={errors.lastName.message}/>}
                 </div>
 
                 <div className="sm:col-span-full">
@@ -236,6 +241,7 @@ export default function ProfileEdit() {
                       className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     />
                   </div>
+                  {errors.email && <FormErrorMessage message={errors.email.message}/>}
                 </div>
 
                 {/* <div className="sm:col-span-3">
