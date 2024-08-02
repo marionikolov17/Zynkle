@@ -26,6 +26,7 @@ export default function Comment() {
                         <p className="text-xs lg:text-sm opacity-70">2 days</p>
                         <p className="text-xs lg:text-sm ms-4 cursor-pointer">3 likes</p>
                         <button className="text-xs lg:text-sm ms-4">Reply</button>
+                        <button className="text-xs lg:text-sm ms-4">Delete</button>
                     </div>
                 </div>
                 <div className="p-3">
