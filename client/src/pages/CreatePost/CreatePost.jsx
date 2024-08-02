@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 import { Link } from "react-router-dom";
 import { BsFiletypePng } from "react-icons/bs";
@@ -7,6 +8,12 @@ import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePictur
 
 export default function CreatePost() {
   const user = useSelector(state => state.user);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
 
   return (
     <>
