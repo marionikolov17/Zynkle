@@ -1,9 +1,13 @@
+import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 import { BsFiletypePng } from "react-icons/bs";
 import { FaXmark } from "react-icons/fa6";
 import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 
 export default function CreatePost() {
+  const user = useSelector(state => state.user);
+
   return (
     <>
       <div className="grow flex justify-center items-center mb-10 sm:mb-0">
@@ -12,9 +16,9 @@ export default function CreatePost() {
             <FaXmark />
           </Link>
           <div className="w-full flex mt-8">
-            <ProfilePicture className="w-12 h-12" />
+            <ProfilePicture imageUrl={user?.profilePicture} className="w-12 h-12" />
             <h2 className="my-auto mx-4 text-xl font-bold">
-              <span className="text-mainGreen">@</span>marionikolov17
+              <span className="text-mainGreen">@</span>{user?.username}
             </h2>
             <p className="hidden sm:inline-block my-auto text-sm text-slate-400">Create New Post</p>
           </div>
