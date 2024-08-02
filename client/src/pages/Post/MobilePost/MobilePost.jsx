@@ -7,7 +7,7 @@ import { MdOutlineDelete } from "react-icons/md";
 
 export default function MobilePost() {
   return (
-    <main className="sm:hidden w-full flex flex-col absolute min-h-full max-h-max bg-mainWhite font-montserrat">
+    <main className="sm:hidden z-10 w-full flex flex-col absolute min-h-full max-h-max bg-mainWhite font-montserrat">
       <div className="w-full relative flex justify-center">
         <Link to="/" className="absolute left-0 my-4 ms-4">
           <IoMdArrowRoundBack className="text-xl" />
