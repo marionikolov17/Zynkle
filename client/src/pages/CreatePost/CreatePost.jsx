@@ -10,6 +10,8 @@ import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePictur
 import FormErrorMessage from "../../shared/components/FormErrorMessage/FormErrorMessage";
 import { allowedImageMimeTypes } from "../../shared/constants/allowed-files.constant";
 import Loader from "../../shared/components/Loader/Loader";
+import useCreatePost from "../../entities/posts/hooks/useCreatePost";
+import { toFormData } from "axios";
 
 export default function CreatePost() {
   const [error, setError] = useState();
@@ -24,8 +26,18 @@ export default function CreatePost() {
     setValue,
   } = useForm();
 
+  const createPost = useCreatePost();
+
   const onCreate = async (data) => {
-    console.log(data);
+    setIsLoading(true);
+
+    try {
+      await createPost(toFormData(data));
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const onImageUpload = (event) => {
