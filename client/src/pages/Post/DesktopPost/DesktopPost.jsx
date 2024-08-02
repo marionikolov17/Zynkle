@@ -3,6 +3,7 @@ import AddCommentForm from "../../../features/post/components/AddCommentForm/Add
 import Comment from "../../../features/post/components/Comment/Comment";
 import PostStats from "../../../features/post/components/PostStats/PostStats";
 import { IoMdClose } from "react-icons/io";
+import { MdOutlineDelete } from "react-icons/md";
 import ProfilePicture from "../../../shared/components/ProfilePicture/ProfilePicture";
 
 export default function DesktopPost() {
@@ -26,6 +27,9 @@ export default function DesktopPost() {
               <h3 className="text-sm ms-3 font-bold">
                 <span className="text-mainGreen">@</span>marionikolov17
               </h3>
+              <button>
+                <MdOutlineDelete className="text-red-500 text-2xl ms-4"/>
+              </button>
               <Link to="/" className="absolute end-0 me-4 my-auto">
                 <IoMdClose className="text-xl"/>
               </Link>
