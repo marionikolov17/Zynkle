@@ -11,17 +11,7 @@ import ErrorToast from "../../shared/components/ErrorToast/ErrorToast";
 import useUpdateProfile from "../../entities/users/hooks/useUpdateProfile";
 import { toFormData } from "axios";
 import FormErrorMessage from "../../shared/components/FormErrorMessage/FormErrorMessage";
-
-const allowedImageMimeTypes = [
-  'image/jpeg',
-  'image/png',
-  'image/gif',
-  'image/bmp',
-  'image/tiff',
-  'image/webp',
-  'image/heif',
-  'image/heic',
-]
+import { allowedImageMimeTypes } from "../../shared/constants/allowed-files.constant";
 
 export default function ProfileEdit() {
   const currentUser = useSelector((state) => state.user);
