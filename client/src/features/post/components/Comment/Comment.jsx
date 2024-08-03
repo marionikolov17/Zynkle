@@ -15,6 +15,7 @@ import {
 } from "../../../../entities/comments/hooks/useComments";
 import { FaHeart } from "react-icons/fa";
 import Loader from "../../../../shared/components/Loader/Loader";
+import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
 
 export default function Comment({ comment }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,9 +40,22 @@ export default function Comment({ comment }) {
     }
   };
 
+  const handleDislikeComment = async () => {
+    setIsLoading(true);
+    try {
+        await dislikeComment(comment?._id);
+        onDislikeComment(comment?._id, user._id);
+    } catch (error) {
+        setError(error.message);
+    } finally {
+        setIsLoading(false);
+    }
+  }
+
   return (
     <>
       {isLoading && <Loader />}
+      {error && <ErrorToast text={error}/>}
       <div className="block">
         {/* Comment */}
         <div className="w-full max-h-max flex py-4">
@@ -79,7 +93,7 @@ export default function Comment({ comment }) {
           <div className="p-3">
             {comment?.likedBy?.includes(user._id) ?
                 <FaHeart
-                    className="text-lg cursor-pointer text-mainGreen"
+                    className="text-lg cursor-pointer text-mainGreen" onClick={() => handleDislikeComment()}
                 />
                 :
                 <CiHeart className="text-xl cursor-pointer" onClick={() => handleLikeComment()} />
