@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import AddCommentForm from "../../../features/post/components/AddCommentForm/AddCommentForm";
 import Comment from "../../../features/post/components/Comment/Comment";
@@ -13,7 +13,9 @@ import PostContext from "../../../entities/posts/contexts/post.context";
 import Loader from "../../../shared/components/Loader/Loader";
 
 export default function DesktopPost() {
-  const { post, loading, error } = useContext(PostContext);
+  const [imageLoading, setImageLoading] = useState(true);
+
+  const { post, loading, error, comments, commentsLoading, commentsError } = useContext(PostContext);
 
   return (
     <>
@@ -23,10 +25,11 @@ export default function DesktopPost() {
         <div className="grow xl:grow-0 xl:w-[75%] 2xl:w-[60%] min-h-full max-h-max">
           <div className="sm:bg-white w-full sm:h-[700px] flex flex-col sm:flex-row">
             {/* Post Image */}
-            <div className="flex grow-0 shrink">
+            <div className={!imageLoading ? "flex grow-0 shrink" : "grow-1 shrink-0 w-1/2 h-full skeleton-loading"}>
               <img
                 className="object-cover"
                 src={post?.imageUri}
+                onLoad={() => setImageLoading(false)}
                 alt=""
               />
             </div>
@@ -63,8 +66,16 @@ export default function DesktopPost() {
                   </div>
                 }
 
-                <Comment />
-                <Comment />
+                {commentsLoading &&
+                  <div className="w-full flex justify-center items-center min-h-full loader-background">
+                    <div className="loader"></div>
+                  </div>
+                }
+                {commentsError && <p className="text-center text-sm text-red-500">Error. Could not load comments.</p>}
+                {comments?.length == 0 && <p className="text-center text-sm">There are no comments, yet. Comment one</p>}
+                {comments?.map(comment => <Comment key={comment._id} comment={comment}/>)}
+                {/* <Comment />
+                <Comment /> */}
               </div>
               {/* Post Stats */}
               <PostStats />
