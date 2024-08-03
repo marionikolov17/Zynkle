@@ -11,9 +11,12 @@ import ProfilePicture from "../../../shared/components/ProfilePicture/ProfilePic
 import ConfirmWindow from "../../../features/post/components/ConfirmWindow/ConfirmWindow";
 import PostContext from "../../../entities/posts/contexts/post.context";
 import Loader from "../../../shared/components/Loader/Loader";
+import { useSelector } from "react-redux";
 
 export default function DesktopPost() {
   const [imageLoading, setImageLoading] = useState(true);
+
+  const user = useSelector(state => state.user);
 
   const { post, loading, error, comments, commentsLoading, commentsError } = useContext(PostContext);
 
@@ -41,9 +44,11 @@ export default function DesktopPost() {
                 <h3 className="text-sm ms-3 font-bold">
                   <span className="text-mainGreen">@</span>{post?.creator?.username}
                 </h3>
-                <button>
-                  <MdOutlineDelete className="text-red-500 text-2xl ms-4" />
-                </button>
+                {post?.creator?._id == user._id &&
+                  <button>
+                    <MdOutlineDelete className="text-red-500 text-2xl ms-4" />
+                  </button>
+                }
                 <Link to="/" className="absolute end-0 me-4 my-auto">
                   <IoMdClose className="text-xl" />
                 </Link>
