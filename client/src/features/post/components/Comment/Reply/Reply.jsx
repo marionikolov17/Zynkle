@@ -2,22 +2,39 @@
 import { CiHeart } from "react-icons/ci";
 import ProfilePicture from "../../../../../shared/components/ProfilePicture/ProfilePicture";
 import moment from "moment";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import PostContext from "../../../../../entities/posts/contexts/post.context";
 import { useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa";
+import useLikeReply from "../../../../../entities/replies/hooks/useLikeReply";
+import Loader from "../../../../../shared/components/Loader/Loader";
 
-export default function Reply({ reply }) {
+export default function Reply({ reply, setReplies }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const user = useSelector((state) => state.user);
 
   const { post } = useContext(PostContext);
 
-  const handleLikeReply = async () => {};
+  const { likeReply, onLikeReply } = useLikeReply();
+
+  const handleLikeReply = async () => {
+    setIsLoading(true);
+    try {
+      await likeReply(reply?._id);
+      onLikeReply(setReplies, reply?._id, user._id);
+    } catch (error) {
+      console.log("reply like", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleDislikeReply = async () => {};
 
   return (
     <>
+      {isLoading && <Loader />}
       <div className="flex w-full ps-6 sm:ps-12 my-4">
         <div className="ps-6">
           {" "}
