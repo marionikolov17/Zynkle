@@ -9,7 +9,6 @@ import PostContext from "../../../../../entities/posts/contexts/post.context";
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import ProfilePicture from "../../../../../shared/components/ProfilePicture/ProfilePicture";
-import Loader from "../../../../../shared/components/Loader/Loader";
 import useDislikeReply from "../../../../../entities/replies/hooks/useDislikeReply";
 
 export default function Reply({ reply, setReplies }) {
@@ -48,7 +47,11 @@ export default function Reply({ reply, setReplies }) {
 
   return (
     <>
-      {isLoading && <Loader />}
+      {isLoading && 
+        <div className="flex w-full justify-center">
+          <div className="loader"></div>
+        </div>
+      }
       <div className="flex w-full ps-6 sm:ps-12 my-4">
         <div className="ps-6">
           {" "}

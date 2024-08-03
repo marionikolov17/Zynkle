@@ -14,7 +14,6 @@ import {
   useLikeComment,
 } from "../../../../entities/comments/hooks/useComments";
 import { FaHeart } from "react-icons/fa";
-import Loader from "../../../../shared/components/Loader/Loader";
 import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
 import useGetReplies from "../../../../entities/replies/hooks/useGetReplies";
 
@@ -79,7 +78,11 @@ export default function Comment({ comment }) {
 
   return (
     <>
-      {isLoading && <Loader />}
+      {isLoading && 
+        <div className="w-full flex justify-center">
+          <div className="loader"></div>
+        </div>
+      }
       {error && <ErrorToast text={error} />}
       <div className="block">
         {/* Comment */}
