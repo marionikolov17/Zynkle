@@ -125,10 +125,10 @@ export default function Comment({ comment }) {
           </button>
         )}
         {/* Replies */}
-        <div className="hidden">
-          <Reply />
-          <Reply />
-        </div>
+        {showReplies && 
+        <div>
+          {comment?.replies?.map(reply => <Reply key={reply}/>)}
+        </div>}
       </div>
     </>
   );
