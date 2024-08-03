@@ -6,10 +6,10 @@ import PostContext from "../../entities/posts/contexts/post.context";
 
 export default function Post() {
   const { postId } = useParams();
-  const { post, loading, error } = useGetPost(postId);
+  const { post, loading, error, onLike, onDislike, onSave, onUnsave } = useGetPost(postId);
 
   return (
-    <PostContext.Provider value={{post, loading, error}}>
+    <PostContext.Provider value={{post, loading, error, onLike, onDislike, onSave, onUnsave}}>
         <DesktopPost />
         <MobilePost />
     </PostContext.Provider>

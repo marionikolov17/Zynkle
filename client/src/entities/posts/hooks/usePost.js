@@ -21,7 +21,37 @@ export const useGetPost = (postId) => {
         })()
     }, [postId]);
 
-    return { post, loading, error }
+    const onLike = (userId) => {
+        setPost(post => {
+            post?.likedBy?.push(userId);
+            return post;
+        })
+    }
+
+    const onDislike = (userId) => {
+        setPost(post => {
+            const newLikedBy = post?.likedBy?.filter(id => id != userId);
+            post.likedBy = newLikedBy;
+            return post;
+        })
+    }
+
+    const onSave = (userId) => {
+        setPost(post => {
+            post?.savedBy?.push(userId);
+            return post;
+        })
+    }
+
+    const onUnsave = (userId) => {
+        setPost(post => {
+            const newSavedBy = post?.savedBy?.filter(id => id != userId);
+            post.savedBy = newSavedBy;
+            return post;
+        })
+    }
+
+    return { post, loading, error, onLike, onDislike, onSave, onUnsave }
 }
 
 export const useLikePost = () => {
