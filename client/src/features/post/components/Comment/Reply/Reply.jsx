@@ -10,6 +10,7 @@ import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import ProfilePicture from "../../../../../shared/components/ProfilePicture/ProfilePicture";
 import Loader from "../../../../../shared/components/Loader/Loader";
+import useDislikeReply from "../../../../../entities/replies/hooks/useDislikeReply";
 
 export default function Reply({ reply, setReplies }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +20,7 @@ export default function Reply({ reply, setReplies }) {
   const { post } = useContext(PostContext);
 
   const { likeReply, onLikeReply } = useLikeReply();
+  const { dislikeReply, onDisikeReply } = useDislikeReply();
 
   const handleLikeReply = async () => {
     setIsLoading(true);
@@ -32,7 +34,17 @@ export default function Reply({ reply, setReplies }) {
     }
   };
 
-  const handleDislikeReply = async () => {};
+  const handleDislikeReply = async () => {
+    setIsLoading(true);
+    try {
+      await dislikeReply(reply?._id);
+      onDisikeReply(setReplies, reply?._id, user._id);
+    } catch (error) {
+      console.log("reply dislike", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
