@@ -10,7 +10,7 @@ export default function Post() {
   const { postId } = useParams();
   const { post, loading, error, onLike, onDislike, onSave, onUnsave } =
     useGetPost(postId);
-  const { comments, commentsLoading, commentsError, onCreateComment } =
+  const { comments, commentsLoading, commentsError, onCreateComment, onLikeComment, onDislikeComment } =
     useGetPostComments(postId);
 
   return (
@@ -27,6 +27,8 @@ export default function Post() {
         commentsLoading,
         commentsError,
         onCreateComment,
+        onLikeComment,
+        onDislikeComment
       }}
     >
       <DesktopPost />
