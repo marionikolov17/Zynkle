@@ -26,8 +26,48 @@ export const useGetPost = (postId) => {
 
 export const useLikePost = () => {
     const like = async (postId) => {
-
+        try {
+            await postService.likePost(postId);
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 
     return like;
+}
+
+export const useDislikePost = () => {
+    const dislike = async (postId) => {
+        try {
+            await postService.dislikePost(postId);
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
+    return dislike;
+}
+
+export const useSavePost = () => {
+    const save = async (postId) => {
+        try {
+            await postService.savePost(postId);
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
+    return save;
+}
+
+export const useUnsavePost = () => {
+    const unsave = async (postId) => {
+        try {
+            await postService.unsavePost(postId);
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
+    return unsave;
 }
