@@ -79,8 +79,12 @@ export default function PostStats() {
 
   return (
     <>
-      {isLoading && <Loader />}
-      <div className="block grow-0 border-b py-3">
+      <div className="block grow-0 border-b py-3 relative">
+        {isLoading && 
+          <div className="absolute w-full flex justify-center z-50">
+            <div className="loader"></div>
+          </div>
+        }
         {/* Action buttons */}
         <div className="w-full flex justify-around align-middle px-4">
           <div className="flex grow justify-start items-center">
