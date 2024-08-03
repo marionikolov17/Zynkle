@@ -5,7 +5,7 @@ export default function useCreateComment() {
         try {
             const response = await commentService.createComment(postId, data);
 
-            return response.data.data;
+            return;
         } catch (error) {
             throw new Error(error.response.data.data.message);
         }
