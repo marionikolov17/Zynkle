@@ -23,6 +23,8 @@ export const createReply = async (
     { _id: commentId },
     { $push: { replies: createdReply._id } }
   );
+
+  return createdReply;
 };
 
 export const deleteReply = async (
