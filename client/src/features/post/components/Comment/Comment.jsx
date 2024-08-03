@@ -19,6 +19,7 @@ import useGetReplies from "../../../../entities/replies/hooks/useGetReplies";
 
 export default function Comment({ comment }) {
   const [replies, setReplies] = useState([]);
+  const [totalReplies, setTotalReplies] = useState(comment?.replies?.length);
   const [isRepliesLoading, setIsRepliesLoading] = useState(false);
 
   const [showReplyForm, setShowReplyForm] = useState(false);
@@ -74,15 +75,15 @@ export default function Comment({ comment }) {
     } finally {
       setIsRepliesLoading(false);
     }
-  }
+  };
 
   return (
     <>
-      {isLoading && 
+      {isLoading && (
         <div className="w-full flex justify-center">
           <div className="loader"></div>
         </div>
-      }
+      )}
       {error && <ErrorToast text={error} />}
       <div className="block">
         {/* Comment */}
@@ -112,9 +113,19 @@ export default function Comment({ comment }) {
                 {comment?.likedBy?.length} likes
               </p>
               {showReplyForm ? (
-                <button className="text-xs lg:text-sm ms-4" onClick={() => setShowReplyForm(false)}>Cancel</button>
+                <button
+                  className="text-xs lg:text-sm ms-4"
+                  onClick={() => setShowReplyForm(false)}
+                >
+                  Cancel
+                </button>
               ) : (
-                <button className="text-xs lg:text-sm ms-4" onClick={() => setShowReplyForm(true)}>Reply</button>
+                <button
+                  className="text-xs lg:text-sm ms-4"
+                  onClick={() => setShowReplyForm(true)}
+                >
+                  Reply
+                </button>
               )}
               {(comment?.creator?._id == user._id ||
                 post?.creator?._id == user._id) && (
@@ -137,29 +148,44 @@ export default function Comment({ comment }) {
           </div>
         </div>
         {/* Reply form */}
-        {showReplyForm && <ReplyForm setReplies={setReplies}/>}
+        {showReplyForm && (
+          <ReplyForm
+            setReplies={setReplies}
+            setShowReplyForm={setShowReplyForm}
+            commentId={comment?._id}
+            setTotalReplies={setTotalReplies}
+          />
+        )}
         {/* Toggle replies */}
-        {!showReplies && comment?.replies?.length > 0 && (
-          <button className="w-full text-center text-sm opacity-70" onClick={() => fetchReplies()}>
-            View replies({comment?.replies?.length})
+        {!showReplies && totalReplies > 0 && (
+          <button
+            className="w-full text-center text-sm opacity-70"
+            onClick={() => fetchReplies()}
+          >
+            View replies({totalReplies})
           </button>
         )}
-        {showReplies && comment?.replies?.length > 0 && (
-          <button className="w-full text-center text-sm opacity-70" onClick={() => setShowReplies(false)}>
+        {showReplies && totalReplies > 0 && (
+          <button
+            className="w-full text-center text-sm opacity-70"
+            onClick={() => setShowReplies(false)}
+          >
             Hide replies
           </button>
         )}
         {/* Replies */}
-        {
-          isRepliesLoading &&
+        {isRepliesLoading && (
           <div className="w-full flex justify-center items-center">
             <div className="loader"></div>
           </div>
-        }
-        {showReplies && 
-        <div>
-          {replies?.map(reply => <Reply reply={reply} setReplies={setReplies} key={reply?._id}/>)}
-        </div>}
+        )}
+        {showReplies && (
+          <div>
+            {replies?.map((reply) => (
+              <Reply reply={reply} setReplies={setReplies} key={reply?._id} />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
