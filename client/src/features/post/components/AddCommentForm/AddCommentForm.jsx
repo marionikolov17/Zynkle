@@ -25,7 +25,6 @@ export default function AddCommentForm({ onCreateComment, postId }) {
 
       onCreateComment({...comment, creator: { _id: user._id, username: user.username, profilePicture: user.profilePicture }});
     } catch (error) {
-      alert(error.message);
       setError(error.message);
     } finally {
       setIsLoading(false);
