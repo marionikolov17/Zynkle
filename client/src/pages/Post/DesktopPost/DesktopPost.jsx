@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 
 import AddCommentForm from "../../../features/post/components/AddCommentForm/AddCommentForm";
@@ -18,7 +18,7 @@ export default function DesktopPost() {
 
   const user = useSelector(state => state.user);
 
-  const { post, loading, error, comments, commentsLoading, commentsError } = useContext(PostContext);
+  const { post, loading, error, comments, commentsLoading, commentsError, onCreateComment } = useContext(PostContext);
 
   return (
     <>
@@ -85,7 +85,7 @@ export default function DesktopPost() {
               {/* Post Stats */}
               <PostStats />
               {/* Add comment form */}
-              <AddCommentForm />
+              <AddCommentForm postId={post?._id} onCreateComment={onCreateComment}/>
             </div>
           </div>
         </div>

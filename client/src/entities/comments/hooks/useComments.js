@@ -21,5 +21,11 @@ export const useGetPostComments = (postId) => {
         })();
     }, [postId])
 
-    return { comments, commentsLoading, commentsError }
+    const onCreateComment = (comment) => {
+        setComments(comments => {
+            return [...comments, comment];
+        })
+    }
+
+    return { comments, commentsLoading, commentsError, onCreateComment }
 }
