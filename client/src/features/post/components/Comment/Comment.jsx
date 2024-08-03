@@ -16,8 +16,12 @@ import {
 import { FaHeart } from "react-icons/fa";
 import Loader from "../../../../shared/components/Loader/Loader";
 import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
+import useGetReplies from "../../../../entities/replies/hooks/useGetReplies";
 
 export default function Comment({ comment }) {
+  const [replies, setReplies] = useState([]);
+  const [isRepliesLoading, setIsRepliesLoading] = useState(false);
+
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [showReplies, setShowReplies] = useState(false);
 
@@ -31,7 +35,11 @@ export default function Comment({ comment }) {
   const likeComment = useLikeComment();
   const dislikeComment = useDislikeComment();
 
+  const getReplies = useGetReplies();
+
   const handleLikeComment = async () => {
+    if (replies?.length > 0) return; // Already fetched replies
+
     setIsLoading(true);
     try {
       await likeComment(comment?._id);
@@ -54,6 +62,20 @@ export default function Comment({ comment }) {
       setIsLoading(false);
     }
   };
+
+  const fetchReplies = async () => {
+    setIsRepliesLoading(true);
+    try {
+      const results = await getReplies(comment?._id);
+
+      setReplies(results);
+      setShowReplies(true);
+    } catch (error) {
+      console.log("replies", error);
+    } finally {
+      setIsRepliesLoading(false);
+    }
+  }
 
   return (
     <>
@@ -115,7 +137,7 @@ export default function Comment({ comment }) {
         {showReplyForm && <ReplyForm />}
         {/* Toggle replies */}
         {!showReplies && comment?.replies?.length > 0 && (
-          <button className="w-full text-center text-sm opacity-70" onClick={() => setShowReplies(true)}>
+          <button className="w-full text-center text-sm opacity-70" onClick={() => fetchReplies()}>
             View replies({comment?.replies?.length})
           </button>
         )}
@@ -125,9 +147,15 @@ export default function Comment({ comment }) {
           </button>
         )}
         {/* Replies */}
+        {
+          isRepliesLoading &&
+          <div className="w-full flex justify-center items-center">
+            <div className="loader"></div>
+          </div>
+        }
         {showReplies && 
         <div>
-          {comment?.replies?.map(reply => <Reply key={reply}/>)}
+          {replies?.map(reply => <Reply reply={reply} key={reply?._id}/>)}
         </div>}
       </div>
     </>
