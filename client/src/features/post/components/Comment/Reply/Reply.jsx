@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
-import { CiHeart } from "react-icons/ci";
-import ProfilePicture from "../../../../../shared/components/ProfilePicture/ProfilePicture";
-import moment from "moment";
 import { useContext, useState } from "react";
-import PostContext from "../../../../../entities/posts/contexts/post.context";
 import { useSelector } from "react-redux";
-import { FaHeart } from "react-icons/fa";
+import moment from "moment";
 import useLikeReply from "../../../../../entities/replies/hooks/useLikeReply";
+
+import PostContext from "../../../../../entities/posts/contexts/post.context";
+
+import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
+import ProfilePicture from "../../../../../shared/components/ProfilePicture/ProfilePicture";
 import Loader from "../../../../../shared/components/Loader/Loader";
 
 export default function Reply({ reply, setReplies }) {
