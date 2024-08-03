@@ -53,7 +53,17 @@ export default function PostStats() {
     }
   };
 
-  const handleSaveButton = async () => {};
+  const handleSaveButton = async () => {
+    setIsLoading(true);
+    try {
+      await save(post?._id);
+      onSave(user._id);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleUnsaveButton = async () => {};
 
@@ -80,7 +90,7 @@ export default function PostStats() {
             </label>
             <PiShareFat className="ms-4 text-3xl cursor-pointer" />
           </div>
-          <div className="flex grow justify-end">
+          <div className="flex grow justify-end items-center">
             {post?.savedBy?.includes(user._id) ? (
               <FaBookmark
                 className="text-2xl text-black cursor-pointer"
