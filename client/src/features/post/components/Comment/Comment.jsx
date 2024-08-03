@@ -18,6 +18,9 @@ import Loader from "../../../../shared/components/Loader/Loader";
 import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
 
 export default function Comment({ comment }) {
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  const [showReplies, setShowReplies] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
@@ -31,31 +34,31 @@ export default function Comment({ comment }) {
   const handleLikeComment = async () => {
     setIsLoading(true);
     try {
-        await likeComment(comment?._id);
-        onLikeComment(comment?._id, user._id);
+      await likeComment(comment?._id);
+      onLikeComment(comment?._id, user._id);
     } catch (error) {
-        setError(error.message);
+      setError(error.message);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
   const handleDislikeComment = async () => {
     setIsLoading(true);
     try {
-        await dislikeComment(comment?._id);
-        onDislikeComment(comment?._id, user._id);
+      await dislikeComment(comment?._id);
+      onDislikeComment(comment?._id, user._id);
     } catch (error) {
-        setError(error.message);
+      setError(error.message);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <>
       {isLoading && <Loader />}
-      {error && <ErrorToast text={error}/>}
+      {error && <ErrorToast text={error} />}
       <div className="block">
         {/* Comment */}
         <div className="w-full max-h-max flex py-4">
@@ -83,7 +86,11 @@ export default function Comment({ comment }) {
               <p className="text-xs lg:text-sm ms-4 cursor-pointer">
                 {comment?.likedBy?.length} likes
               </p>
-              <button className="text-xs lg:text-sm ms-4">Reply</button>
+              {showReplyForm ? (
+                <button className="text-xs lg:text-sm ms-4" onClick={() => setShowReplyForm(false)}>Cancel</button>
+              ) : (
+                <button className="text-xs lg:text-sm ms-4" onClick={() => setShowReplyForm(true)}>Reply</button>
+              )}
               {(comment?.creator?._id == user._id ||
                 post?.creator?._id == user._id) && (
                 <button className="text-xs lg:text-sm ms-4">Delete</button>
@@ -91,22 +98,32 @@ export default function Comment({ comment }) {
             </div>
           </div>
           <div className="p-3">
-            {comment?.likedBy?.includes(user._id) ?
-                <FaHeart
-                    className="text-lg cursor-pointer text-mainGreen" onClick={() => handleDislikeComment()}
-                />
-                :
-                <CiHeart className="text-xl cursor-pointer" onClick={() => handleLikeComment()} />
-            }
+            {comment?.likedBy?.includes(user._id) ? (
+              <FaHeart
+                className="text-lg cursor-pointer text-mainGreen"
+                onClick={() => handleDislikeComment()}
+              />
+            ) : (
+              <CiHeart
+                className="text-xl cursor-pointer"
+                onClick={() => handleLikeComment()}
+              />
+            )}
           </div>
         </div>
         {/* Reply form */}
-        <ReplyForm />
+        {showReplyForm && <ReplyForm />}
         {/* Toggle replies */}
-        {/* <button className="w-full text-center text-sm opacity-70">View replies(4)</button> */}
-        <button className="w-full text-center text-sm opacity-70">
-          Hide replies
-        </button>
+        {!showReplies && comment?.replies?.length > 0 && (
+          <button className="w-full text-center text-sm opacity-70" onClick={() => setShowReplies(true)}>
+            View replies({comment?.replies?.length})
+          </button>
+        )}
+        {showReplies && comment?.replies?.length > 0 && (
+          <button className="w-full text-center text-sm opacity-70" onClick={() => setShowReplies(false)}>
+            Hide replies
+          </button>
+        )}
         {/* Replies */}
         <div className="hidden">
           <Reply />
