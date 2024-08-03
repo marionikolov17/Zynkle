@@ -18,7 +18,7 @@ export const useGetPost = (postId) => {
             } finally {
                 setLoading(false);
             }
-        })
+        })()
     }, [postId]);
 
     return { post, loading, error }

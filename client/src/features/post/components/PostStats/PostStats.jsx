@@ -1,8 +1,15 @@
+import { useContext } from "react";
+
+import moment from "moment";
+
 import { AiOutlineComment } from "react-icons/ai";
 import { CiBookmark, CiHeart } from "react-icons/ci";
 import { PiShareFat } from "react-icons/pi";
+import PostContext from "../../../../entities/posts/contexts/post.context";
 
 export default function PostStats() {
+  const { post } = useContext(PostContext);
+  
   return (
     <div className="block grow-0 border-b py-3">
       {/* Action buttons */}
@@ -20,16 +27,16 @@ export default function PostStats() {
       </div>
       {/* Post Analytics */}
       <div className="ms-4 mt-2">
-        <p className="text-sm sm:text-base font-bold">1 245 likes</p>
-        <p className="text-xs opacity-70">2 days ago</p>
+        <p className="text-sm sm:text-base font-bold">{post?.likedBy?.length} likes</p>
+        <p className="text-xs opacity-70">{moment(post?.createdAt).fromNow()}</p>
       </div>
       {/* Post Description - Mobile only */}
-      <div className="ms-4 mt-2 pe-4 sm:hidden">
+      {post?.description && <div className="ms-4 mt-2 pe-4 sm:hidden">
         <p className="text-[13px]">
-          <span className="font-bold me-2">marionikolov17</span>
-          This is the post description and I want to extend it as far as possilbe to test it.!!
+          <span className="font-bold me-2">{post?.creator?.username}</span>
+          {post?.description}
         </p>
-      </div>
+      </div>}
     </div>
   );
 }
