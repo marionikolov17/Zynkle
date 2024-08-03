@@ -23,3 +23,11 @@ export const useGetPost = (postId) => {
 
     return { post, loading, error }
 }
+
+export const useLikePost = () => {
+    const like = async (postId) => {
+
+    }
+
+    return like;
+}
