@@ -8,23 +8,25 @@ import PostContext from "../../entities/posts/contexts/post.context";
 
 export default function Post() {
   const { postId } = useParams();
-  const { post, loading, error, onLike, onDislike, onSave, onUnsave } = useGetPost(postId);
-  const { comments, commentsLoading, commentsError, onCreateComment } = useGetPostComments(postId);
+  const { post, loading, error, onLike, onDislike, onSave, onUnsave } =
+    useGetPost(postId);
+  const { comments, commentsLoading, commentsError, onCreateComment } =
+    useGetPostComments(postId);
 
   return (
     <PostContext.Provider
-      value={{ 
-        post, 
-        loading, 
-        error, 
-        onLike, 
-        onDislike, 
-        onSave, 
+      value={{
+        post,
+        loading,
+        error,
+        onLike,
+        onDislike,
+        onSave,
         onUnsave,
         comments,
         commentsLoading,
         commentsError,
-        onCreateComment
+        onCreateComment,
       }}
     >
       <DesktopPost />

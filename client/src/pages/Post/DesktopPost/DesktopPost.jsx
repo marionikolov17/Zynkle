@@ -16,9 +16,17 @@ import { useSelector } from "react-redux";
 export default function DesktopPost() {
   const [imageLoading, setImageLoading] = useState(true);
 
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
-  const { post, loading, error, comments, commentsLoading, commentsError, onCreateComment } = useContext(PostContext);
+  const {
+    post,
+    loading,
+    error,
+    comments,
+    commentsLoading,
+    commentsError,
+    onCreateComment,
+  } = useContext(PostContext);
 
   return (
     <>
@@ -28,7 +36,13 @@ export default function DesktopPost() {
         <div className="grow xl:grow-0 xl:w-[75%] 2xl:w-[60%] min-h-full max-h-max">
           <div className="sm:bg-white w-full sm:h-[700px] flex flex-col sm:flex-row">
             {/* Post Image */}
-            <div className={!imageLoading ? "flex grow-0 shrink" : "grow-1 shrink-0 w-1/2 h-full skeleton-loading"}>
+            <div
+              className={
+                !imageLoading
+                  ? "flex grow-0 shrink"
+                  : "grow-1 shrink-0 w-1/2 h-full skeleton-loading"
+              }
+            >
               <img
                 className="object-cover"
                 src={post?.imageUri}
@@ -40,52 +54,73 @@ export default function DesktopPost() {
             <div className="grow flex flex-col w-[95%] lg:w-[65%]">
               {/* Owner info */}
               <div className="flex items-center py-3 px-6 border-b relative">
-                <ProfilePicture imageUrl={post?.creator?.profilePicture} className="w-10 h-10" />
+                <ProfilePicture
+                  imageUrl={post?.creator?.profilePicture}
+                  className="w-10 h-10"
+                />
                 <h3 className="text-sm ms-3 font-bold">
-                  <span className="text-mainGreen">@</span>{post?.creator?.username}
+                  <span className="text-mainGreen">@</span>
+                  {post?.creator?.username}
                 </h3>
-                {post?.creator?._id == user._id &&
+                {post?.creator?._id == user._id && (
                   <button>
                     <MdOutlineDelete className="text-red-500 text-2xl ms-4" />
                   </button>
-                }
-                <Link to={`/profile/${post?.creator?._id}`} className="absolute end-0 me-4 my-auto">
+                )}
+                <Link
+                  to={`/profile/${post?.creator?._id}`}
+                  className="absolute end-0 me-4 my-auto"
+                >
                   <IoMdClose className="text-xl" />
                 </Link>
               </div>
               {/* Comments and Post Description */}
               <div className="block grow overflow-y-scroll no-scrollbar border-b">
                 {/* First comment - post description */}
-                {post?.description && 
+                {post?.description && (
                   <div className="w-full max-h-max flex py-4">
                     <div className="ps-6">
                       {" "}
                       {/* Comment Owner Image */}
-                      <ProfilePicture imageUrl={post?.creator?.profilePicture} className="w-10 h-10" />
+                      <ProfilePicture
+                        imageUrl={post?.creator?.profilePicture}
+                        className="w-10 h-10"
+                      />
                     </div>
                     <div className="pe-4">
-                      <p className="ms-2 text-sm">
-                        {post?.description}
-                      </p>
+                      <p className="ms-2 text-sm">{post?.description}</p>
                     </div>
                   </div>
-                }
+                )}
 
-                {commentsLoading &&
+                {commentsLoading && (
                   <div className="w-full flex justify-center items-center min-h-full loader-background">
                     <div className="loader"></div>
                   </div>
-                }
-                {commentsError && <p className="text-center text-sm text-red-500">Error. Could not load comments.</p>}
-                {comments?.length == 0 && <p className="text-center text-sm">There are no comments, yet. Comment one</p>}
-                {comments?.map(comment => <Comment key={comment._id} comment={comment}/>)}
+                )}
+                {commentsError && (
+                  <p className="text-center text-sm text-red-500">
+                    Error. Could not load comments.
+                  </p>
+                )}
+                {comments?.length == 0 && (
+                  <p className="text-center text-sm">
+                    There are no comments, yet. Comment one
+                  </p>
+                )}
+                {comments?.map((comment) => (
+                  <Comment key={comment._id} comment={comment} />
+                ))}
                 {/* <Comment />
                 <Comment /> */}
               </div>
               {/* Post Stats */}
               <PostStats />
               {/* Add comment form */}
-              <AddCommentForm postId={post?._id} onCreateComment={onCreateComment}/>
+              <AddCommentForm
+                postId={post?._id}
+                onCreateComment={onCreateComment}
+              />
             </div>
           </div>
         </div>
