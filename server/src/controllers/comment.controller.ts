@@ -33,13 +33,11 @@ router.post(
     isAuth,
     inputValidationMiddleware(createCommentValidators),
     tryCatch(async (req: any, res: express.Response) => {
-        await commentService.createComment(req.body, req.params.postId, req.user._id);
+        const createdComment = await commentService.createComment(req.body, req.params.postId, req.user._id);
 
         res.status(201).json({
             status: RESPONSE_STATUS.SUCCESS,
-            data: {
-                message: "Successfully created comment"
-            }
+            data: createdComment
         });
     })
 );

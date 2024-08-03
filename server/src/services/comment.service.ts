@@ -21,6 +21,8 @@ export const createComment = async (
     { _id: postId },
     { $push: { comments: createdComment._id } }
   );
+
+  return createdComment;
 };
 
 export const deleteComment = async (
