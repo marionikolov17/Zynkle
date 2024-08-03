@@ -41,17 +41,44 @@ export const useGetPostComments = (postId) => {
         })
     }
 
-    return { comments, commentsLoading, commentsError, onCreateComment, onLikeComment }
+    const onDislikeComment = (commentId, userId) => {
+        setComments(comments => {
+            const newComments = comments.map(comment => {
+                if (comment?._id == commentId) {
+                    const newCommentsLikedBy = comment?.likedBy?.filter(id => id != userId);
+                    comment.likedBy = newCommentsLikedBy;
+                }
+
+                return comment;
+            });
+
+            return newComments;
+        })
+    }
+
+    return { comments, commentsLoading, commentsError, onCreateComment, onLikeComment, onDislikeComment }
 }
 
 export const useLikeComment = () => {
-    const likeComment = async (commentId, userId) => {
+    const likeComment = async (commentId) => {
         try {
-
+            await commentService.likeComment(commentId);
         } catch (error) {
             throw new Error(error.message);
         }
     }
 
     return likeComment;
+}
+
+export const useDislikeComment = () => {
+    const dislikeComment = async (commentId) => {
+        try {
+            await commentService.dislikeComment(commentId);
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    return dislikeComment;
 }
