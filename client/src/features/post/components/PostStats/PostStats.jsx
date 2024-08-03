@@ -65,7 +65,17 @@ export default function PostStats() {
     }
   };
 
-  const handleUnsaveButton = async () => {};
+  const handleUnsaveButton = async () => {
+    setIsLoading(true);
+    try {
+      await unsave(post?._id);
+      onUnsave(user._id);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
