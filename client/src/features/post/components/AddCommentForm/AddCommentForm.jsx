@@ -24,7 +24,7 @@ export default function AddCommentForm({ onCreateComment, postId }) {
     try {
       const comment = await createComment(postId, data);
 
-      onCreateComment({...comment, creator: { _id: user._id, username: user.username, profilePicture: user.profilePicture }});
+      onCreateComment({...comment, createdAt: Date.now(), creator: { _id: user._id, username: user.username, profilePicture: user.profilePicture }});
       setValue("text", "");
     } catch (error) {
       setError(error.message);
