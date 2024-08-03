@@ -137,7 +137,7 @@ export default function Comment({ comment }) {
           </div>
         </div>
         {/* Reply form */}
-        {showReplyForm && <ReplyForm />}
+        {showReplyForm && <ReplyForm setReplies={setReplies}/>}
         {/* Toggle replies */}
         {!showReplies && comment?.replies?.length > 0 && (
           <button className="w-full text-center text-sm opacity-70" onClick={() => fetchReplies()}>
