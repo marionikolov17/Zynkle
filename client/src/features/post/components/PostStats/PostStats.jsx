@@ -22,7 +22,7 @@ export default function PostStats() {
 
   const user = useSelector((state) => state.user);
 
-  const { post, onLike } = useContext(PostContext);
+  const { post, onLike, onDislike, onSave, onUnsave } = useContext(PostContext);
 
   const like = useLikePost();
   const dislike = useDislikePost();
@@ -44,8 +44,8 @@ export default function PostStats() {
   const handleDislikeButton = async () => {
     setIsLoading(true);
     try {
-      await like(post?._id);
-      onLike(user._id);
+      await dislike(post?._id);
+      onDislike(user._id);
     } catch (error) {
       console.log(error);
     } finally {
