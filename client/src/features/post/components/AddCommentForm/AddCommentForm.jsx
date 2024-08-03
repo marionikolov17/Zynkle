@@ -13,7 +13,8 @@ export default function AddCommentForm({ onCreateComment, postId }) {
 
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    setValue
   } = useForm();
 
   const createComment = useCreateComment();
@@ -24,6 +25,7 @@ export default function AddCommentForm({ onCreateComment, postId }) {
       const comment = await createComment(postId, data);
 
       onCreateComment({...comment, creator: { _id: user._id, username: user.username, profilePicture: user.profilePicture }});
+      setValue("text", "");
     } catch (error) {
       setError(error.message);
     } finally {

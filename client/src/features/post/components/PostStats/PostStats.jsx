@@ -15,7 +15,6 @@ import {
   useSavePost,
   useUnsavePost,
 } from "../../../../entities/posts/hooks/usePost";
-import Loader from "../../../../shared/components/Loader/Loader";
 
 export default function PostStats() {
   const [isLoading, setIsLoading] = useState(false);
