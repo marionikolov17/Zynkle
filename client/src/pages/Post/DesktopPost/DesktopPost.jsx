@@ -49,7 +49,7 @@ export default function DesktopPost() {
                     <MdOutlineDelete className="text-red-500 text-2xl ms-4" />
                   </button>
                 }
-                <Link to="/" className="absolute end-0 me-4 my-auto">
+                <Link to={`/profile/${post?.creator?._id}`} className="absolute end-0 me-4 my-auto">
                   <IoMdClose className="text-xl" />
                 </Link>
               </div>
