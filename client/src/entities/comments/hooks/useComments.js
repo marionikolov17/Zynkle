@@ -27,5 +27,31 @@ export const useGetPostComments = (postId) => {
         })
     }
 
-    return { comments, commentsLoading, commentsError, onCreateComment }
+    const onLikeComment = (commentId, userId) => {
+        setComments(comments => {
+            const newComments = comments.map(comment => {
+                if (comment?._id == commentId) {
+                    comment?.likedBy?.push(userId);
+                }
+
+                return comment
+            });
+
+            return newComments;
+        })
+    }
+
+    return { comments, commentsLoading, commentsError, onCreateComment, onLikeComment }
+}
+
+export const useLikeComment = () => {
+    const likeComment = async (commentId, userId) => {
+        try {
+
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    return likeComment;
 }
