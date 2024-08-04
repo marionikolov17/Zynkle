@@ -47,12 +47,15 @@ export default function Reply({ reply, setReplies }) {
 
   return (
     <>
-      {isLoading && 
+      
+      {isLoading && (
         <div className="flex w-full justify-center">
           <div className="loader"></div>
         </div>
-      }
+      )}
       <div className="flex w-full ps-6 sm:ps-12 my-4">
+        {" "}
+        {/* flex */}
         <div className="ps-6">
           {" "}
           {/* Reply Owner Image */}
