@@ -14,7 +14,7 @@ const generateToken = async (session: Session) => {
   return await jwt.sign(
     { _id: session._id, sessionId: session.sessionId },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "20m" }
+    { expiresIn: "30d" }
   );
 };
 

@@ -47,12 +47,12 @@ export const createTokensAndSession = async (_id: Types.ObjectId) => {
     _id,
     session.sessionId,
     process.env.ACCESS_TOKEN_SECRET,
-    "20m"
+    "30d"
   );
   const refreshToken = await generateRefreshToken(
     session.sessionId,
     process.env.REFRESH_TOKEN_SECRET,
-    "40m"
+    "60d"
   );
   return [accessToken, refreshToken, session];
 }
