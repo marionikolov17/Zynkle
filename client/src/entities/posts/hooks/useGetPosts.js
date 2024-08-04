@@ -28,7 +28,7 @@ export default function useGetPosts(pageNumber) {
     })();
   }, [pageNumber]);
 
-  const onLikePost = (postId, userId) => {
+  const onLike = (postId, userId) => {
     setPosts(posts => {
         const newPosts = posts.map(post => {
             if (post?._id == postId) {
@@ -42,7 +42,7 @@ export default function useGetPosts(pageNumber) {
     })
   }
 
-  const onDislikePost = (postId, userId) => {
+  const onDislike = (postId, userId) => {
     setPosts(posts => {
         const newPosts = posts.map(post => {
             if (post?._id == postId) {
@@ -57,7 +57,7 @@ export default function useGetPosts(pageNumber) {
     })
   }
 
-  const onSavePost = (postId, userId) => {
+  const onSave = (postId, userId) => {
     setPosts(posts => {
         const newPosts = posts.map(post => {
             if (post?._id == postId) {
@@ -71,7 +71,7 @@ export default function useGetPosts(pageNumber) {
     })
   }
 
-  const onUnsavePost = (postId, userId) => {
+  const onUnsave = (postId, userId) => {
     setPosts(posts => {
         const newPosts = posts.map(post => {
             if (post?._id == postId) {
@@ -86,5 +86,5 @@ export default function useGetPosts(pageNumber) {
     })
   }
 
-  return { posts, loading, error, setError, hasMore, onLikePost, onDislikePost, onSavePost, onUnsavePost };
+  return { posts, loading, error, setError, hasMore, onLike, onDislike, onSave, onUnsave };
 }

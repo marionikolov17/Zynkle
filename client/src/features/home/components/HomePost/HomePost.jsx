@@ -9,103 +9,177 @@ import ProfilePicture from "../../../../shared/components/ProfilePicture/Profile
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { FaBookmark, FaHeart } from "react-icons/fa";
+import {
+  useDislikePost,
+  useLikePost,
+  useSavePost,
+  useUnsavePost,
+} from "../../../../entities/posts/hooks/usePost";
+import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
 
-export default function HomePost({ post, innerRef }) {
+export default function HomePost({
+  post,
+  innerRef,
+  onLike,
+  onDislike,
+  onSave,
+  onUnsave,
+}) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const [imageLoading, setImageLoading] = useState(true);
 
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
 
-  const handleLikeButton = async () => {}
+  const like = useLikePost();
+  const dislike = useDislikePost();
+  const save = useSavePost();
+  const unsave = useUnsavePost();
 
-  const handleDislikeButton = async () => {}
+  const handleLikeButton = async () => {
+    setIsLoading(true);
+    try {
+      await like(post?._id);
+      onLike(post?._id, user._id);
+    } catch (error) {
+      setError("Error: Could not like");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  const handleSaveButton = async () => {}
+  const handleDislikeButton = async () => {
+    setIsLoading(true);
+    try {
+      await dislike(post?._id);
+      onDislike(post?._id, user._id);
+    } catch (error) {
+      setError("Error: Could not dislike");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  const handleUnsaveButton = async () => {}
+  const handleSaveButton = async () => {
+    setIsLoading(true);
+    try {
+      await save(post?._id);
+      onSave(post?._id, user._id);
+    } catch (error) {
+      setError("Error: Could not save");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleUnsaveButton = async () => {
+    setIsLoading(true);
+    try {
+      await unsave(post?._id);
+      onUnsave(post?._id, user._id);
+    } catch (error) {
+      setError("Error: Could not unsave");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <div
-      ref={innerRef}
-      className="w-full flex justify-center mt-1 mb-0 sm:mt-3 sm:mb-5"
-    >
-      <div className="w-[600px] shrink sm:border sm:rounded-lg block py-3 sm:py-4">
-        {/* Author's info */}
-        <div className="w-full flex align-middle px-4">
-          <ProfilePicture
-            imageUrl={post?.creator?.profilePicture}
-            profileId={post?.creator?._id}
-            className="w-10 h-10"
-          />
-          <p className="my-auto mx-2 font-bold">{post?.creator?.username}</p>
-          <p className="my-auto text-sm opacity-60">
-            {moment(post?.createdAt).fromNow()}
-          </p>
-        </div>
-        {/* Description */}
-        {post?.description && (
-          <div className="mt-2 sm:mt-4 px-4">
-            <p className="text-sm sm:text-base">{post?.description}</p>
+    <>
+      {error && <ErrorToast error={error} setError={setError}/>}
+      <div
+        ref={innerRef}
+        className="w-full flex justify-center mt-1 mb-0 sm:mt-3 sm:mb-5"
+      >
+        <div className="w-[600px] shrink sm:border sm:rounded-lg block py-3 sm:py-4">
+          {/* Author's info */}
+          <div className="w-full flex align-middle px-4">
+            <ProfilePicture
+              imageUrl={post?.creator?.profilePicture}
+              profileId={post?.creator?._id}
+              className="w-10 h-10"
+            />
+            <p className="my-auto mx-2 font-bold">{post?.creator?.username}</p>
+            <p className="my-auto text-sm opacity-60">
+              {moment(post?.createdAt).fromNow()}
+            </p>
           </div>
-        )}
-        {/* Image */}
-        <div
-          className={
-            !imageLoading
-              ? "w-full max-h-max mt-2 sm:mt-4 p-0 sm:px-4"
-              : "w-full h-[350px] mt-2 sm:mt-4 p-0 sm:px-4 skeleton-loading"
-          }
-        >
-          <img
-            className="object-cover cursor-pointer"
-            src={post?.imageUri}
-            onLoad={() => setImageLoading(false)}
-            onClick={() => navigate(`/post/${post?._id}`)}
-            alt=""
-          />
-        </div>
-        {/* Action buttons */}
-        <div className="w-full flex justify-around align-middle mt-2 sm:mt-4 px-4">
-          <div className="flex grow justify-start">
-            {!post?.likedBy?.includes(user._id) ? (
-              <CiHeart
-                className="text-3xl cursor-pointer"
-                onClick={() => handleLikeButton()}
-              />
-            ) : (
-              <FaHeart
-                className="text-2xl cursor-pointer text-mainGreen"
-                onClick={() => handleDislikeButton()}
-              />
+          {/* Description */}
+          {post?.description && (
+            <div className="mt-2 sm:mt-4 px-4">
+              <p className="text-sm sm:text-base">{post?.description}</p>
+            </div>
+          )}
+          {/* Image */}
+          <div
+            className={
+              !imageLoading
+                ? "w-full max-h-max mt-2 sm:mt-4 p-0 sm:px-4"
+                : "w-full h-[350px] mt-2 sm:mt-4 p-0 sm:px-4 skeleton-loading"
+            }
+          >
+            <img
+              className="object-cover cursor-pointer"
+              src={post?.imageUri}
+              onLoad={() => setImageLoading(false)}
+              onClick={() => navigate(`/post/${post?._id}`)}
+              alt=""
+            />
+          </div>
+          {/* Action buttons */}
+          <div className="w-full flex justify-around align-middle mt-2 sm:mt-4 px-4">
+            {isLoading && (
+              <div className="w-full flex justify-center">
+                <div className="loader"></div>
+              </div>
             )}
-            <Link to={`/post/${post?._id}`}>
-              <AiOutlineComment className="ms-4 text-3xl cursor-pointer" />
-            </Link>
-            <PiShareFat className="ms-4 text-3xl cursor-pointer" />
+            <div className="flex grow justify-start">
+              {!post?.likedBy?.includes(user._id) ? (
+                <CiHeart
+                  className="text-3xl cursor-pointer"
+                  onClick={() => handleLikeButton()}
+                />
+              ) : (
+                <FaHeart
+                  className="text-2xl cursor-pointer text-mainGreen"
+                  onClick={() => handleDislikeButton()}
+                />
+              )}
+              <Link to={`/post/${post?._id}`}>
+                <AiOutlineComment className="ms-4 text-3xl cursor-pointer" />
+              </Link>
+              <PiShareFat className="ms-4 text-3xl cursor-pointer" />
+            </div>
+            <div className="flex grow justify-end">
+              {post?.savedBy?.includes(user._id) ? (
+                <FaBookmark
+                  className="text-2xl text-black cursor-pointer"
+                  onClick={() => handleUnsaveButton()}
+                />
+              ) : (
+                <CiBookmark
+                  className="text-3xl cursor-pointer"
+                  onClick={() => handleSaveButton()}
+                />
+              )}
+            </div>
           </div>
-          <div className="flex grow justify-end">
-          {post?.savedBy?.includes(user._id) ? (
-              <FaBookmark
-                className="text-2xl text-black cursor-pointer"
-                onClick={() => handleUnsaveButton()}
-              />
-            ) : (
-              <CiBookmark
-                className="text-3xl cursor-pointer"
-                onClick={() => handleSaveButton()}
-              />
+          {/* Post Stats */}
+          <div className="mt-2 block px-4">
+            <p className="text-sm font-bold">{post?.likedBy?.length} likes</p>
+            {post?.comments?.length > 0 && (
+              <Link
+                to={`/post/${post?._id}`}
+                className="text-sm mt-1 opacity-50"
+              >
+                View all {post?.comments?.length} comments
+              </Link>
             )}
           </div>
-        </div>
-        {/* Post Stats */}
-        <div className="mt-2 block px-4">
-          <p className="text-sm font-bold">{post?.likedBy?.length} likes</p>
-          <Link to={`/post/${post?._id}`} className="text-sm mt-1 opacity-50">
-            View all {post?.comments?.length} comments
-          </Link>
         </div>
       </div>
-    </div>
+    </>
   );
 }
