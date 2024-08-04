@@ -27,5 +27,5 @@ export default function useGetPosts(pageNumber) {
     })();
   }, [pageNumber]);
 
-  return { posts, loading, error, hasMore };
+  return { posts, loading, error, setError, hasMore };
 }

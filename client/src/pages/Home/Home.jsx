@@ -6,12 +6,40 @@ import HomePost from "../../features/home/components/HomePost/HomePost";
 import NoPosts from "../../features/home/components/NoPosts/NoPosts";
 import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 import TopCreators from "../../features/home/components/TopCreators/TopCreators";
+import { useCallback, useRef, useState } from "react";
+import useGetPosts from "../../entities/posts/hooks/useGetPosts";
+import ErrorToast from "../../shared/components/ErrorToast/ErrorToast";
 
 export default function Home() {
   const user = useSelector(state => state.user);
 
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const {
+    posts,
+    loading,
+    error,
+    setError,
+    hasMore
+  } = useGetPosts(pageNumber);
+
+  const observer = useRef();
+  const lastPostElementRef = useCallback(node => {
+    if (loading) return;
+    if (observer.current) observer.current.disconnect()
+
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setPageNumber(prevPageNumber => prevPageNumber + 1)
+      }
+    });
+
+    if (node) observer.current.observe(node);
+  }, [loading, hasMore])
+
   return (
     <>
+      {error && <ErrorToast error={error} setError={setError}/>}
       {/* Content section */}
       <section className="max-h-max min-h-full flex-auto grow lg:border-e-2 border-slate-200 block overflow-x-hidden overflow-y-scroll no-scrollbar">
         <header className="flex justify-center py-10 border-b-2 sm:border-b-0">
@@ -22,9 +50,18 @@ export default function Home() {
         </header>
         <div className="block">
           {/* Posts wrapper */}
-          <HomePost />
-          <HomePost />
-          <NoPosts />
+          {loading && 
+            <div className="w-full flex justify-center">
+              <div className="loader"></div>
+            </div>
+          }
+          {posts.map((post, index) => {
+            if (posts?.length == index + 1) {
+              return <HomePost innerRef={lastPostElementRef} key={index} post={post}/>
+            }
+            return <HomePost key={index} post={post}/>
+          })}
+          {!hasMore && <NoPosts />}
         </div>
       </section>
       <section className="hidden lg:block flex-auto shrink grow-0 w-[25%] sticky top-0">
