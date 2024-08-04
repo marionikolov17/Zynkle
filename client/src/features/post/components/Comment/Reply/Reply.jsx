@@ -10,7 +10,7 @@ import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import ProfilePicture from "../../../../../shared/components/ProfilePicture/ProfilePicture";
 import useDislikeReply from "../../../../../entities/replies/hooks/useDislikeReply";
-import ReplyConfirmWindow from "../../ReplyConfirmWindow/ReplyConfirmWindow";
+import ConfirmBlock from "../../ConfirmBlock/ConfirmBlock";
 import useDeleteReply from "../../../../../entities/replies/hooks/useDeleteReply";
 import ErrorToast from "../../../../../shared/components/ErrorToast/ErrorToast";
 
@@ -59,28 +59,35 @@ export default function Reply({ reply, setReplies, setTotalReplies }) {
 
       onDeleteReply(setReplies, reply?._id);
 
-      setTotalReplies(currentValue => currentValue - 1);
+      setTotalReplies((currentValue) => currentValue - 1);
     } catch (error) {
       setError(error.message);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   const onCancelDelete = () => {
     setShowConfirm(false);
-  }
+  };
 
   return (
     <>
-      {error && <ErrorToast text={error}/>}
-      {showConfirm && <ReplyConfirmWindow handler={handleDeleteReply} cancel={onCancelDelete} />}
+      {error && <ErrorToast text={error} />}
+      {showConfirm && (
+        <ConfirmBlock
+          handler={handleDeleteReply}
+          cancel={onCancelDelete}
+        />
+      )}
       {isLoading && (
         <div className="flex w-full justify-center">
           <div className="loader"></div>
         </div>
       )}
-      <div className={!showConfirm ? "flex w-full ps-6 sm:ps-12 my-4" : "hidden"}>
+      <div
+        className={!showConfirm ? "flex w-full ps-6 sm:ps-12 my-4" : "hidden"}
+      >
         {" "}
         {/* flex */}
         <div className="ps-6">
@@ -109,7 +116,12 @@ export default function Reply({ reply, setReplies, setTotalReplies }) {
             </p>
             {(reply?.creator?._id == user._id ||
               post?.creator?._id == user._id) && (
-              <button className="text-xs lg:text-sm ms-4" onClick={() => setShowConfirm(true)}>Delete</button>
+              <button
+                className="text-xs lg:text-sm ms-4"
+                onClick={() => setShowConfirm(true)}
+              >
+                Delete
+              </button>
             )}
           </div>
         </div>

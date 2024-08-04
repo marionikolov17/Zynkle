@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
-export default function ReplyConfirmWindow({ handler, cancel }) {
+export default function ConfirmBlock({ handler, cancel }) {
   return (
     <>
       <div className="flex w-full justify-center items-center my-4">
