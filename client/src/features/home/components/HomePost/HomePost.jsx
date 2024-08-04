@@ -16,6 +16,7 @@ import {
   useUnsavePost,
 } from "../../../../entities/posts/hooks/usePost";
 import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
+import MessageToast from "../../../../shared/components/MessageToast/MessageToast";
 
 export default function HomePost({
   post,
@@ -28,6 +29,7 @@ export default function HomePost({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [imageLoading, setImageLoading] = useState(true);
+  const [showCopiedLink, setShowCopiedLink] = useState(false);
 
   const navigate = useNavigate();
 
@@ -86,6 +88,14 @@ export default function HomePost({
     }
   };
 
+  const handleShareButton = () => {
+    const sharedUrl = window.location.href + `post/${post?._id}`;
+    console.log(sharedUrl);
+    setShowCopiedLink(true);
+  }
+
+  const closeCopiedLinkPopup = () => setShowCopiedLink(false);
+
   return (
     <>
       {error && <ErrorToast error={error} setError={setError}/>}
@@ -93,6 +103,7 @@ export default function HomePost({
         ref={innerRef}
         className="w-full flex justify-center mt-1 mb-0 sm:mt-3 sm:mb-5"
       >
+        {showCopiedLink && <MessageToast message="Link copied." close={closeCopiedLinkPopup}/>}
         <div className="w-[600px] shrink sm:border sm:rounded-lg block py-3 sm:py-4">
           {/* Author's info */}
           <div className="w-full flex align-middle px-4">
@@ -150,7 +161,7 @@ export default function HomePost({
               <Link to={`/post/${post?._id}`}>
                 <AiOutlineComment className="ms-4 text-3xl cursor-pointer" />
               </Link>
-              <PiShareFat className="ms-4 text-3xl cursor-pointer" />
+              <PiShareFat onClick={() => handleShareButton()} className="ms-4 text-3xl cursor-pointer" />
             </div>
             <div className="flex grow justify-end">
               {post?.savedBy?.includes(user._id) ? (
