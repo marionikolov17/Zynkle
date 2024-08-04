@@ -10,9 +10,14 @@ import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import ProfilePicture from "../../../../../shared/components/ProfilePicture/ProfilePicture";
 import useDislikeReply from "../../../../../entities/replies/hooks/useDislikeReply";
+import ReplyConfirmWindow from "../../ReplyConfirmWindow/ReplyConfirmWindow";
+import useDeleteReply from "../../../../../entities/replies/hooks/useDeleteReply";
+import ErrorToast from "../../../../../shared/components/ErrorToast/ErrorToast";
 
-export default function Reply({ reply, setReplies }) {
+export default function Reply({ reply, setReplies, setTotalReplies }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const user = useSelector((state) => state.user);
 
@@ -20,6 +25,8 @@ export default function Reply({ reply, setReplies }) {
 
   const { likeReply, onLikeReply } = useLikeReply();
   const { dislikeReply, onDisikeReply } = useDislikeReply();
+
+  const { deleteReply, onDeleteReply } = useDeleteReply();
 
   const handleLikeReply = async () => {
     setIsLoading(true);
@@ -45,15 +52,35 @@ export default function Reply({ reply, setReplies }) {
     }
   };
 
+  const handleDeleteReply = async () => {
+    setIsLoading(true);
+    try {
+      await deleteReply(post?._id, reply?._id);
+
+      onDeleteReply(setReplies, reply?._id);
+
+      setTotalReplies(currentValue => currentValue - 1);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const onCancelDelete = () => {
+    setShowConfirm(false);
+  }
+
   return (
     <>
-      
+      {error && <ErrorToast text={error}/>}
+      {showConfirm && <ReplyConfirmWindow handler={handleDeleteReply} cancel={onCancelDelete} />}
       {isLoading && (
         <div className="flex w-full justify-center">
           <div className="loader"></div>
         </div>
       )}
-      <div className="flex w-full ps-6 sm:ps-12 my-4">
+      <div className={!showConfirm ? "flex w-full ps-6 sm:ps-12 my-4" : "hidden"}>
         {" "}
         {/* flex */}
         <div className="ps-6">
@@ -82,7 +109,7 @@ export default function Reply({ reply, setReplies }) {
             </p>
             {(reply?.creator?._id == user._id ||
               post?.creator?._id == user._id) && (
-              <button className="text-xs lg:text-sm ms-4">Delete</button>
+              <button className="text-xs lg:text-sm ms-4" onClick={() => setShowConfirm(true)}>Delete</button>
             )}
           </div>
         </div>

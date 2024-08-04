@@ -182,7 +182,7 @@ export default function Comment({ comment }) {
         {showReplies && (
           <div>
             {replies?.map((reply) => (
-              <Reply reply={reply} setReplies={setReplies} key={reply?._id} />
+              <Reply reply={reply} setReplies={setReplies} key={reply?._id} setTotalReplies={setTotalReplies} />
             ))}
           </div>
         )}
