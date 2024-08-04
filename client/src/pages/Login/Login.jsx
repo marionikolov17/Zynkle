@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import FormErrorMessage from "../../shared/components/FormErrorMessage/FormErrorMessage";
 import useLogin from "../../entities/users/hooks/useLogin";
 import Loader from "../../shared/components/Loader/Loader";
 
 export default function Login() {
+  const user = useSelector(state => state.user);
+
   const {
     register,
     handleSubmit,
@@ -30,6 +33,7 @@ export default function Login() {
 
   return (
     <>
+      {user.isAuthenticated && <Navigate to="/"/>}
       {isLoading && <Loader />}
       <main className="min-h-full w-full absolute top-0 flex justify-center items-center font-montserrat bg-mainWhite">
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
