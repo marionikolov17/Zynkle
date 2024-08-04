@@ -27,6 +27,13 @@ export const useGetPostComments = (postId) => {
         })
     }
 
+    const onDeleteComment = (commentId) => {
+        setComments(comments => {
+            const newComments = comments?.filter(comment => comment?._id != commentId);
+            return newComments;
+        })
+    }
+
     const onLikeComment = (commentId, userId) => {
         setComments(comments => {
             const newComments = comments.map(comment => {
@@ -56,7 +63,7 @@ export const useGetPostComments = (postId) => {
         })
     }
 
-    return { comments, commentsLoading, commentsError, onCreateComment, onLikeComment, onDislikeComment }
+    return { comments, commentsLoading, commentsError, onCreateComment, onLikeComment, onDislikeComment, onDeleteComment }
 }
 
 export const useLikeComment = () => {
