@@ -7,8 +7,11 @@ import { PiShareFat } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import ProfilePicture from "../../../../shared/components/ProfilePicture/ProfilePicture";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 export default function HomePost({ post, innerRef }) {
+    const [imageLoading, setImageLoading] = useState(true);
+
     const user = useSelector(state => state.user);
 
     return (
@@ -25,11 +28,13 @@ export default function HomePost({ post, innerRef }) {
                     <p className="text-sm sm:text-base">{post?.description}</p>
                 </div>}
                 {/* Image */}
-                <div className="w-full max-h-max mt-2 sm:mt-4 p-0 sm:px-4">
+                <div className={!imageLoading ? "w-full max-h-max mt-2 sm:mt-4 p-0 sm:px-4" : "w-full h-[350px] mt-2 sm:mt-4 p-0 sm:px-4 skeleton-loading"}>
                     <img 
                         className="object-cover" 
                         src={post?.imageUri}
-                        alt="" />
+                        onLoad={() => setImageLoading(false)}
+                        alt="" 
+                    />
                 </div>
                 {/* Action buttons */}
                 <div className="w-full flex justify-around align-middle mt-2 sm:mt-4 px-4">
