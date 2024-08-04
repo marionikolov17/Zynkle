@@ -7,7 +7,7 @@ export default function useDeleteComment() {
 
             return;
         } catch (error) {
-            throw new Error(error.message);
+            throw new Error(error.response.data.data.message);
         }
     }
 
