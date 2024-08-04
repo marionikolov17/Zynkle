@@ -13,9 +13,13 @@ import PostContext from "../../../entities/posts/contexts/post.context";
 import Loader from "../../../shared/components/Loader/Loader";
 import { useSelector } from "react-redux";
 import ErrorToast from "../../../shared/components/ErrorToast/ErrorToast";
+import useDeletePost from "../../../entities/posts/hooks/useDeletePost";
 
 export default function DesktopPost() {
+  const [isPending, setIsPending] = useState(false);
+  const [delError, setDelError] = useState();
   const [imageLoading, setImageLoading] = useState(true);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const user = useSelector((state) => state.user);
 
@@ -29,11 +33,27 @@ export default function DesktopPost() {
     onCreateComment,
   } = useContext(PostContext);
 
+  const deletePost = useDeletePost();
+
+  const handleDeletePost = async () => {
+    setIsPending(true);
+    try {
+      await deletePost(post?._id);
+    } catch (error) {
+      setDelError(error.message);
+    } finally {
+      setIsPending(false);
+    }
+  }
+
+  const onCancelDelete = () => setShowConfirm(false);
+
   return (
     <>
       {error && <ErrorToast text={error}/>}
-      {loading && <Loader />}
-      {/* <ConfirmWindow /> */}
+      {delError && <ErrorToast text={delError}/>}
+      {loading || isPending && <Loader />}
+      {showConfirm && <ConfirmWindow handler={handleDeletePost} cancel={onCancelDelete} />}
       <main className="absolute z-10 overflow-x-hidden hidden sm:flex justify-center items-center min-h-full max-h-max w-full bg-mainWhite font-montserrat">
         <div className="grow xl:grow-0 xl:w-[75%] 2xl:w-[60%] min-h-full max-h-max">
           <div className="sm:bg-white w-full sm:h-[700px] flex flex-col sm:flex-row">
@@ -65,7 +85,7 @@ export default function DesktopPost() {
                   {post?.creator?.username}
                 </h3>
                 {post?.creator?._id == user._id && (
-                  <button>
+                  <button onClick={() => setShowConfirm(true)}>
                     <MdOutlineDelete className="text-red-500 text-2xl ms-4" />
                   </button>
                 )}
