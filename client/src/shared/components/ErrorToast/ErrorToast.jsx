@@ -4,7 +4,7 @@ import { MdError } from "react-icons/md";
 
 export default function ErrorToast({ error, setError }) {
   return (
-    <div className="fixed z-50 bottom-5">
+    <div className="fixed w-full flex justify-center z-50 bottom-5">
       <div
         id="toast-danger"
         className="flex items-center w-full max-w-xs px-4 py-2 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
