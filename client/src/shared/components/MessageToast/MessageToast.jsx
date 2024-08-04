@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 export default function MessageToast({ message, close }) {
   return (
     <div className="fixed z-50 bottom-0 flex w-full justify-center">

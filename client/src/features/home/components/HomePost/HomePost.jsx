@@ -90,7 +90,7 @@ export default function HomePost({
 
   const handleShareButton = () => {
     const sharedUrl = window.location.href + `post/${post?._id}`;
-    console.log(sharedUrl);
+    navigator.clipboard.writeText(sharedUrl);
     setShowCopiedLink(true);
   }
 
