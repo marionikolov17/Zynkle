@@ -161,7 +161,7 @@ export default function ProfileEdit() {
                       id="profilePicture" 
                     />
                   </div>
-                {imageError && <ErrorToast text={imageError}/>}
+                {imageError && <ErrorToast error={imageError} setError={setImageError}/>}
                 </div>
               </div>
             </div>

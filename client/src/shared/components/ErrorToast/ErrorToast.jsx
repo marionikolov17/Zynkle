@@ -1,13 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { MdError } from "react-icons/md";
 
-export default function ErrorToast({ text }) {
-  const [isClosed, setIsClosed] = useState(false);
-
-  if (isClosed) return;
-
+export default function ErrorToast({ error, setError }) {
   return (
     <div className="fixed z-50 bottom-5">
       <div
@@ -19,13 +14,13 @@ export default function ErrorToast({ text }) {
           <MdError />
           <span className="sr-only">Error icon</span>
         </div>
-        <div className="mx-5 text-sm font-normal">{text}</div>
+        <div className="mx-5 text-sm font-normal">{error}</div>
         <button
           type="button"
           className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
           data-dismiss-target="#toast-danger"
           aria-label="Close"
-          onClick={() => setIsClosed(true)}
+          onClick={() => setError(undefined)}
         >
           <span className="sr-only">Close</span>
           <IoCloseOutline />

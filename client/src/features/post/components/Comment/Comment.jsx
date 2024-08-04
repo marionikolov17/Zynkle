@@ -105,7 +105,7 @@ export default function Comment({ comment }) {
           <div className="loader"></div>
         </div>
       )}
-      {error && <ErrorToast text={error} />}
+      {error && <ErrorToast error={error} setError={setError} />}
       {showConfirm && <ConfirmBlock handler={handleDeleteComment} cancel={onCancelDelete} />}
       <div className={!showConfirm ? "block" : "hidden"}>
         {/* Comment */}

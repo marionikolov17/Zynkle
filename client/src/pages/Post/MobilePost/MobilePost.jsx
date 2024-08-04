@@ -38,7 +38,8 @@ export default function MobilePost() {
     try {
       await deletePost(post?._id);
     } catch (error) {
-      setDelError(error.message);
+      setShowConfirm(false);
+      setDelError("Could not delete");
     } finally {
       setIsPending(false);
     }
@@ -48,8 +49,8 @@ export default function MobilePost() {
 
   return (
     <>
-      {error && <ErrorToast text={error} />}
-      {delError && <ErrorToast text={delError} />}
+      {error && <ErrorToast error={error} />}
+      {delError && <ErrorToast error={delError} setError={setDelError} />}
       {loading || (isPending && <Loader />)}
       {showConfirm && (
         <ConfirmWindow handler={handleDeletePost} cancel={onCancelDelete} />

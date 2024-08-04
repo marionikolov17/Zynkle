@@ -73,7 +73,7 @@ export default function Reply({ reply, setReplies, setTotalReplies }) {
 
   return (
     <>
-      {error && <ErrorToast text={error} />}
+      {error && <ErrorToast error={error} setError={setError} />}
       {showConfirm && (
         <ConfirmBlock
           handler={handleDeleteReply}

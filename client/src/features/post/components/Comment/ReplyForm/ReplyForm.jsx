@@ -53,7 +53,7 @@ export default function ReplyForm({ setReplies, commentId, setShowReplyForm, set
                     <div className="loader"></div>
                 </div>
             }
-            {error && <ErrorToast text={error}/>}
+            {error && <ErrorToast error={error} setError={setError}/>}
             <form className="w-full px-6 py-2" onSubmit={handleSubmit(handleCreateReply)}>
                 <div className="flex relative w-full shadow-sm ring-1 ring-mainGreen rounded-lg">
                     <input 

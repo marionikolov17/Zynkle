@@ -3,11 +3,11 @@ import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
 import TopCreator from "../TopCreator/TopCreator";
 
 export default function TopCreators() {
-  const {creators, error, isLoading} = useGetTopCreators();
+  const {creators, error, setError, isLoading} = useGetTopCreators();
 
   return (
     <>
-      {error && <ErrorToast text="Could not get top creators"/>}
+      {error && <ErrorToast error="Could not get top creators" setError={setError}/>}
       {isLoading &&
       <div className="w-full flex justify-center mt-10">
         <div className="loader"></div>

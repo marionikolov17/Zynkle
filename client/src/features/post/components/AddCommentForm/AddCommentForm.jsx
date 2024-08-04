@@ -35,7 +35,7 @@ export default function AddCommentForm({ onCreateComment, postId }) {
 
   return (
     <>
-      {error && <ErrorToast text={error}/>}
+      {error && <ErrorToast error={error} setError={setError}/>}
       <form className="w-full flex px-4 py-3" onSubmit={handleSubmit(handleCreateComment)}>
         <input
           type="text"

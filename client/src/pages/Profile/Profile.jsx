@@ -77,7 +77,7 @@ export default function Profile() {
 
   return (
     <>
-      {hasActionError && <ErrorToast text={actionError}/>}
+      {hasActionError && <ErrorToast error={actionError} setError={setActionError}/>}
       {isLoading || isPending && <Loader />}
       <div className="grow flex justify-center">
         <div className="block w-[65%] 2xl:w-1/2 grow lg:grow-0 shrink sm:mb-0 mb-10">

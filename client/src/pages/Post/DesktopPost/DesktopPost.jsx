@@ -41,6 +41,7 @@ export default function DesktopPost() {
       await deletePost(post?._id);
     } catch (error) {
       setDelError(error.message);
+      setShowConfirm(false);
     } finally {
       setIsPending(false);
     }
@@ -50,8 +51,8 @@ export default function DesktopPost() {
 
   return (
     <>
-      {error && <ErrorToast text={error}/>}
-      {delError && <ErrorToast text={delError}/>}
+      {error && <ErrorToast error={error}/>}
+      {delError && <ErrorToast error={delError} setError={setDelError}/>}
       {loading || isPending && <Loader />}
       {showConfirm && <ConfirmWindow handler={handleDeletePost} cancel={onCancelDelete} />}
       <main className="absolute z-10 overflow-x-hidden hidden sm:flex justify-center items-center min-h-full max-h-max w-full bg-mainWhite font-montserrat">

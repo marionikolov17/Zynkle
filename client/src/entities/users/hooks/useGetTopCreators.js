@@ -12,7 +12,7 @@ export default function useGetTopCreators() {
       try {
         const response = await userService.getTopCreators();
 
-        console.log(response.data.data.users);
+        //console.log(response.data.data.users);
         setCreators(response.data.data.users);
       } catch (error) {
         setError(error);
@@ -22,5 +22,5 @@ export default function useGetTopCreators() {
     })();
   }, []);
 
-  return { creators, error, isLoading };
+  return { creators, error, setError, isLoading };
 }
