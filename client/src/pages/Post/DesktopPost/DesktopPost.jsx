@@ -78,6 +78,7 @@ export default function DesktopPost() {
               {/* Owner info */}
               <div className="flex items-center py-3 px-6 border-b relative">
                 <ProfilePicture
+                  profileId={post?.creator?._id}
                   imageUrl={post?.creator?.profilePicture}
                   className="w-10 h-10"
                 />
@@ -106,6 +107,7 @@ export default function DesktopPost() {
                       {" "}
                       {/* Comment Owner Image */}
                       <ProfilePicture
+                        profileId={post?.creator?._id}
                         imageUrl={post?.creator?.profilePicture}
                         className="w-10 h-10"
                       />

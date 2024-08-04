@@ -94,6 +94,7 @@ export default function Reply({ reply, setReplies, setTotalReplies }) {
           {" "}
           {/* Reply Owner Image */}
           <ProfilePicture
+            profileId={reply?.creator?._id}
             imageUrl={reply?.creator?.profilePicture}
             className="w-10 h-10"
           />

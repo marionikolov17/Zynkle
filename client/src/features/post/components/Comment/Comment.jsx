@@ -114,6 +114,7 @@ export default function Comment({ comment }) {
             {" "}
             {/* Comment Owner Image */}
             <ProfilePicture
+              profileId={comment?.creator?._id}
               imageUrl={comment?.creator?.profilePicture}
               className="w-10 h-10"
             />
