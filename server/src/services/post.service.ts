@@ -6,8 +6,15 @@ import replyModel from "./../models/Reply";
 
 import { uploadFileToCloud } from "./../utils/storage-upload";
 
-export const getPosts = async () =>
-  postModel.find().populate("creator", "_id username profilePicture");
+export const getPosts = async (pageNumber: number) => {
+  const postsPerPage = 3;
+
+  return postModel.find()
+                  .populate("creator", "_id username profilePicture")
+                  .sort({ "likedBy": -1 })
+                  .limit(postsPerPage)
+                  .skip(postsPerPage * pageNumber);
+}
 
 export const getPost = async (postId: Types.ObjectId) =>
   await postModel

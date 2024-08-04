@@ -18,7 +18,7 @@ router.param("postId", checkPostId);
 router.get(
   PATH.POSTS.GET_POSTS,
   tryCatch(async (req: express.Request, res: express.Response) => {
-    const posts = await postService.getPosts();
+    const posts = await postService.getPosts(+req.query.page as number || 0);
 
     res.status(200).json({
       status: RESPONSE_STATUS.SUCCESS,
