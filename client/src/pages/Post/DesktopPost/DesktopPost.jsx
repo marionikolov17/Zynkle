@@ -40,7 +40,7 @@ export default function DesktopPost() {
     try {
       await deletePost(post?._id);
     } catch (error) {
-      setDelError(error.message);
+      setDelError("Error: Could not delete post");
       setShowConfirm(false);
     } finally {
       setIsPending(false);

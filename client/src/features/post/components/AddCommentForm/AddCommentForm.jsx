@@ -27,7 +27,7 @@ export default function AddCommentForm({ onCreateComment, postId }) {
       onCreateComment({...comment, createdAt: Date.now(), creator: { _id: user._id, username: user.username, profilePicture: user.profilePicture }});
       setValue("text", "");
     } catch (error) {
-      setError(error.message);
+      setError(error.message || "Error: Could not comment");
     } finally {
       setIsLoading(false);
     }

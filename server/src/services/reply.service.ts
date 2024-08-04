@@ -78,8 +78,9 @@ const isReplyOwner = async (
   const reply = await replyModel.findById(replyId);
   const post = await postModel.findById(postId);
 
-  console.log(reply.creator, userId);
-  if (reply.creator != userId || post.creator != userId) return false;
+  if (reply.creator != userId && post.creator != userId) return false;
+  if (reply.creator == userId && post.creator != userId) return true;
+  if (reply.creator != userId && post.creator == userId) return true;
 
   return true;
 };

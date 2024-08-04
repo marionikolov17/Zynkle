@@ -74,7 +74,7 @@ export default function Comment({ comment }) {
 
       onDeleteComment(comment?._id);
     } catch (error) {
-      setError(error.message);
+      setError("Error: Could not delete");
     } finally {
       setIsLoading(false);
     }

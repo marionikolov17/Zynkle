@@ -39,7 +39,7 @@ export default function MobilePost() {
       await deletePost(post?._id);
     } catch (error) {
       setShowConfirm(false);
-      setDelError("Could not delete");
+      setDelError("Error: Could not delete post");
     } finally {
       setIsPending(false);
     }
