@@ -15,9 +15,11 @@ import {
   useSavePost,
   useUnsavePost,
 } from "../../../../entities/posts/hooks/usePost";
+import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
 
 export default function PostStats() {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   const user = useSelector((state) => state.user);
 
@@ -34,7 +36,7 @@ export default function PostStats() {
       await like(post?._id);
       onLike(user._id);
     } catch (error) {
-      console.log(error);
+      setError("Error: Could not like");
     } finally {
       setIsLoading(false);
     }
@@ -46,7 +48,7 @@ export default function PostStats() {
       await dislike(post?._id);
       onDislike(user._id);
     } catch (error) {
-      console.log(error);
+      setError("Error: Could not dislike");
     } finally {
       setIsLoading(false);
     }
@@ -58,7 +60,7 @@ export default function PostStats() {
       await save(post?._id);
       onSave(user._id);
     } catch (error) {
-      console.log(error);
+      setError("Error: Could not save");
     } finally {
       setIsLoading(false);
     }
@@ -70,7 +72,7 @@ export default function PostStats() {
       await unsave(post?._id);
       onUnsave(user._id);
     } catch (error) {
-      console.log(error);
+      setError("Error: Could not unsave");
     } finally {
       setIsLoading(false);
     }
@@ -84,6 +86,7 @@ export default function PostStats() {
             <div className="loader"></div>
           </div>
         }
+        {error && <ErrorToast error={error} setError={setError}/>}
         {/* Action buttons */}
         <div className="w-full flex justify-around align-middle px-4">
           <div className="flex grow justify-start items-center">
