@@ -8,3 +8,5 @@ export const createReply = async (data, postId, commentId) => apiService.post(PA
 export const likeReply = async (replyId) => apiService.put(PATHS.REPLIES + replyId + "/like");
 
 export const dislikeReply = async (replyId) => apiService.put(PATHS.REPLIES + replyId + "/dislike");
+
+export const deleteReply = async (postId, replyId) => apiService.del(PATHS.REPLIES + `${postId}/` + replyId);
