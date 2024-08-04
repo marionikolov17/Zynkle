@@ -16,11 +16,13 @@ import {
 import { FaHeart } from "react-icons/fa";
 import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
 import useGetReplies from "../../../../entities/replies/hooks/useGetReplies";
+import ConfirmBlock from "../ConfirmBlock/ConfirmBlock";
 
 export default function Comment({ comment }) {
   const [replies, setReplies] = useState([]);
   const [totalReplies, setTotalReplies] = useState(comment?.replies?.length);
   const [isRepliesLoading, setIsRepliesLoading] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [showReplies, setShowReplies] = useState(false);
@@ -85,7 +87,8 @@ export default function Comment({ comment }) {
         </div>
       )}
       {error && <ErrorToast text={error} />}
-      <div className="block">
+      {showConfirm && <ConfirmBlock />}
+      <div className={!showConfirm ? "block" : ""}>
         {/* Comment */}
         <div className="w-full max-h-max flex py-4">
           <div className="ps-6">

@@ -8,3 +8,5 @@ export const getPostComments = async (postId) => apiService.get(PATHS.COMMENTS +
 export const likeComment = async(commentId) => apiService.put(PATHS.COMMENTS + commentId + "/like");
 
 export const dislikeComment = async(commentId) => apiService.put(PATHS.COMMENTS + commentId + "/dislike");
+
+export const deleteComment = async (postId, commentId) => apiService.del(PATHS.COMMENTS + `${postId}/` + commentId);
