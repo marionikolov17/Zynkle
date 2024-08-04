@@ -16,10 +16,12 @@ import {
   useUnsavePost,
 } from "../../../../entities/posts/hooks/usePost";
 import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
+import MessageToast from "../../../../shared/components/MessageToast/MessageToast";
 
 export default function PostStats() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
+  const [showCopiedLink, setShowCopiedLink] = useState(false);
 
   const user = useSelector((state) => state.user);
 
@@ -78,8 +80,19 @@ export default function PostStats() {
     }
   };
 
+  const handleShareButton = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setShowCopiedLink(true);
+  }
+
+  const closeCopiedLinkPopup = () => setShowCopiedLink(false);
+
   return (
-    <>
+    <> 
+      {showCopiedLink && 
+      <div className="absolute w-full left-0">
+        <MessageToast close={closeCopiedLinkPopup} message="Link copied."/>
+      </div>}
       <div className="block grow-0 border-b py-3 relative">
         {isLoading && 
           <div className="absolute w-full flex justify-center z-50">
@@ -104,7 +117,7 @@ export default function PostStats() {
             <label htmlFor="commentInput">
               <AiOutlineComment className="ms-4 text-3xl cursor-pointer" />
             </label>
-            <PiShareFat className="ms-4 text-3xl cursor-pointer" />
+            <PiShareFat onClick={() => handleShareButton()} className="ms-4 text-3xl cursor-pointer" />
           </div>
           <div className="flex grow justify-end items-center">
             {post?.savedBy?.includes(user._id) ? (

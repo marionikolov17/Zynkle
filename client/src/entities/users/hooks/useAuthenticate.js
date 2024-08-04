@@ -21,10 +21,10 @@ export default function useAuthenticate() {
       try {
         const response = await userService.getCurrentUser();
 
-        dispatch(authenticate(response.data.data));
+        return dispatch(authenticate(response.data.data));
       } catch (error) {
         if (publicPathnames.includes(location.pathname)) return;
-        navigate("/login");
+        return navigate("/login");
       }
     })();
   }, [dispatch, navigate]);
