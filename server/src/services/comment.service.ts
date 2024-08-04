@@ -37,6 +37,8 @@ export const deleteComment = async (
   await commentModel.findByIdAndDelete(commentId);
   // Delete all related replies
   await replyModel.deleteMany({ commentId: commentId });
+  // Delete records from post
+  await postModel.findByIdAndUpdate(postId, { $pull: { comments: commentId } });
 };
 
 export const likeComment = async (
@@ -73,7 +75,9 @@ const isCommentOwner = async (
   const comment = await commentModel.findById(commentId);
   const post = await postModel.findById(postId);
 
-  if (comment.creator != userId || post.creator != userId) return false;
+  if (comment.creator != userId && post.creator != userId) return false;
+  if (comment.creator == userId && post.creator != userId) return true;
+  if (comment.creator != userId && post.creator == userId) return true;
 
   return true;
 };
