@@ -98,7 +98,7 @@ router.put(
 router.get(
   PATH.USERS.GET_TOP_CREATORS,
   tryCatch(async (req: express.Request, res: express.Response) => {
-    const users = await userService.getUsers();
+    const users = await userService.getTopCreators();
 
     res.status(200).json({
       status: RESPONSE_STATUS.SUCCESS,

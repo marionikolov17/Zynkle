@@ -19,8 +19,8 @@ export const getUser = async (
     .populate("savedPosts", "_id imageUri");
 }; // Must populate
 
-export const getUsers = async () => {
-  return userModel.find({}, { password: 0 });
+export const getTopCreators = async () => {
+  return userModel.find({}, { password: 0 }).sort({ "followers": -1 }).limit(5);
 };
 
 export const searchUsers = async (query: string) =>
