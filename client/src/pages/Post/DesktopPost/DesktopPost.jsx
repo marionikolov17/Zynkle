@@ -12,6 +12,7 @@ import ConfirmWindow from "../../../features/post/components/ConfirmWindow/Confi
 import PostContext from "../../../entities/posts/contexts/post.context";
 import Loader from "../../../shared/components/Loader/Loader";
 import { useSelector } from "react-redux";
+import ErrorToast from "../../../shared/components/ErrorToast/ErrorToast";
 
 export default function DesktopPost() {
   const [imageLoading, setImageLoading] = useState(true);
@@ -26,11 +27,11 @@ export default function DesktopPost() {
     commentsLoading,
     commentsError,
     onCreateComment,
-    onDeleteComment
   } = useContext(PostContext);
 
   return (
     <>
+      {error && <ErrorToast text={error}/>}
       {loading && <Loader />}
       {/* <ConfirmWindow /> */}
       <main className="absolute z-10 overflow-x-hidden hidden sm:flex justify-center items-center min-h-full max-h-max w-full bg-mainWhite font-montserrat">

@@ -12,3 +12,5 @@ export const dislikePost = async (postId) => apiService.put(PATHS.POSTS + postId
 export const savePost = async (postId) => apiService.put(PATHS.POSTS + postId + "/save");
 
 export const unsavePost = async (postId) => apiService.put(PATHS.POSTS + postId + "/unsave");
+
+export const deletePost = async (postId) => apiService.del(PATHS.POSTS + postId);
