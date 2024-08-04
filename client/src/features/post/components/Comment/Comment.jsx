@@ -17,6 +17,7 @@ import { FaHeart } from "react-icons/fa";
 import ErrorToast from "../../../../shared/components/ErrorToast/ErrorToast";
 import useGetReplies from "../../../../entities/replies/hooks/useGetReplies";
 import ConfirmBlock from "../ConfirmBlock/ConfirmBlock";
+import useDeleteComment from "../../../../entities/comments/hooks/useDeleteComment";
 
 export default function Comment({ comment }) {
   const [replies, setReplies] = useState([]);
@@ -32,10 +33,11 @@ export default function Comment({ comment }) {
 
   const user = useSelector((state) => state.user);
 
-  const { post, onLikeComment, onDislikeComment } = useContext(PostContext);
+  const { post, onLikeComment, onDislikeComment, onDeleteComment } = useContext(PostContext);
 
   const likeComment = useLikeComment();
   const dislikeComment = useDislikeComment();
+  const deleteComment = useDeleteComment();
 
   const getReplies = useGetReplies();
 
@@ -65,6 +67,23 @@ export default function Comment({ comment }) {
     }
   };
 
+  const handleDeleteComment = async () => {
+    setIsLoading(true);
+    try {
+      await deleteComment(post?._id, comment?._id);
+
+      onDeleteComment(comment?._id);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const onCancelDelete = () => {
+    setShowConfirm(false);
+  }
+
   const fetchReplies = async () => {
     setIsRepliesLoading(true);
     try {
@@ -87,8 +106,8 @@ export default function Comment({ comment }) {
         </div>
       )}
       {error && <ErrorToast text={error} />}
-      {showConfirm && <ConfirmBlock />}
-      <div className={!showConfirm ? "block" : ""}>
+      {showConfirm && <ConfirmBlock handler={handleDeleteComment} cancel={onCancelDelete} />}
+      <div className={!showConfirm ? "block" : "hidden"}>
         {/* Comment */}
         <div className="w-full max-h-max flex py-4">
           <div className="ps-6">
@@ -132,7 +151,7 @@ export default function Comment({ comment }) {
               )}
               {(comment?.creator?._id == user._id ||
                 post?.creator?._id == user._id) && (
-                <button className="text-xs lg:text-sm ms-4">Delete</button>
+                <button className="text-xs lg:text-sm ms-4" onClick={() => setShowConfirm(true)}>Delete</button>
               )}
             </div>
           </div>

@@ -26,6 +26,7 @@ export default function DesktopPost() {
     commentsLoading,
     commentsError,
     onCreateComment,
+    onDeleteComment
   } = useContext(PostContext);
 
   return (
