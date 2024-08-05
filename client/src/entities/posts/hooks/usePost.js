@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as postService from "./../services/post.service";
 
 export const useGetPost = (postId) => {
     const [post, setPost] = useState();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -14,6 +17,9 @@ export const useGetPost = (postId) => {
 
                 setPost(response.data.data);
             } catch (error) {
+                if (error.response.status == 404) {
+                    return navigate('/404');
+                }
                 setError(error);
             } finally {
                 setLoading(false);

@@ -96,9 +96,13 @@ const hasLikedComment = async (
 export const checkIfCommentExsists = async (
   commentId: Types.ObjectId
 ): Promise<boolean> => {
-  const comment = await commentModel.findById(commentId);
+  try {
+    const comment = await commentModel.findById(commentId);
 
-  if (!comment) return false;
+    if (!comment) return false;
 
-  return true;
+    return true;
+  } catch {
+    return false;
+  }
 };

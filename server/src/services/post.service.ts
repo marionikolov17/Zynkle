@@ -148,9 +148,13 @@ const hasSavedPost = async (postId: Types.ObjectId, userId: Types.ObjectId) => {
 export const checkIfPostExsists = async (
   postId: Types.ObjectId
 ): Promise<boolean> => {
-  const post = await postModel.findById(postId);
+  try {
+    const post = await postModel.findById(postId);
 
-  if (!post) return false;
+    if (!post) return false;
 
-  return true;
+    return true;
+  } catch {
+    return false;
+  }
 };
