@@ -1,6 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import axios, { CanceledError } from "axios";
 
+// Production URL = "https://zynkle-1.onrender.com/api/v1/"
+// Development URL = "http://localhost:3000/api/v1/"
 const BASE_URL = "https://zynkle-1.onrender.com/api/v1/";
 
 const axiosInstance = axios.create({
