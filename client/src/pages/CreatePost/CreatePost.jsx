@@ -141,7 +141,7 @@ export default function CreatePost() {
 
           {/* Uploaded photo visualizer */}
           {image && <div className="col-span-full mt-8">
-            <div className="relative w-full overflow-hidden max-h-max rounded-lg border-2 border-dashed border-gray-900/25">
+            <div className="relative w-full overflow-hidden max-h-[350px] rounded-lg border-2 border-dashed border-gray-900/25">
               <button className="absolute top-0 right-0 p-4" onClick={() => onImageRemove()}>
                 <MdDelete className="text-3xl text-red-700"/>
               </button>
