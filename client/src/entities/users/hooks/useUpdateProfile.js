@@ -10,6 +10,10 @@ export default function useUpdateProfile() {
 
             navigate("/profile");
         } catch (error) {
+            console.log(error)
+            if (!error.response.data.data[0]) {
+                throw new Error("Could not edit profile")
+            }
             throw new Error(error.response.data.data[0].message);
         }
     }
