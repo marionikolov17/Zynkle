@@ -16,7 +16,7 @@ const allowedImageMimeTypes = [
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 2000000 },
+  limits: { fileSize: 7000000 },
   fileFilter: function (req, file, cb) {
     if (!allowedImageMimeTypes.includes(file.mimetype)) {
         return cb(new Error("Only images are allowed"));
