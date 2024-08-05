@@ -5,6 +5,7 @@ const BASE_URL = "https://zynkle-1.onrender.com/api/v1/";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
+  timeout: 20000
 });
 
 axiosInstance.interceptors.request.use(
