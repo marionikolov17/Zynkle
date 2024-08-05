@@ -140,9 +140,9 @@ export default function HomePost({
             />
           </div>
           {/* Action buttons */}
-          <div className="w-full flex justify-around align-middle mt-2 sm:mt-4 px-4">
+          <div className="w-full flex justify-around align-middle mt-2 sm:mt-4 px-4 relative">
             {isLoading && (
-              <div className="w-full flex justify-center">
+              <div className="w-full absolute flex justify-center">
                 <div className="loader"></div>
               </div>
             )}
