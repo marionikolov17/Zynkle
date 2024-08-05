@@ -147,7 +147,7 @@ export default function CreatePost() {
               </button>
               <img 
                 src={image} 
-                className="w-full h-max"
+                className="object-cover"
                 alt="Uploaded picture" />
             </div>
           </div>}
