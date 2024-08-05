@@ -17,6 +17,7 @@ const express_config_1 = __importDefault(require("./config/express.config"));
 const auth_middleware_1 = require("./middlewares/auth.middleware");
 const error_middleware_1 = require("./middlewares/error.middleware");
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 app.use((0, cors_1.default)({
     origin: "https://zynkle-frontend.vercel.app",
     credentials: true,
