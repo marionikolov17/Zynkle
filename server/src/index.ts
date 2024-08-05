@@ -22,7 +22,7 @@ const app = express();
 app.use(cors());
 app.use(
   cors({
-    origin: "https://zynkle-frontend.vercel.app",
+    origin: "https://zynkle-frontend.vercel.app/",
     credentials: true,
   })
 );
