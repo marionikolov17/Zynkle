@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import axios, { CanceledError } from "axios";
 
-const BASE_URL = "https://zynkle-server.vercel.app/api/v1/";
+const BASE_URL = "https://zynkle-1.onrender.com/api/v1/";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
