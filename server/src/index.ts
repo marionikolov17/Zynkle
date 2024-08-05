@@ -12,7 +12,10 @@ import cors from "cors";
 import router from "./routes";
 
 import expressConfig from "./config/express.config";
-import { checkAccessToken, checkRefreshToken } from "./middlewares/auth.middleware";
+import {
+  checkAccessToken,
+  checkRefreshToken,
+} from "./middlewares/auth.middleware";
 import { errorHandler } from "./middlewares/error.middleware";
 
 const app = express();
@@ -33,8 +36,13 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
+const DB_URL =
+  process.env.NODE_ENV == "development"
+    ? `mongodb://localhost:27017/`
+    : `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.qgebwbo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
 mongoose
-  .connect("mongodb://localhost:27017/", { dbName: process.env.DB_NAME })
+  .connect(DB_URL, { dbName: process.env.DB_NAME })
   .then(() => {
     console.log("DB Connected successfully!");
     app.listen(PORT, () => {
