@@ -20,10 +20,7 @@ import { errorHandler } from "./middlewares/error.middleware";
 
 const app = express();
 
-app.use(cors({
-  origin: "https://zynkle-frontend.vercel.app",
-  credentials: true
-}));
+app.use(cors());
 
 expressConfig(app);
 
