@@ -67,7 +67,7 @@ const unfollowUser = (currentUserId, unfollowedUserId) => __awaiter(void 0, void
 exports.unfollowUser = unfollowUser;
 const isFollowedAlready = (currentUserId, relatedUserId) => __awaiter(void 0, void 0, void 0, function* () {
     const relatedUser = yield User_1.default.findById(relatedUserId);
-    if (relatedUser.followers.includes(currentUserId)) {
+    if (relatedUser === null || relatedUser === void 0 ? void 0 : relatedUser.followers.includes(currentUserId)) {
         return true;
     }
     return false;
@@ -84,4 +84,3 @@ const checkUserId = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.checkUserId = checkUserId;
-//# sourceMappingURL=user.service.js.map

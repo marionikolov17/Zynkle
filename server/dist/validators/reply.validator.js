@@ -10,4 +10,3 @@ exports.createReplyValidators = (0, express_validator_1.checkSchema)({
         }
     }
 });
-//# sourceMappingURL=reply.validator.js.map

@@ -39,4 +39,3 @@ const PATH = {
     }
 };
 exports.default = PATH;
-//# sourceMappingURL=path.constants.js.map

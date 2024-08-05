@@ -72,4 +72,3 @@ exports.updateUserValidators = (0, express_validator_1.checkSchema)({
         }
     },
 });
-//# sourceMappingURL=user.validator.js.map

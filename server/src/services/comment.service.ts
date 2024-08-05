@@ -75,9 +75,9 @@ const isCommentOwner = async (
   const comment = await commentModel.findById(commentId);
   const post = await postModel.findById(postId);
 
-  if (comment.creator != userId && post.creator != userId) return false;
-  if (comment.creator == userId && post.creator != userId) return true;
-  if (comment.creator != userId && post.creator == userId) return true;
+  if (comment?.creator != userId && post?.creator != userId) return false;
+  if (comment?.creator == userId && post?.creator != userId) return true;
+  if (comment?.creator != userId && post?.creator == userId) return true;
 
   return true;
 };
@@ -88,7 +88,7 @@ const hasLikedComment = async (
 ): Promise<boolean> => {
   const comment = await commentModel.findById(commentId);
 
-  if (comment.likedBy.includes(userId as any)) return true;
+  if (comment?.likedBy.includes(userId as any)) return true;
 
   return false;
 };

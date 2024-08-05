@@ -56,17 +56,17 @@ exports.dislikeComment = dislikeComment;
 const isCommentOwner = (postId, commentId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     const comment = yield Comment_1.default.findById(commentId);
     const post = yield Post_1.default.findById(postId);
-    if (comment.creator != userId && post.creator != userId)
+    if ((comment === null || comment === void 0 ? void 0 : comment.creator) != userId && (post === null || post === void 0 ? void 0 : post.creator) != userId)
         return false;
-    if (comment.creator == userId && post.creator != userId)
+    if ((comment === null || comment === void 0 ? void 0 : comment.creator) == userId && (post === null || post === void 0 ? void 0 : post.creator) != userId)
         return true;
-    if (comment.creator != userId && post.creator == userId)
+    if ((comment === null || comment === void 0 ? void 0 : comment.creator) != userId && (post === null || post === void 0 ? void 0 : post.creator) == userId)
         return true;
     return true;
 });
 const hasLikedComment = (commentId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     const comment = yield Comment_1.default.findById(commentId);
-    if (comment.likedBy.includes(userId))
+    if (comment === null || comment === void 0 ? void 0 : comment.likedBy.includes(userId))
         return true;
     return false;
 });
@@ -82,4 +82,3 @@ const checkIfCommentExsists = (commentId) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.checkIfCommentExsists = checkIfCommentExsists;
-//# sourceMappingURL=comment.service.js.map

@@ -93,7 +93,7 @@ const isFollowedAlready = async (
 ): Promise<boolean> => {
   const relatedUser = await userModel.findById(relatedUserId);
 
-  if (relatedUser.followers.includes(currentUserId as any)) {
+  if (relatedUser?.followers.includes(currentUserId as any)) {
     return true;
   }
 

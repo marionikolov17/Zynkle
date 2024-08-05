@@ -42,4 +42,3 @@ const logoutUser = (sessionId, token) => {
     (0, invalid_tokens_1.invalidateAccessToken)(token);
 };
 exports.logoutUser = logoutUser;
-//# sourceMappingURL=auth.service.js.map

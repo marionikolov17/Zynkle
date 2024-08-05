@@ -10,7 +10,7 @@ import {
 
 const appnValidationResult: ResultFactory<IValidationException> =
   validationResult.withDefaults({
-    formatter: (error: FieldValidationError) => {
+    formatter: (error: any) => {
       return { message: error.msg as string, field: error.path as string };
     },
   });

@@ -6,4 +6,3 @@ const RESPONSE_STATUS = {
     ERROR: "error"
 };
 exports.default = RESPONSE_STATUS;
-//# sourceMappingURL=response-statuses.constants.js.map

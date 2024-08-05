@@ -47,7 +47,7 @@ const params_middleware_1 = require("./../middlewares/params.middleware");
 const router = express_1.default.Router();
 router.param("postId", params_middleware_1.checkPostId);
 router.get(path_constants_1.default.POSTS.GET_POSTS, (0, tryCatch_1.tryCatch)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const posts = yield postService.getPosts(+req.query.page || 0);
+    const posts = yield postService.getPosts(Number(req.query.page) || 0);
     res.status(200).json({
         status: response_statuses_constants_1.default.SUCCESS,
         data: posts
@@ -115,4 +115,3 @@ router.put(path_constants_1.default.POSTS.UNSAVE_POST, auth_middleware_1.isAuth,
     });
 })));
 exports.default = router;
-//# sourceMappingURL=post.controller.js.map

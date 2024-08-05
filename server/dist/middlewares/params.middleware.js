@@ -89,4 +89,3 @@ const checkUserId = (req, res, next, value) => __awaiter(void 0, void 0, void 0,
     next();
 });
 exports.checkUserId = checkUserId;
-//# sourceMappingURL=params.middleware.js.map

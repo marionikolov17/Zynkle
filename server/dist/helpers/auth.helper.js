@@ -66,4 +66,3 @@ const createTokensAndSession = (_id) => __awaiter(void 0, void 0, void 0, functi
     return [accessToken, refreshToken, session];
 });
 exports.createTokensAndSession = createTokensAndSession;
-//# sourceMappingURL=auth.helper.js.map

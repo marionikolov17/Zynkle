@@ -34,4 +34,3 @@ const replySchema = new mongoose_1.default.Schema({
 });
 const replyModel = mongoose_1.default.model("Reply", replySchema);
 exports.default = replyModel;
-//# sourceMappingURL=Reply.js.map

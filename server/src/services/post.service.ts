@@ -121,7 +121,7 @@ const isPostOwner = async (
 ): Promise<boolean> => {
   const post = await postModel.findById(postId);
 
-  if (post.creator != userId) return false;
+  if (post?.creator != userId) return false;
 
   return true;
 };
@@ -132,7 +132,7 @@ const hasLikedPost = async (
 ): Promise<boolean> => {
   const post = await postModel.findById(postId);
 
-  if (post.likedBy.includes(userId as any)) return true;
+  if (post?.likedBy.includes(userId as any)) return true;
 
   return false;
 };
@@ -140,7 +140,7 @@ const hasLikedPost = async (
 const hasSavedPost = async (postId: Types.ObjectId, userId: Types.ObjectId) => {
   const post = await postModel.findById(postId);
 
-  if (post.savedBy.includes(userId as any)) return true;
+  if (post?.savedBy.includes(userId as any)) return true;
 
   return false;
 };

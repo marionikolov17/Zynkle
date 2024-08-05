@@ -78,9 +78,9 @@ const isReplyOwner = async (
   const reply = await replyModel.findById(replyId);
   const post = await postModel.findById(postId);
 
-  if (reply.creator != userId && post.creator != userId) return false;
-  if (reply.creator == userId && post.creator != userId) return true;
-  if (reply.creator != userId && post.creator == userId) return true;
+  if (reply?.creator != userId && post?.creator != userId) return false;
+  if (reply?.creator == userId && post?.creator != userId) return true;
+  if (reply?.creator != userId && post?.creator == userId) return true;
 
   return true;
 };
@@ -91,7 +91,7 @@ const hasLikedReply = async (
 ): Promise<boolean> => {
   const reply = await replyModel.findById(replyId);
 
-  if (reply.likedBy.includes(userId as any)) return true;
+  if (reply?.likedBy.includes(userId as any)) return true;
 
   return false;
 };

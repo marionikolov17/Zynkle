@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export const sign = (payload: string | object | Buffer, secret: jwt.Secret, options: jwt.SignOptions | undefined) => {
+export const sign = (payload: string | object | Buffer, secret: jwt.Secret | string, options: jwt.SignOptions) => {
     return new Promise((resolve, reject) => {
         jwt.sign(payload, secret, options, (err: any, payload) => {
             if (err) {

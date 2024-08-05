@@ -27,4 +27,3 @@ const tryCatch = (method) => {
     });
 };
 exports.tryCatch = tryCatch;
-//# sourceMappingURL=tryCatch.js.map

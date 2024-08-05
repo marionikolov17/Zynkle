@@ -10,4 +10,3 @@ exports.createCommentValidators = (0, express_validator_1.checkSchema)({
         }
     }
 });
-//# sourceMappingURL=comment.validator.js.map

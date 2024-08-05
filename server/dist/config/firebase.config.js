@@ -15,4 +15,3 @@ exports.firebaseConfig = {
     appId: process.env.FIREBASE_APP_ID,
     measurementId: "G-PYX3874KEV"
 };
-//# sourceMappingURL=firebase.config.js.map

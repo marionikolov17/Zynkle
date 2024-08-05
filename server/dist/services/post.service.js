@@ -87,19 +87,19 @@ const unsavePost = (postId, userId) => __awaiter(void 0, void 0, void 0, functio
 exports.unsavePost = unsavePost;
 const isPostOwner = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     const post = yield Post_1.default.findById(postId);
-    if (post.creator != userId)
+    if ((post === null || post === void 0 ? void 0 : post.creator) != userId)
         return false;
     return true;
 });
 const hasLikedPost = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     const post = yield Post_1.default.findById(postId);
-    if (post.likedBy.includes(userId))
+    if (post === null || post === void 0 ? void 0 : post.likedBy.includes(userId))
         return true;
     return false;
 });
 const hasSavedPost = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     const post = yield Post_1.default.findById(postId);
-    if (post.savedBy.includes(userId))
+    if (post === null || post === void 0 ? void 0 : post.savedBy.includes(userId))
         return true;
     return false;
 });
@@ -115,4 +115,3 @@ const checkIfPostExsists = (postId) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.checkIfPostExsists = checkIfPostExsists;
-//# sourceMappingURL=post.service.js.map

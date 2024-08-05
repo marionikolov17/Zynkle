@@ -57,4 +57,3 @@ const fileTypeValidationMiddleware = (error, req, res, next) => __awaiter(void 0
     next();
 });
 exports.fileTypeValidationMiddleware = fileTypeValidationMiddleware;
-//# sourceMappingURL=validation.middleware.js.map

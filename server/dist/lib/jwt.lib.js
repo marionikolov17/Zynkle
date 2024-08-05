@@ -31,4 +31,3 @@ const verify = (token, secret) => {
     });
 };
 exports.verify = verify;
-//# sourceMappingURL=jwt.lib.js.map

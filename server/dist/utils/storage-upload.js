@@ -53,4 +53,3 @@ const uploadFileToCloud = (file) => __awaiter(void 0, void 0, void 0, function* 
     });
 });
 exports.uploadFileToCloud = uploadFileToCloud;
-//# sourceMappingURL=storage-upload.js.map

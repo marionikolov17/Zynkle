@@ -15,7 +15,7 @@ export const verifyPassword = async (password: string, hash: string) => {
 const generateAccessToken = async (
   _id: Types.ObjectId,
   sessionId: string,
-  secret: Secret,
+  secret: Secret | string,
   expiresIn: string
 ) => {
   const payload = {
@@ -46,12 +46,12 @@ export const createTokensAndSession = async (_id: Types.ObjectId) => {
   const accessToken = await generateAccessToken(
     _id,
     session.sessionId,
-    process.env.ACCESS_TOKEN_SECRET,
+    process.env.ACCESS_TOKEN_SECRET as string,
     "30d"
   );
   const refreshToken = await generateRefreshToken(
     session.sessionId,
-    process.env.REFRESH_TOKEN_SECRET,
+    process.env.REFRESH_TOKEN_SECRET as string,
     "60d"
   );
   return [accessToken, refreshToken, session];

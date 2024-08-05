@@ -54,17 +54,17 @@ exports.dislikeReply = dislikeReply;
 const isReplyOwner = (postId, replyId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     const reply = yield Reply_1.default.findById(replyId);
     const post = yield Post_1.default.findById(postId);
-    if (reply.creator != userId && post.creator != userId)
+    if ((reply === null || reply === void 0 ? void 0 : reply.creator) != userId && (post === null || post === void 0 ? void 0 : post.creator) != userId)
         return false;
-    if (reply.creator == userId && post.creator != userId)
+    if ((reply === null || reply === void 0 ? void 0 : reply.creator) == userId && (post === null || post === void 0 ? void 0 : post.creator) != userId)
         return true;
-    if (reply.creator != userId && post.creator == userId)
+    if ((reply === null || reply === void 0 ? void 0 : reply.creator) != userId && (post === null || post === void 0 ? void 0 : post.creator) == userId)
         return true;
     return true;
 });
 const hasLikedReply = (replyId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     const reply = yield Reply_1.default.findById(replyId);
-    if (reply.likedBy.includes(userId))
+    if (reply === null || reply === void 0 ? void 0 : reply.likedBy.includes(userId))
         return true;
     return false;
 });
@@ -80,4 +80,3 @@ const checkIfReplyExsists = (replyId) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.checkIfReplyExsists = checkIfReplyExsists;
-//# sourceMappingURL=reply.service.js.map

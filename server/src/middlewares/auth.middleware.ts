@@ -13,7 +13,7 @@ const verifyToken = async (token: string, secret: Secret) => {
 const generateToken = async (session: Session) => {
   return await jwt.sign(
     { _id: session._id, sessionId: session.sessionId },
-    process.env.ACCESS_TOKEN_SECRET,
+    process.env.ACCESS_TOKEN_SECRET as Secret,
     { expiresIn: "30d" }
   );
 };
@@ -32,10 +32,10 @@ export const checkAccessToken = async (
   if (invalidAccessTokens.includes(accessToken)) return next();
 
   try {
-    req.user = await verifyToken(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    req.user = await verifyToken(accessToken, process.env.ACCESS_TOKEN_SECRET as Secret);
 
     next();
-  } catch (err) {
+  } catch (err: any) {
     if (err.name === "TokenExpiredError") {
       req.expiredAccessToken = true;
     } else {
@@ -62,7 +62,7 @@ export const checkRefreshToken = async (
   try {
     const refreshPayload = await verifyToken(
       refreshToken,
-      process.env.REFRESH_TOKEN_SECRET
+      process.env.REFRESH_TOKEN_SECRET as Secret
     );
 
     // @ts-ignore
@@ -79,8 +79,8 @@ export const checkRefreshToken = async (
     req.user = await verifyToken(newAccessToken, ACCESS_TOKEN_SECRET_KEY);
 
     next();
-  } catch (err) {
-    console.error(err.message, "- REFRESH TOKEN");
+  } catch (err: any) {
+    console.error(err?.message, "- REFRESH TOKEN");
     next();
   }
 };

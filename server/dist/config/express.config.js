@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = expressConfig;
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 function expressConfig(app) {
@@ -11,4 +10,4 @@ function expressConfig(app) {
     app.use(body_parser_1.default.json());
     return app;
 }
-//# sourceMappingURL=express.config.js.map
+exports.default = expressConfig;

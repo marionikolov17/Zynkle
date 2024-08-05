@@ -89,4 +89,3 @@ router.put(path_constants_1.default.COMMENTS.DISLIKE_COMMENT, auth_middleware_1.
     });
 })));
 exports.default = router;
-//# sourceMappingURL=comment.controller.js.map

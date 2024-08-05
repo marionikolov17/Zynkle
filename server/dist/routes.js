@@ -14,4 +14,3 @@ router.use("/posts", post_controller_1.default);
 router.use("/comments", comment_controller_1.default);
 router.use("/replies", reply_controller_1.default);
 exports.default = router;
-//# sourceMappingURL=routes.js.map

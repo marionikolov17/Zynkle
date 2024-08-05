@@ -89,7 +89,7 @@ const checkRefreshToken = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         next();
     }
     catch (err) {
-        console.error(err.message, "- REFRESH TOKEN");
+        console.error(err === null || err === void 0 ? void 0 : err.message, "- REFRESH TOKEN");
         next();
     }
 });
@@ -106,4 +106,3 @@ const isAuth = (req, res, next) => {
     next();
 };
 exports.isAuth = isAuth;
-//# sourceMappingURL=auth.middleware.js.map
