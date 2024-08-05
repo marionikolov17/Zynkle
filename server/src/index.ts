@@ -21,7 +21,7 @@ import { errorHandler } from "./middlewares/error.middleware";
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://zynkle-frontend.vercel.app",
     credentials: true,
   })
 );
