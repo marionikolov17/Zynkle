@@ -11,25 +11,13 @@ const firebase_config_1 = require("./config/firebase.config");
 exports.firebaseApp = (0, app_1.initializeApp)(firebase_config_1.firebaseConfig);
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));
 const express_config_1 = __importDefault(require("./config/express.config"));
 const auth_middleware_1 = require("./middlewares/auth.middleware");
 const error_middleware_1 = require("./middlewares/error.middleware");
 const app = (0, express_1.default)();
-// Add headers before the routes are defined
-app.use(function (req, res, next) {
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', "true");
-    // Pass to next layer of middleware
-    next();
-});
+app.use((0, cors_1.default)());
 (0, express_config_1.default)(app);
 app.use(auth_middleware_1.checkAccessToken, auth_middleware_1.checkRefreshToken);
 app.use("/api/v1", routes_1.default);
