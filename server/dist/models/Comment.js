@@ -31,7 +31,7 @@ const commentSchema = new mongoose_1.default.Schema({
     ],
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: new Date()
     }
 });
 const commentModel = mongoose_1.default.model("Comment", commentSchema);
