@@ -3,7 +3,7 @@ import axios, { CanceledError } from "axios";
 
 // Production URL = "https://zynkle-1.onrender.com/api/v1/"
 // Development URL = "http://localhost:3000/api/v1/"
-const BASE_URL = "https://zynkle-1.onrender.com/api/v1/";
+const BASE_URL = "http://localhost:3000/api/v1/";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use(
   null,
   (error) => {
     if (error instanceof CanceledError || error.message === "Network Error") {
-      return alert("server is not working!")
+      return alert("Connection error!")
       // Show maintenance page
     } 
     return Promise.reject(error);
