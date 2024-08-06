@@ -29,27 +29,23 @@ export default function Reply({ reply, setReplies, setTotalReplies }) {
   const { deleteReply, onDeleteReply } = useDeleteReply();
 
   const handleLikeReply = async () => {
-    setIsLoading(true);
+    onLikeReply(setReplies, reply?._id, user._id);
     try {
       await likeReply(reply?._id);
-      onLikeReply(setReplies, reply?._id, user._id);
     } catch (error) {
       console.log("reply like", error);
-    } finally {
-      setIsLoading(false);
-    }
+      onDisikeReply(setReplies, reply?._id, user._id);
+    } 
   };
 
   const handleDislikeReply = async () => {
-    setIsLoading(true);
+    onDisikeReply(setReplies, reply?._id, user._id);
     try {
       await dislikeReply(reply?._id);
-      onDisikeReply(setReplies, reply?._id, user._id);
     } catch (error) {
       console.log("reply dislike", error);
-    } finally {
-      setIsLoading(false);
-    }
+      onLikeReply(setReplies, reply?._id, user._id);
+    } 
   };
 
   const handleDeleteReply = async () => {
