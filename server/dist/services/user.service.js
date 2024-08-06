@@ -32,7 +32,18 @@ const getTopCreators = () => __awaiter(void 0, void 0, void 0, function* () {
     return User_1.default.find({}, { password: 0 }).sort({ "followers": -1 }).limit(5);
 });
 exports.getTopCreators = getTopCreators;
-const searchUsers = (query) => __awaiter(void 0, void 0, void 0, function* () { return User_1.default.find({ username: { $regex: query } }, { password: 0 }); });
+const searchUsers = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    let users = yield User_1.default.find({}, { password: 0 });
+    users = users.filter((user) => {
+        var _a, _b;
+        let fullName = (user === null || user === void 0 ? void 0 : user.firstName) + " " + (user === null || user === void 0 ? void 0 : user.lastName);
+        if (((_b = (_a = user === null || user === void 0 ? void 0 : user.username) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === null || _b === void 0 ? void 0 : _b.includes(query.toLowerCase())) || fullName.toLowerCase().includes(query.toLowerCase())) {
+            return true;
+        }
+        return false;
+    });
+    return users;
+});
 exports.searchUsers = searchUsers;
 const updateUser = (data, userId, file) => __awaiter(void 0, void 0, void 0, function* () {
     if (!file) {
