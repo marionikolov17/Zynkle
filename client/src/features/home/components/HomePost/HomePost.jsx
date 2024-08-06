@@ -83,9 +83,9 @@ export default function HomePost({
 
   const handleUnsaveButton = async () => {
     setIsLoading(true);
+    onUnsave(post?._id, user._id);
     try {
       await unsave(post?._id);
-      onUnsave(post?._id, user._id);
     } catch (error) {
       setError("Error: Could not unsave");
       onSave(post?._id, user._id);
