@@ -30,18 +30,20 @@ export function useGetProfile(userId) {
 
   const updateOnFollow = (followerId) => {
     setUser(currentUser => {
-      let currentFollowers = currentUser.followers;
+      const newUser = {...currentUser};
+      let currentFollowers = newUser.followers;
       currentFollowers.push(followerId);
-      currentUser.followers = currentFollowers;
-      return currentUser;
+      newUser.followers = currentFollowers;
+      return newUser;
     });
   }
 
   const updateOnUnfollow = (followerId) => {
     setUser(currentUser => {
-      let currentFollowers = currentUser.followers.filter(id => id != followerId);
-      currentUser.followers = currentFollowers;
-      return currentUser;
+      const newUser = {...currentUser};
+      let currentFollowers = newUser.followers.filter(id => id != followerId);
+      newUser.followers = currentFollowers;
+      return newUser;
     })
   }
 

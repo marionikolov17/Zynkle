@@ -38,31 +38,27 @@ export default function Profile() {
   }
 
   const onFollow = async () => {
-    setIsPending(true)
+    updateOnFollow(currentUser._id);
     try {
       await follow(userId);
       setHasActionError(false);
-      updateOnFollow(currentUser._id);
     } catch (error) {
       setHasActionError(true);
-      setActionError("An error occured")
-    } finally {
-      setIsPending(false);
-    }
+      setActionError("An error occured");
+      updateOnUnfollow(currentUser._id);
+    } 
   }
 
   const onUnfollow = async () => {
-    setIsPending(true)
+    updateOnUnfollow(currentUser._id);
     try {
       await unfollow(userId);
       setHasActionError(false);
-      updateOnUnfollow(currentUser._id);
     } catch (error) {
       setHasActionError(true);
-      setActionError("An error occured")
-    } finally {
-      setIsPending(false);
-    }
+      setActionError("An error occured");
+      updateOnFollow(currentUser._id);
+    } 
   }
 
   const handleShowPosts = () => {
@@ -77,7 +73,7 @@ export default function Profile() {
 
   return (
     <>
-      {hasActionError && <ErrorToast error={actionError} setError={setActionError}/>}
+      {actionError && <ErrorToast error={actionError} setError={setActionError}/>}
       {isLoading || isPending && <Loader />}
       <div className="grow flex justify-center">
         <div className="block w-[65%] 2xl:w-1/2 grow lg:grow-0 shrink sm:mb-0 mb-10">
