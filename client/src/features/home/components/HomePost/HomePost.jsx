@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import moment from "moment";
 
@@ -42,11 +43,12 @@ export default function HomePost({
 
   const handleLikeButton = async () => {
     setIsLoading(true);
+    onLike(post?._id, user._id);
     try {
       await like(post?._id);
-      onLike(post?._id, user._id);
     } catch (error) {
       setError("Error: Could not like");
+      onDislike(post?._id, user._id);
     } finally {
       setIsLoading(false);
     }
@@ -54,11 +56,13 @@ export default function HomePost({
 
   const handleDislikeButton = async () => {
     setIsLoading(true);
+    onDislike(post?._id, user._id);
     try {
       await dislike(post?._id);
       onDislike(post?._id, user._id);
     } catch (error) {
       setError("Error: Could not dislike");
+      onLike(post?._id, user._id);
     } finally {
       setIsLoading(false);
     }
@@ -66,11 +70,12 @@ export default function HomePost({
 
   const handleSaveButton = async () => {
     setIsLoading(true);
+    onSave(post?._id, user._id);
     try {
       await save(post?._id);
-      onSave(post?._id, user._id);
     } catch (error) {
       setError("Error: Could not save");
+      onUnsave(post?._id, user._id);
     } finally {
       setIsLoading(false);
     }
@@ -83,6 +88,7 @@ export default function HomePost({
       onUnsave(post?._id, user._id);
     } catch (error) {
       setError("Error: Could not unsave");
+      onSave(post?._id, user._id);
     } finally {
       setIsLoading(false);
     }
@@ -132,7 +138,7 @@ export default function HomePost({
             }
           >
             <img
-              className="object-cover cursor-pointer"
+              className="object-cover w-full cursor-pointer"
               src={post?.imageUri}
               onLoad={() => setImageLoading(false)}
               onClick={() => navigate(`/post/${post?._id}`)}
@@ -141,11 +147,6 @@ export default function HomePost({
           </div>
           {/* Action buttons */}
           <div className="w-full flex justify-around align-middle mt-2 sm:mt-4 px-4 relative">
-            {isLoading && (
-              <div className="w-full absolute flex justify-center">
-                <div className="loader"></div>
-              </div>
-            )}
             <div className="flex grow justify-start">
               {!post?.likedBy?.includes(user._id) ? (
                 <CiHeart

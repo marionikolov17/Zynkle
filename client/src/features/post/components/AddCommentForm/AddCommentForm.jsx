@@ -23,7 +23,7 @@ export default function AddCommentForm({ onCreateComment, postId }) {
     setIsLoading(true);
     try {
       const comment = await createComment(postId, data);
-
+      
       onCreateComment({...comment, createdAt: Date.now(), creator: { _id: user._id, username: user.username, profilePicture: user.profilePicture }});
       setValue("text", "");
     } catch (error) {

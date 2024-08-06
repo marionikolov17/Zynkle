@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use(
   null,
   (error) => {
     if (error instanceof CanceledError || error.message === "Network Error") {
-      return alert("server is not working!")
+      return alert("Connection error!")
       // Show maintenance page
     } 
     return Promise.reject(error);

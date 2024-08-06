@@ -44,27 +44,23 @@ export default function Comment({ comment }) {
   const handleLikeComment = async () => {
     if (replies?.length > 0) return; // Already fetched replies
 
-    setIsLoading(true);
+    onLikeComment(comment?._id, user._id);
     try {
       await likeComment(comment?._id);
-      onLikeComment(comment?._id, user._id);
     } catch (error) {
       setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
+      onDislikeComment(comment?._id, user._id);
+    } 
   };
 
   const handleDislikeComment = async () => {
-    setIsLoading(true);
+    onDislikeComment(comment?._id, user._id);
     try {
       await dislikeComment(comment?._id);
-      onDislikeComment(comment?._id, user._id);
     } catch (error) {
       setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
+      onLikeComment(comment?._id, user._id);
+    } 
   };
 
   const handleDeleteComment = async () => {

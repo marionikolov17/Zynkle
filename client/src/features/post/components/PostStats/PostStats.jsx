@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -34,11 +35,12 @@ export default function PostStats() {
 
   const handleLikeButton = async () => {
     setIsLoading(true);
+    onLike(user._id);
     try {
       await like(post?._id);
-      onLike(user._id);
     } catch (error) {
       setError("Error: Could not like");
+      onDislike(user._id);
     } finally {
       setIsLoading(false);
     }
@@ -46,11 +48,12 @@ export default function PostStats() {
 
   const handleDislikeButton = async () => {
     setIsLoading(true);
+    onDislike(user._id);
     try {
       await dislike(post?._id);
-      onDislike(user._id);
     } catch (error) {
       setError("Error: Could not dislike");
+      onLike(user._id);
     } finally {
       setIsLoading(false);
     }
@@ -58,11 +61,12 @@ export default function PostStats() {
 
   const handleSaveButton = async () => {
     setIsLoading(true);
+    onSave(user._id);
     try {
       await save(post?._id);
-      onSave(user._id);
     } catch (error) {
       setError("Error: Could not save");
+      onUnsave(user._id);
     } finally {
       setIsLoading(false);
     }
@@ -70,11 +74,12 @@ export default function PostStats() {
 
   const handleUnsaveButton = async () => {
     setIsLoading(true);
+    onUnsave(user._id);
     try {
       await unsave(post?._id);
-      onUnsave(user._id);
     } catch (error) {
       setError("Error: Could not unsave");
+      onSave(user._id);
     } finally {
       setIsLoading(false);
     }
@@ -94,11 +99,6 @@ export default function PostStats() {
         <MessageToast close={closeCopiedLinkPopup} message="Link copied."/>
       </div>}
       <div className="block grow-0 border-b py-3 relative">
-        {isLoading && 
-          <div className="absolute w-full flex justify-center z-50">
-            <div className="loader"></div>
-          </div>
-        }
         {error && <ErrorToast error={error} setError={setError}/>}
         {/* Action buttons */}
         <div className="w-full flex justify-around align-middle px-4">

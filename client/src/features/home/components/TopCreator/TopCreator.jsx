@@ -15,26 +15,36 @@ export default function TopCreator({ creator }) {
   const follow = useFollowProfile();
   const unfollow = useUnfollowProfile();
 
+  const updateFollowState = () => {
+    setFollowers(currentFollowers => {
+      return [...currentFollowers, user._id];
+    })
+  }
+
+  const updateUnfollowState = () => {
+    setFollowers(currentFollowers => {
+      let newFollowers = currentFollowers.filter(id => id != user._id);
+      return newFollowers;
+    })
+  }
+
   const onFollow = async () => {
+    updateFollowState();
     try {
       await follow(creator?._id);
-      setFollowers(currentFollowers => {
-        return [...currentFollowers, user._id];
-      })
     } catch (error) {
       setError("An error occured")
+      updateUnfollowState()
     } 
   }
 
   const onUnfollow = async () => {
+    updateUnfollowState();
     try {
       await unfollow(creator._id);
-      setFollowers(currentFollowers => {
-        let newFollowers = currentFollowers.filter(id => id != user._id);
-        return newFollowers;
-      })
     } catch (error) {
       setError("An error occured")
+      updateFollowState();
     } 
   }
 
