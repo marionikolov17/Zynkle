@@ -23,8 +23,20 @@ export const getTopCreators = async () => {
   return userModel.find({}, { password: 0 }).sort({ "followers": -1 }).limit(5);
 };
 
-export const searchUsers = async (query: string) =>
-  userModel.find({ username: { $regex: query } }, { password: 0 });
+export const searchUsers = async (query: string) => {
+  let users = await userModel.find({}, { password: 0 });
+
+  users = users.filter((user: any) => {
+    let fullName: string = user?.firstName + " " + user?.lastName;
+    if (user?.username?.toLowerCase()?.includes(query.toLowerCase()) || fullName.toLowerCase().includes(query.toLowerCase())) {
+      return true;
+    }
+
+    return false;
+  });
+
+  return users;
+}
 
 export const updateUser = async (
   data: Record<string, any>,
