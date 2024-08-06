@@ -11,7 +11,7 @@ export default function ProfilePicture({ className, imageUrl, profileId }) {
       <div className="absolute w-full h-full z-50 skeleton-loading flex justify-center items-center"></div>
       }
       <img
-        className="object-cover"
+        className="object-cover w-full"
         src={imageUrl}
         alt=""
         onLoad={() => setIsLoading(false)}

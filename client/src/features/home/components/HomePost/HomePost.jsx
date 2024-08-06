@@ -138,7 +138,7 @@ export default function HomePost({
             }
           >
             <img
-              className="object-cover cursor-pointer"
+              className="object-cover w-full cursor-pointer"
               src={post?.imageUri}
               onLoad={() => setImageLoading(false)}
               onClick={() => navigate(`/post/${post?._id}`)}
