@@ -14,6 +14,7 @@ import Loader from "../../../shared/components/Loader/Loader";
 import { useSelector } from "react-redux";
 import ErrorToast from "../../../shared/components/ErrorToast/ErrorToast";
 import useDeletePost from "../../../entities/posts/hooks/useDeletePost";
+import moment from "moment";
 
 export default function DesktopPost() {
   const [isPending, setIsPending] = useState(false);

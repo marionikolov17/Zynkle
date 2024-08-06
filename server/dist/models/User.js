@@ -70,7 +70,7 @@ const userSchema = new mongoose_1.default.Schema({
     ],
     createdAt: {
         type: Date,
-        default: Date.now(),
+        default: new Date(),
     },
 }, {
     virtuals: {
