@@ -18,7 +18,9 @@ const User_1 = __importDefault(require("./../models/User"));
 const invalid_tokens_1 = require("./invalid-tokens");
 const user_session_1 = require("./user.session");
 const registerUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User_1.default.findOne({ email: data === null || data === void 0 ? void 0 : data.email });
+    const user = yield User_1.default.findOne({
+        $or: [{ email: data === null || data === void 0 ? void 0 : data.email }, { username: data === null || data === void 0 ? void 0 : data.username }],
+    });
     if (user) {
         throw new Error("User already exsists");
     }
