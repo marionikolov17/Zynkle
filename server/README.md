@@ -6,10 +6,10 @@ cd server
 npm install
 ```
 2. Install [MongoDB Compass](https://www.mongodb.com/try/download/compass)
-3. In MongoDB Compass create a database called ==zynkle==
+3. In MongoDB Compass create a database called <mark>zynkle</mark>
 4. Create new [Firebase](https://firebase.google.com/) app
 5. [Follow this guide to set-up file storage](https://firebase.google.com/docs/storage/web/start)
-6. Create ==.env== file in 'server' folder
+6. Create <mark>.env</mark> file in 'server' folder
 ```
 // server/.env
 NODE_ENV=development // Always set to 'development', otherwise it will not connect to the right database and throw an error
