@@ -7,7 +7,9 @@ import { invalidateAccessToken } from "./invalid-tokens";
 import { invalidateSession } from "./user.session";
 
 export const registerUser = async (data: Record<string, any>) => {
-  const user = await userModel.findOne({ email: data?.email });
+  const user = await userModel.findOne({
+    $or: [{ email: data?.email }, { username: data?.username }],
+  });
 
   if (user) {
     throw new Error("User already exsists");
