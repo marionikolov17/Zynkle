@@ -4,10 +4,10 @@
 
 | Table of Contents        |
 |--------------------------|
-| Features                 |
-| Tech Stack               |
-| Getting Started          |
-| Local Testing            |
+| [Features](#features)                 |
+| [Tech Stack](#tech-stack)               |
+| [Getting Started](#getting-started)          |
+| [Local Testing](#local-testing)            |
 
 > [!WARNING]
 > The deployment of this application uses free versions for hosting, database and file storage, so it can have slower speed and performance!
