@@ -31,3 +31,20 @@
 - [x] Beautiful error and message toasts
 - [x] Clean and simple design with consistency and relation to the app's mission and name
 - [x] Logging out of the application
+
+## Tech stack
+
+Front-end: React + Vite + Redux + Context API + TailwindCSS + Axios <br />
+Back-end: Node.js + Express.js + Typescript + Firebase <br />
+Database: MongoDB <br />
+File storage: Firebase Storage <br />
+Hosting: Render.com
+
+## Getting started
+
+For quick start, you can open the deployed demo site here: https://zynkle-1-gsu7.onrender.com/
+
+## Local testing
+
+1. How to setup and run the server <br />
+2. How to setup and run the front-end
