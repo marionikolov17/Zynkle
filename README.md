@@ -47,5 +47,5 @@ For quick start, you can open the deployed demo site here: https://zynkle-1-gsu7
 
 ## Local testing
 
-1. How to setup and run the server <br />
+1. [How to setup and run the server](server/README.md) <br />
 2. How to setup and run the front-end
