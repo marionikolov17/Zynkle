@@ -29,8 +29,9 @@
 - [x] Searching for users, based on their usernames or full names
 - [x] Instant user feedback for every action
 - [x] Beautiful error and message toasts
-- [x] Clean and simple design with consistency and relation to the app's mission and name
 - [x] Logging out of the application
+- [x] Clean and simple design with consistency and relation to the app's mission and name
+- [x] Fully responsive design
 
 ## Tech stack
 
