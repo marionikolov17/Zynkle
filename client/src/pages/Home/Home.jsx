@@ -93,7 +93,7 @@ export default function Home() {
           {!hasMore && <NoPosts />}
         </div>
       </section>
-      <section className="hidden lg:block flex-auto shrink grow-0 w-[25%] sticky top-0">
+      <section className="hidden lg:block flex-auto shrink grow-0 w-[25%] sticky top-0 h-screen">
         <div className="flex p-6 mt-4">
           <ProfilePicture
             className="w-12 h-12"

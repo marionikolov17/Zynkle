@@ -4,7 +4,7 @@ import MobileNavigation from "../../features/layout/MobileNavigation/MobileNavig
 
 export default function Layout() {
   return (
-    <main className="w-full min-h-full max-h-max overflow-x-hidden absolute bg-mainWhite flex justify-center font-montserrat no-scrollbar">
+    <main className="w-full min-h-full max-h-max absolute bg-mainWhite flex justify-center font-montserrat no-scrollbar">
       <DesktopNavigation />
       <MobileNavigation />
       <Outlet />
