@@ -48,7 +48,7 @@ export default function Home() {
     <>
       {error && <ErrorToast error={error} setError={setError} />}
       {/* Content section */}
-      <section className="relative max-h-max min-h-full flex-auto grow lg:border-e-2 border-slate-200 block overflow-x-hidden overflow-y-scroll no-scrollbar">
+      <section className="relative max-h-max min-h-full flex-auto grow lg:border-e-0 border-slate-200 block overflow-x-hidden overflow-y-scroll no-scrollbar">
         <header className="flex justify-center py-10 border-b-2 sm:border-b-0">
           <Link
             to="/create"
@@ -93,8 +93,8 @@ export default function Home() {
           {!hasMore && <NoPosts />}
         </div>
       </section>
-      <section className="hidden lg:block flex-auto shrink grow-0 w-[25%] sticky top-0 h-screen">
-        <div className="flex p-6 mt-4">
+      <section className="hidden lg:flex flex-col items-start flex-auto shrink grow-0 w-[25%] sticky top-0 h-screen p-6">
+        <div className="flex px-6 py-3 mt-4 bg-white rounded-lg shadow w-full">
           <ProfilePicture
             className="w-12 h-12"
             imageUrl={user.profilePicture}
