@@ -10,6 +10,7 @@ import Layout from "./layouts/Layout/Layout";
 import Post from "./pages/Post/Post";
 import NotFound from "./pages/NotFound/NotFound";
 import useAuthenticate from "./entities/users/hooks/useAuthenticate";
+import Notifications from "./pages/Notifications/Notifications";
 
 export default function App() {
   // App entry point - handle authentication
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/profile/:userId" Component={Profile} />
         <Route path="/create" Component={CreatePost} />
         <Route path="/search" Component={Search} />
+        <Route path="/notifications" Component={Notifications} />
       </Route>
 
       {/* Different layouts */}
