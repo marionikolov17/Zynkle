@@ -1,4 +1,4 @@
-import { CiCirclePlus, CiHome, CiSearch, CiUser } from "react-icons/ci";
+import { CiBellOn, CiCirclePlus, CiHome, CiSearch, CiUser } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
 export default function DesktopNavigation() {
@@ -21,6 +21,10 @@ export default function DesktopNavigation() {
           <CiSearch className="my-auto" />
           <p className="my-auto ms-2">Search</p>
         </Link>
+        <Link to="/notifications" className="flex align-middle text-xl mb-4 p-2 cursor-pointer hover:text-mainGreen">
+          <CiBellOn className="my-auto" />
+          <p className="my-auto ms-2">Notifications</p>
+        </Link>
         <Link className="flex lg:hidden align-middle text-xl mb-4 p-2 cursor-pointer hover:text-mainGreen">
           <CiUser className="my-auto" />
           <p className="my-auto ms-2">Profile</p>
@@ -36,6 +40,9 @@ export default function DesktopNavigation() {
         </Link>
         <Link to="/search" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
           <CiSearch className="my-auto" />
+        </Link>
+        <Link to="/notifications" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
+          <CiBellOn className="my-auto" />
         </Link>
         <Link to="/profile" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
           <CiUser className="my-auto" />

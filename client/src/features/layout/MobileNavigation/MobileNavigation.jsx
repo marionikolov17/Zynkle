@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { CiHome, CiSearch, CiCirclePlus } from "react-icons/ci";
+import { CiHome, CiSearch, CiCirclePlus, CiBellOn } from "react-icons/ci";
 import ProfilePicture from "./../../../shared/components/ProfilePicture/ProfilePicture";
 import { useSelector } from "react-redux";
 
@@ -18,6 +18,9 @@ export default function MobileNavigation() {
       </Link>
       <Link to="/create">
         <CiCirclePlus className={location.pathname == "/create" ? "text-2xl my-auto text-mainGreen" : "text-2xl my-auto"} />
+      </Link>
+      <Link to="/notifications">
+        <CiBellOn className={location.pathname == "/notifications" ? "text-2xl my-auto text-mainGreen" : "text-2xl my-auto"} />
       </Link>
       <ProfilePicture imageUrl={user?.profilePicture} className={location.pathname == "/profile" ? "w-6 h-6 border border-mainGreen" : "w-6 h-6"} />
     </div>
