@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function DesktopNavigation() {
   return (
-    <section className="hidden sm:flex flex-auto grow-0 xl:grow border-e-2 xl:border-none border-slate-200 justify-end sticky top-0 h-screen bg-white xl:bg-transparent">
+    <section className="hidden sm:flex flex-auto xl:ps-10 grow-0 border-e-2 xl:border-none border-slate-200 justify-end sticky top-0 h-screen bg-white xl:bg-transparent">
       <nav className="hidden xl:block w-64 p-8 mt-10 border h-max rounded-lg shadow-sm bg-white">
         <h1 className="text-4xl font-bold mb-10">
           Zy<span className="text-mainGreen">n</span>kle
