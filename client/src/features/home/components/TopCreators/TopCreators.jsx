@@ -13,7 +13,7 @@ export default function TopCreators() {
         <div className="loader"></div>
       </div>
       }
-      <div className="bg-white p-3 mt-4 rounded-lg shadow w-full">
+      <div className="bg-white p-4 mt-4 rounded-lg shadow w-full">
         <h3 className="md:hidden lg:block font-bold text-lg mb-2">
           Top Creators
         </h3>
