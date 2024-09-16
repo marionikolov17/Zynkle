@@ -48,7 +48,7 @@ export default function Home() {
     <>
       {error && <ErrorToast error={error} setError={setError} />}
       {/* Content section */}
-      <section className="max-h-max min-h-full flex-auto grow lg:border-e-2 border-slate-200 block overflow-x-hidden overflow-y-scroll no-scrollbar">
+      <section className="relative max-h-max min-h-full flex-auto grow lg:border-e-2 border-slate-200 block overflow-x-hidden overflow-y-scroll no-scrollbar">
         <header className="flex justify-center py-10 border-b-2 sm:border-b-0">
           <Link
             to="/create"
