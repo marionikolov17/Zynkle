@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as notificationService from "./../services/notification.service";
 
-export const useGetNotifications = () => {
+export const useGetNotifications = (type = null) => {
     const [notifications, setNotifications] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
@@ -10,7 +10,7 @@ export const useGetNotifications = () => {
         setIsLoading(true);
         (async () => {
             try {
-                const response = await notificationService.getNotifications();
+                const response = await notificationService.getNotifications(type);
 
                 setNotifications(response.data.data);
             } catch (error) {
@@ -20,7 +20,7 @@ export const useGetNotifications = () => {
                 setIsLoading(false);
             }
         })()
-    }, []);
+    }, [type]);
 
     return { notifications, isLoading, error };
 }
