@@ -41,3 +41,27 @@ export const useReadNotifications = () => {
         })()
     }, [])
 }
+
+export const useCheckNotifications = () => {
+    const [hasNotifications, setHasNotifications] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
+
+    useEffect(() => {
+        setIsLoading(true);
+        (async () => {
+            try {
+                const response = await notificationService.checkNotifications();
+
+                setHasNotifications(response.data.data);
+            } catch (err) {
+                console.log("check notifications", err);
+                setError(err)
+            } finally {
+                setIsLoading(false);
+            }
+        })()
+    }, [])
+
+    return { hasNotifications, isLoading, error }
+}
