@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { useGetNotifications } from "../../entities/notifications/hooks/useNotifications";
+import { useGetNotifications, useReadNotifications } from "../../entities/notifications/hooks/useNotifications";
 import Notification from "../../features/notifications/components/Notification/Notification";
 
 export default function Notifications() {
   const [type, setType] = useState(null);
 
   const { notifications, isLoading, error } = useGetNotifications(type);
+
+  // Read notifications
+  useReadNotifications();
 
   return (
     <>

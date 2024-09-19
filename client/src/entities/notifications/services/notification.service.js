@@ -5,4 +5,4 @@ export const getNotifications = async (type) => apiService.get(`notifications${t
 
 export const checkNotifications = async () => apiService.get(PATHS.NOTIFICATIONS + "check");
 
-export const readNotifications = async () => apiService.get(PATHS.NOTIFICATIONS + "read");
+export const readNotifications = async () => apiService.put(PATHS.NOTIFICATIONS + "read");

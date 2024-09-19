@@ -29,3 +29,15 @@ export const useGetNotifications = (type = null) => {
 
     return { notifications, isLoading, error };
 }
+
+export const useReadNotifications = () => {
+    useEffect(() => {
+        (async () => {
+            try {
+                await notificationService.readNotifications()
+            } catch (error) {
+                console.log("read error", error)
+            } 
+        })()
+    }, [])
+}
