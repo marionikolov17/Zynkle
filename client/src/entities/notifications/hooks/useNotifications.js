@@ -12,7 +12,7 @@ export const useGetNotifications = (type = null) => {
             try {
                 const response = await notificationService.getNotifications(type);
 
-                setNotifications(response.data.data);
+                setNotifications(response.data.data.notifications);
             } catch (error) {
                 console.log("notification error", error);
                 setError(error);
