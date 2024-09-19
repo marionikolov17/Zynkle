@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 import commentModel from "./../models/Comment";
 import postModel from "./../models/Post";
 import replyModel from "./../models/Reply";
-import { createNotification } from "./notification.service";
+import { createNotification, deleteNotification } from "./notification.service";
 import userModel from "../models/User";
 
 export const getComments = async (
@@ -53,6 +53,11 @@ export const deleteComment = async (
   await replyModel.deleteMany({ commentId: commentId });
   // Delete records from post
   await postModel.findByIdAndUpdate(postId, { $pull: { comments: commentId } });
+
+  // Delete notification
+  const post = await postModel.findById(postId);
+
+  await deleteNotification(post?.creator as any, userId, postId, "comment");
 };
 
 export const likeComment = async (
