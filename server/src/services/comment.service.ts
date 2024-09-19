@@ -34,7 +34,7 @@ export const createComment = async (
       type: "comment",
       actorId: userId,
       targetId: post?._id,
-      message: `${user?.username} has commented your post`,
+      message: `has commented your post`,
       isRead: false
     })
   }

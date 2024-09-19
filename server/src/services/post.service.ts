@@ -93,7 +93,7 @@ export const likePost = async (
     type: "like",
     actorId: user?._id,
     targetId: post?._id,
-    message: `${user?.username} has liked your post`,
+    message: `has liked your post`,
     isRead: false
   })
 };

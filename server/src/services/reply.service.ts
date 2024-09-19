@@ -35,7 +35,7 @@ export const createReply = async (
       type: "reply",
       actorId: userId,
       targetId: postId,
-      message: `${user?.username} has replied to your comment`,
+      message: `has replied to your comment`,
       isRead: false
     });
   }
