@@ -59,8 +59,7 @@ export const deleteReply = async (
     { $pull: { replies: replyId } }
   );
 
-  // Delete notification
-  
+  // TODO: Delete notification 
 };
 
 export const likeReply = async (
