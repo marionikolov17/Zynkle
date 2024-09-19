@@ -84,6 +84,11 @@ export const likePost = async (
   const post = await postModel.findById(postId);
   const user = await userModel.findById(userId);
 
+  // Don't Create notification for same user
+  if (post?.creator == user?._id) {
+    return;
+  }
+
   await createNotification(userId, {
     type: "like",
     actorId: post?.creator,
