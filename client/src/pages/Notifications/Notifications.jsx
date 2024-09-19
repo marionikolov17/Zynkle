@@ -49,7 +49,7 @@ export default function Notifications() {
             </button>
           </div>
           {/* Notifications display */}
-          <div className="block w-full mt-4">
+          <div className="block w-full mt-4 h-max">
             {isLoading && (
               <div className="w-full flex justify-center items-center">
                 <div className="loader"></div>

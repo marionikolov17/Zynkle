@@ -63,5 +63,5 @@ export const useCheckNotifications = () => {
         })()
     }, [])
 
-    return { hasNotifications, isLoading, error }
+    return { hasNotifications, isLoading, error, setHasNotifications }
 }

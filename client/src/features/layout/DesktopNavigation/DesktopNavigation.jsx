@@ -1,7 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { CiBellOn, CiCirclePlus, CiHome, CiSearch, CiUser } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { useCheckNotifications } from "../../../entities/notifications/hooks/useNotifications";
 
 export default function DesktopNavigation() {
+  const { hasNotifications, setHasNotifications } = useCheckNotifications();
+
   return (
     <section className="hidden sm:flex flex-auto xl:ps-10 grow-0 border-e-2 xl:border-none border-slate-200 justify-end sticky top-0 h-screen bg-white xl:bg-transparent">
       <nav className="hidden xl:block w-64 p-8 mt-10 border h-max rounded-lg shadow-sm bg-white">
@@ -21,7 +25,8 @@ export default function DesktopNavigation() {
           <CiSearch className="my-auto" />
           <p className="my-auto ms-2">Search</p>
         </Link>
-        <Link to="/notifications" className="flex align-middle text-xl mb-4 p-2 cursor-pointer hover:text-mainGreen">
+        <Link to="/notifications" className="flex align-middle text-xl mb-4 p-2 cursor-pointer hover:text-mainGreen relative" onClick={() => setHasNotifications(false)}>
+          {hasNotifications == true && <div className="absolute top-2 left-5 w-2 h-2 bg-mainGreen rounded-full"></div>}
           <CiBellOn className="my-auto" />
           <p className="my-auto ms-2">Notifications</p>
         </Link>
@@ -41,7 +46,8 @@ export default function DesktopNavigation() {
         <Link to="/search" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
           <CiSearch className="my-auto" />
         </Link>
-        <Link to="/notifications" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
+        <Link to="/notifications" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen relative" onClick={() => setHasNotifications(false)}>
+          {hasNotifications == true && <div className="absolute top-2 right-5 w-2 h-2 bg-mainGreen rounded-full"></div>}
           <CiBellOn className="my-auto" />
         </Link>
         <Link to="/profile" className="flex align-middle text-3xl mb-4 p-4 cursor-pointer hover:text-mainGreen">
