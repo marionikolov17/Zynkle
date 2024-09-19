@@ -8,9 +8,11 @@ export default function Notifications() {
                     <h1 className="text-2xl font-bold">Notifications</h1>
                     {/* Options for notifications */}
                     <div className="mt-4 flex w-full items-center overflow-x-scroll no-scrollbar">
-                        <button className="bg-white py-1 px-8 rounded-lg shadow hover:bg-gray-100 hover:text-mainGreen me-2">All</button>
+                        <button className="bg-white py-1 px-8 rounded-lg shadow hover:bg-gray-100 hover:text-mainGreen me-2 border-2 border-mainGreen">All</button>
                         <button className="bg-white py-1 px-8 rounded-lg shadow hover:bg-gray-100 hover:text-mainGreen me-2">Followers</button>
                         <button className="bg-white py-1 px-8 rounded-lg shadow hover:bg-gray-100 hover:text-mainGreen me-2">Likes</button>
+                        <button className="bg-white py-1 px-8 rounded-lg shadow hover:bg-gray-100 hover:text-mainGreen me-2">Comments</button>
+                        <button className="bg-white py-1 px-8 rounded-lg shadow hover:bg-gray-100 hover:text-mainGreen me-2">Replies</button>
                     </div>
                     {/* Notifications display */}
                     <div className="block w-full mt-4">
