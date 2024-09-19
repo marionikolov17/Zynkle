@@ -32,4 +32,19 @@ router.get(
     })
 )
 
+router.put(
+    PATH.NOTIFICATIONS.READ_NOTIFICATIONS,
+    isAuth,
+    tryCatch(async (req: any, res: express.Response) => {
+        await notificationService.readNotifications(req.user._id);
+
+        res.status(200).json({
+            status: "success",
+            data: {
+                message: "Successfully read notifications"
+            }
+        })
+    })
+)
+
 export default router;
