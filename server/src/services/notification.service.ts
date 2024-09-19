@@ -24,6 +24,18 @@ export const createNotification = async (
   );
 };
 
+export const deleteNotification = async (
+    userId: Types.ObjectId,
+    actorId: Types.ObjectId,
+    targetId: Types.ObjectId,
+    type: string
+) => {
+    await notificationModel.findOneAndUpdate(
+        {userId: userId},
+        {$pull: { notifications: { actorId: actorId, targetId: targetId, type: type } }}
+    )
+}
+
 export const readNotifications = async (userId: Types.ObjectId) => {
     await notificationModel.findOneAndUpdate({ userId: userId }, { $set: { "notifications.$[].isRead": true } })
 };
