@@ -111,7 +111,6 @@ export const unfollowUser = async (
   );
 
   // Delete notification
-
   await deleteNotification(unfollowedUserId, currentUserId, currentUserId, "follow");
 };
 
