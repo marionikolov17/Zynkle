@@ -19,4 +19,17 @@ router.get(
   })
 );
 
+router.get(
+    PATH.NOTIFICATIONS.CHECK_NOTIFICATIONS,
+    isAuth,
+    tryCatch(async (req: any, res: express.Response) => {
+        const hasUnreadNotifications = await notificationService.checkForNotifications(req.user._id);
+        
+        res.status(200).json({
+            status: "success",
+            data: hasUnreadNotifications
+        })
+    })
+)
+
 export default router;

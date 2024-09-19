@@ -51,4 +51,10 @@ export const readNotifications = async (userId: Types.ObjectId) => {
   );
 };
 
-export const checkForNotifications = async (userId: Types.ObjectId) => {};
+export const checkForNotifications = async (userId: Types.ObjectId) => {
+    const notifications = await notificationModel.findOne({ userId: userId, "notifications.isRead": false })
+
+    if (!notifications) return false;
+
+    return true;
+};
