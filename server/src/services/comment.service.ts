@@ -29,7 +29,7 @@ export const createComment = async (
   const user = await userModel.findById(userId);
 
   // Prevent against same user
-  if (post?.creator != user?._id) {
+  if (post?.creator?.toString() !== user?._id?.toString()) {
     await createNotification(post?.creator as any, {
       type: "comment",
       actorId: userId,

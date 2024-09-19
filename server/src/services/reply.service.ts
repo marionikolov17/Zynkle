@@ -30,7 +30,7 @@ export const createReply = async (
   const comment = await commentModel.findById(commentId);
   const user = await userModel.findById(userId);
 
-  if (comment?.creator != user?._id) {
+  if (comment?.creator?.toString() != user?._id?.toString()) {
     await createNotification(comment?.creator as any, {
       type: "reply",
       actorId: userId,
