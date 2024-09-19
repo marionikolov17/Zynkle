@@ -2,6 +2,8 @@ import { Types } from "mongoose";
 import commentModel from "./../models/Comment";
 import postModel from "./../models/Post";
 import replyModel from "./../models/Reply";
+import { createNotification } from "./notification.service";
+import userModel from "../models/User";
 
 export const getComments = async (
     postId: Types.ObjectId
@@ -21,6 +23,18 @@ export const createComment = async (
     { _id: postId },
     { $push: { comments: createdComment._id } }
   );
+
+  // Create notification
+  const post = await postModel.findById(postId);
+  const user = await userModel.findById(userId);
+
+  await createNotification(post?.creator as any, {
+    type: "comment",
+    actorId: userId,
+    targetId: post?._id,
+    message: `${user?.username} has commented your post`,
+    isRead: false
+  })
 
   return createdComment;
 };
