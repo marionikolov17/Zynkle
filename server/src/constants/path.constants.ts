@@ -34,6 +34,11 @@ const PATH = {
         DELETE_REPLY: "/:postId/:replyId",
         LIKE_REPLY: "/:replyId/like",
         DISLIKE_REPLY: "/:replyId/dislike"
+    },
+    NOTIFICATIONS: {
+        GET_NOTIFICATIONS: "/",
+        READ_NOTIFICATIONS: "/read",
+        CHECK_NOTIFICATIONS: "/check"
     }
 }
 

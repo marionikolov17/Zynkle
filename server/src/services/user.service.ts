@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import userModel from "./../models/User";
 import { uploadFileToCloud } from "./../utils/storage-upload";
+import { createNotification, deleteNotification } from "./notification.service";
 
 export const getCurrentUser = async (userId: Types.ObjectId) =>
   userModel.findById(userId, { password: 0 });
@@ -75,6 +76,17 @@ export const followUser = async (
     { _id: currentUserId },
     { $push: { follows: followedUserId } }
   );
+
+  // Create notification
+  const followerUser = await userModel.findById(currentUserId);
+
+  await createNotification(followedUserId, {
+    type: "follow",
+    actorId: followerUser?._id,
+    targetId: followerUser?._id,
+    message: `${followerUser?.username} has followed you`,
+    isRead: false
+  })
 };
 
 export const unfollowUser = async (
@@ -97,6 +109,9 @@ export const unfollowUser = async (
     { _id: currentUserId },
     { $pull: { follows: unfollowedUserId } }
   );
+
+  // Delete notification
+  await deleteNotification(unfollowedUserId, currentUserId, currentUserId, "follow");
 };
 
 const isFollowedAlready = async (

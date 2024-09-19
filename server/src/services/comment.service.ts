@@ -2,6 +2,8 @@ import { Types } from "mongoose";
 import commentModel from "./../models/Comment";
 import postModel from "./../models/Post";
 import replyModel from "./../models/Reply";
+import { createNotification, deleteNotification } from "./notification.service";
+import userModel from "../models/User";
 
 export const getComments = async (
     postId: Types.ObjectId
@@ -22,6 +24,21 @@ export const createComment = async (
     { $push: { comments: createdComment._id } }
   );
 
+  // Create notification
+  const post = await postModel.findById(postId);
+  const user = await userModel.findById(userId);
+
+  // Prevent against same user
+  if (post?.creator?.toString() !== user?._id?.toString()) {
+    await createNotification(post?.creator as any, {
+      type: "comment",
+      actorId: userId,
+      targetId: post?._id,
+      message: `has commented your post`,
+      isRead: false
+    })
+  }
+
   return createdComment;
 };
 
@@ -39,6 +56,11 @@ export const deleteComment = async (
   await replyModel.deleteMany({ commentId: commentId });
   // Delete records from post
   await postModel.findByIdAndUpdate(postId, { $pull: { comments: commentId } });
+
+  // Delete notification
+  const post = await postModel.findById(postId);
+
+  await deleteNotification(post?.creator as any, userId, postId, "comment");
 };
 
 export const likeComment = async (

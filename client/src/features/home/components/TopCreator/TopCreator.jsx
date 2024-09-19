@@ -51,7 +51,7 @@ export default function TopCreator({ creator }) {
   return (
     <>
       {error && <ErrorToast text={error}/>}
-      <div className="px-6 my-5 flex justify-around">
+      <div className="px-0 my-5 flex justify-around">
         <div className="flex grow justify-start">
           <ProfilePicture
             profileId={creator?._id}

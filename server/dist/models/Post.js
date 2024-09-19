@@ -36,7 +36,7 @@ const postSchema = new mongoose_1.default.Schema({
     ],
     createdAt: {
         type: Date,
-        default: new Date(),
+        default: () => { return new Date(); }
     },
 });
 const postModel = mongoose_1.default.model("Post", postSchema);

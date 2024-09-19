@@ -13,12 +13,14 @@ export default function TopCreators() {
         <div className="loader"></div>
       </div>
       }
-      <h3 className="md:hidden lg:block ms-6 font-bold text-lg mb-2">
-        Top Creators
-      </h3>
-      {creators?.length == 0 && <p className="ms-6 mt-1 text-sm">There are no top creators.</p> }
-      {/* <p className="ms-6 mt-1 text-sm">There are no top creators.</p> */}
-      {creators?.map(creator => <TopCreator key={creator?._id} creator={creator}/>)}
+      <div className="bg-white p-4 mt-4 rounded-lg shadow w-full">
+        <h3 className="md:hidden lg:block font-bold text-lg mb-2">
+          Top Creators
+        </h3>
+        {creators?.length == 0 && <p className="mt-1 text-sm">There are no top creators.</p> }
+        {/* <p className="ms-6 mt-1 text-sm">There are no top creators.</p> */}
+        {creators?.map(creator => <TopCreator key={creator?._id} creator={creator}/>)}
+      </div>
     </>
   );
 }

@@ -107,10 +107,10 @@ export default function HomePost({
       {error && <ErrorToast error={error} setError={setError}/>}
       <div
         ref={innerRef}
-        className="w-full flex justify-center mt-1 mb-0 sm:mt-3 sm:mb-5"
+        className="w-full flex justify-center mt-0 mb-0 sm:mt-3 sm:mb-5"
       >
         {showCopiedLink && <MessageToast message="Link copied." close={closeCopiedLinkPopup}/>}
-        <div className="w-[600px] shrink sm:border sm:rounded-lg block py-3 sm:py-4">
+        <div className="w-[600px] bg-white shrink sm:border sm:rounded-lg block py-3 sm:py-4">
           {/* Author's info */}
           <div className="w-full flex align-middle px-4">
             <ProfilePicture

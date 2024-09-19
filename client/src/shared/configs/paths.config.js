@@ -2,7 +2,8 @@ const PATHS = {
     USERS: "users/",
     POSTS: "posts/",
     COMMENTS: "comments/",
-    REPLIES: "replies/"
+    REPLIES: "replies/",
+    NOTIFICATIONS: "notifications/"
 }
 
 export default PATHS;

@@ -5,6 +5,7 @@ import commentModel from "./../models/Comment";
 import replyModel from "./../models/Reply";
 
 import { uploadFileToCloud } from "./../utils/storage-upload";
+import { createNotification, deleteNotification } from "./notification.service";
 
 export const getPosts = async (pageNumber: number) => {
   const postsPerPage = 3;
@@ -78,6 +79,23 @@ export const likePost = async (
   }
 
   await postModel.findByIdAndUpdate(postId, { $push: { likedBy: userId } });
+
+  // Create notification
+  const post = await postModel.findById(postId);
+  const user = await userModel.findById(userId);
+
+  // Don't Create notification for same user
+  if (post?.creator?.toString() == user?._id?.toString()) {
+    return;
+  }
+
+  await createNotification(post?.creator as any, {
+    type: "like",
+    actorId: user?._id,
+    targetId: post?._id,
+    message: `has liked your post`,
+    isRead: false
+  })
 };
 
 export const dislikePost = async (
@@ -89,6 +107,12 @@ export const dislikePost = async (
   }
 
   await postModel.findByIdAndUpdate(postId, { $pull: { likedBy: userId } });
+
+  // Delete Like notification
+  const post = await postModel.findById(postId);
+  const user = await userModel.findById(userId);
+
+  await deleteNotification(post?.creator as any, user?._id as any, post?._id as any, "like");
 };
 
 export const savePost = async (
