@@ -6,12 +6,15 @@ export const getNotifications = async (
   userId: Types.ObjectId,
   type: any
 ) => {
-  let notifications = await notificationModel
+  let results: any = await notificationModel
     .findOne({ userId: userId })
     .populate("notifications.actorId", "_id username profilePicture")
     .populate({ path: "notifications.targetId", model: postModel });
   
-  return notifications;
+  let notifications = results?.notifications?.filter((el: any) => el.type == type);
+  if (type != "null" && type != null) results["notifications"] = notifications;
+
+  return results;
 };
 
 export const createNotification = async (
