@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import { useEffect, useState } from "react";
 import * as notificationService from "./../services/notification.service";
 
@@ -12,7 +13,11 @@ export const useGetNotifications = (type = null) => {
             try {
                 const response = await notificationService.getNotifications(type);
 
-                setNotifications(response.data.data.notifications);
+                if (response.data.data?.hasOwnProperty("notifications")) {
+                    return setNotifications(response.data.data.notifications);
+                }
+
+                setNotifications([]);
             } catch (error) {
                 console.log("notification error", error);
                 setError(error);

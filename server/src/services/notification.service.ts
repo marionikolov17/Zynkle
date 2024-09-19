@@ -2,11 +2,16 @@ import { Types } from "mongoose";
 import notificationModel from "../models/Notification";
 import postModel from "../models/Post";
 
-export const getNotifications = async (userId: Types.ObjectId) => {
-  return await notificationModel
+export const getNotifications = async (
+  userId: Types.ObjectId,
+  type: any
+) => {
+  let notifications = await notificationModel
     .findOne({ userId: userId })
     .populate("notifications.actorId", "_id username profilePicture")
-    .populate({ path: "notifications.targetId", model: postModel});
+    .populate({ path: "notifications.targetId", model: postModel });
+  
+  return notifications;
 };
 
 export const createNotification = async (
@@ -52,9 +57,12 @@ export const readNotifications = async (userId: Types.ObjectId) => {
 };
 
 export const checkForNotifications = async (userId: Types.ObjectId) => {
-    const notifications = await notificationModel.findOne({ userId: userId, "notifications.isRead": false })
+  const notifications = await notificationModel.findOne({
+    userId: userId,
+    "notifications.isRead": false,
+  });
 
-    if (!notifications) return false;
+  if (!notifications) return false;
 
-    return true;
+  return true;
 };

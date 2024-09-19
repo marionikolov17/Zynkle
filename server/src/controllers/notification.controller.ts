@@ -10,7 +10,7 @@ router.get(
   PATH.NOTIFICATIONS.GET_NOTIFICATIONS,
   isAuth,
   tryCatch(async (req: any, res: express.Response) => {
-    const notifications = await notificationService.getNotifications(req.user._id);
+    const notifications = await notificationService.getNotifications(req.user._id, req.query.type);
 
     res.status(200).json({
         status: "success",

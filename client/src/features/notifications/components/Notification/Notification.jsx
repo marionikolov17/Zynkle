@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import moment from "moment";
 import ProfilePicture from "../../../../shared/components/ProfilePicture/ProfilePicture";
+import { useNavigate } from "react-router-dom";
 
 export default function Notification({ notification }) {
-  console.log(notification?.createdAt);
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="w-full mt-3 sm:mt-2 flex items-center overflow-x-hidden sm:hover:bg-white sm:hover:shadow sm:hover:rounded-lg sm:p-2 transition duration-300">
@@ -31,7 +33,7 @@ export default function Notification({ notification }) {
         {notification?.type == "follow" ? (
           <div></div>
         ) : (
-          <div className="w-14 h-12 ms-4 overflow-hidden flex rounded cursor-pointer">
+          <div className="w-14 h-12 ms-4 overflow-hidden flex rounded cursor-pointer" onClick={() => navigate(`/post/${notification?.targetId?._id}`)}>
             <img
               className="object-cover"
               src={notification?.targetId?.imageUri}
