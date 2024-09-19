@@ -27,7 +27,7 @@ const commentSchema = new mongoose.Schema({
     ],
     createdAt: {
         type: Date,
-        default: new Date()
+        default: () => { return new Date() }
     }
 });
 
