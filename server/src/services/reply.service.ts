@@ -2,6 +2,8 @@ import { Types } from "mongoose";
 import replyModel from "./../models/Reply";
 import commentModel from "./../models/Comment";
 import postModel from "./../models/Post";
+import userModel from "../models/User";
+import { createNotification } from "./notification.service";
 
 export const getReplies = async (
     commentId: Types.ObjectId
@@ -24,6 +26,20 @@ export const createReply = async (
     { $push: { replies: createdReply._id } }
   );
 
+  // Create notification
+  const comment = await commentModel.findById(commentId);
+  const user = await userModel.findById(userId);
+
+  if (comment?.creator != user?._id) {
+    await createNotification(comment?.creator as any, {
+      type: "reply",
+      actorId: userId,
+      targetId: postId,
+      message: `${user?.username} has replied to your comment`,
+      isRead: false
+    });
+  }
+
   return createdReply;
 };
 
@@ -42,6 +58,9 @@ export const deleteReply = async (
     { replies: replyId },
     { $pull: { replies: replyId } }
   );
+
+  // Delete notification
+  
 };
 
 export const likeReply = async (

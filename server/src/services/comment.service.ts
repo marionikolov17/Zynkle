@@ -28,13 +28,16 @@ export const createComment = async (
   const post = await postModel.findById(postId);
   const user = await userModel.findById(userId);
 
-  await createNotification(post?.creator as any, {
-    type: "comment",
-    actorId: userId,
-    targetId: post?._id,
-    message: `${user?.username} has commented your post`,
-    isRead: false
-  })
+  // Prevent against same user
+  if (post?.creator != user?._id) {
+    await createNotification(post?.creator as any, {
+      type: "comment",
+      actorId: userId,
+      targetId: post?._id,
+      message: `${user?.username} has commented your post`,
+      isRead: false
+    })
+  }
 
   return createdComment;
 };
