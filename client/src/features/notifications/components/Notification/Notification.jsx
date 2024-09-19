@@ -17,7 +17,7 @@ export default function Notification({ notification }) {
           />
         </div>
         <div className="grow ms-4 cursor-pointer">
-          <p className="sm:text-base text-sm">
+          <p className={`sm:text-base text-sm ${notification?.isRead ? "" : "font-bold"}`}>
             <span className="text-mainGreen">@</span>
             <span className="font-bold me-1">
               {notification?.actorId?.username}
