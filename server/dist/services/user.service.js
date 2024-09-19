@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkUserId = exports.unfollowUser = exports.followUser = exports.updateUser = exports.searchUsers = exports.getTopCreators = exports.getUser = exports.getCurrentUser = void 0;
 const User_1 = __importDefault(require("./../models/User"));
 const storage_upload_1 = require("./../utils/storage-upload");
+const notification_service_1 = require("./notification.service");
 const getCurrentUser = (userId) => __awaiter(void 0, void 0, void 0, function* () { return User_1.default.findById(userId, { password: 0 }); });
 exports.getCurrentUser = getCurrentUser;
 const getUser = (userId, currentUserId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -63,6 +64,15 @@ const followUser = (currentUserId, followedUserId) => __awaiter(void 0, void 0, 
     }
     yield User_1.default.findOneAndUpdate({ _id: followedUserId }, { $push: { followers: currentUserId } });
     yield User_1.default.findOneAndUpdate({ _id: currentUserId }, { $push: { follows: followedUserId } });
+    // Create notification
+    const followerUser = yield User_1.default.findById(currentUserId);
+    yield (0, notification_service_1.createNotification)(followedUserId, {
+        type: "follow",
+        actorId: followerUser === null || followerUser === void 0 ? void 0 : followerUser._id,
+        targetId: followerUser === null || followerUser === void 0 ? void 0 : followerUser._id,
+        message: `${followerUser === null || followerUser === void 0 ? void 0 : followerUser.username} has followed you`,
+        isRead: false
+    });
 });
 exports.followUser = followUser;
 const unfollowUser = (currentUserId, unfollowedUserId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -74,6 +84,8 @@ const unfollowUser = (currentUserId, unfollowedUserId) => __awaiter(void 0, void
     }
     yield User_1.default.findOneAndUpdate({ _id: unfollowedUserId }, { $pull: { followers: currentUserId } });
     yield User_1.default.findOneAndUpdate({ _id: currentUserId }, { $pull: { follows: unfollowedUserId } });
+    // Delete notification
+    yield (0, notification_service_1.deleteNotification)(unfollowedUserId, currentUserId, currentUserId, "follow");
 });
 exports.unfollowUser = unfollowUser;
 const isFollowedAlready = (currentUserId, relatedUserId) => __awaiter(void 0, void 0, void 0, function* () {

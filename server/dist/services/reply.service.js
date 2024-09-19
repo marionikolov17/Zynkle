@@ -16,11 +16,26 @@ exports.checkIfReplyExsists = exports.dislikeReply = exports.likeReply = exports
 const Reply_1 = __importDefault(require("./../models/Reply"));
 const Comment_1 = __importDefault(require("./../models/Comment"));
 const Post_1 = __importDefault(require("./../models/Post"));
+const User_1 = __importDefault(require("../models/User"));
+const notification_service_1 = require("./notification.service");
 const getReplies = (commentId) => __awaiter(void 0, void 0, void 0, function* () { return Reply_1.default.find({ commentId: commentId }).populate("creator", "_id username profilePicture"); });
 exports.getReplies = getReplies;
 const createReply = (data, postId, commentId, userId) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     const createdReply = yield Reply_1.default.create(Object.assign(Object.assign({}, data), { postId: postId, commentId: commentId, creator: userId }));
     yield Comment_1.default.findOneAndUpdate({ _id: commentId }, { $push: { replies: createdReply._id } });
+    // Create notification
+    const comment = yield Comment_1.default.findById(commentId);
+    const user = yield User_1.default.findById(userId);
+    if (((_a = comment === null || comment === void 0 ? void 0 : comment.creator) === null || _a === void 0 ? void 0 : _a.toString()) != ((_b = user === null || user === void 0 ? void 0 : user._id) === null || _b === void 0 ? void 0 : _b.toString())) {
+        yield (0, notification_service_1.createNotification)(comment === null || comment === void 0 ? void 0 : comment.creator, {
+            type: "reply",
+            actorId: userId,
+            targetId: postId,
+            message: `has replied to your comment`,
+            isRead: false
+        });
+    }
     return createdReply;
 });
 exports.createReply = createReply;
@@ -31,6 +46,7 @@ const deleteReply = (postId, replyId, userId) => __awaiter(void 0, void 0, void 
     yield Reply_1.default.findByIdAndDelete(replyId);
     // Delete comment relation
     yield Comment_1.default.findOneAndUpdate({ replies: replyId }, { $pull: { replies: replyId } });
+    // TODO: Delete notification 
 });
 exports.deleteReply = deleteReply;
 const likeReply = (replyId, userId) => __awaiter(void 0, void 0, void 0, function* () {

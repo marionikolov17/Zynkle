@@ -18,6 +18,7 @@ const User_1 = __importDefault(require("./../models/User"));
 const Comment_1 = __importDefault(require("./../models/Comment"));
 const Reply_1 = __importDefault(require("./../models/Reply"));
 const storage_upload_1 = require("./../utils/storage-upload");
+const notification_service_1 = require("./notification.service");
 const getPosts = (pageNumber) => __awaiter(void 0, void 0, void 0, function* () {
     const postsPerPage = 3;
     return Post_1.default.find()
@@ -56,10 +57,25 @@ const deletePost = (postId, userId) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.deletePost = deletePost;
 const likePost = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     if (yield hasLikedPost(postId, userId)) {
         throw new Error("You have already liked this post");
     }
     yield Post_1.default.findByIdAndUpdate(postId, { $push: { likedBy: userId } });
+    // Create notification
+    const post = yield Post_1.default.findById(postId);
+    const user = yield User_1.default.findById(userId);
+    // Don't Create notification for same user
+    if (((_a = post === null || post === void 0 ? void 0 : post.creator) === null || _a === void 0 ? void 0 : _a.toString()) == ((_b = user === null || user === void 0 ? void 0 : user._id) === null || _b === void 0 ? void 0 : _b.toString())) {
+        return;
+    }
+    yield (0, notification_service_1.createNotification)(post === null || post === void 0 ? void 0 : post.creator, {
+        type: "like",
+        actorId: user === null || user === void 0 ? void 0 : user._id,
+        targetId: post === null || post === void 0 ? void 0 : post._id,
+        message: `has liked your post`,
+        isRead: false
+    });
 });
 exports.likePost = likePost;
 const dislikePost = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -67,6 +83,10 @@ const dislikePost = (postId, userId) => __awaiter(void 0, void 0, void 0, functi
         throw new Error("You haven't liked this post");
     }
     yield Post_1.default.findByIdAndUpdate(postId, { $pull: { likedBy: userId } });
+    // Delete Like notification
+    const post = yield Post_1.default.findById(postId);
+    const user = yield User_1.default.findById(userId);
+    yield (0, notification_service_1.deleteNotification)(post === null || post === void 0 ? void 0 : post.creator, user === null || user === void 0 ? void 0 : user._id, post === null || post === void 0 ? void 0 : post._id, "like");
 });
 exports.dislikePost = dislikePost;
 const savePost = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {

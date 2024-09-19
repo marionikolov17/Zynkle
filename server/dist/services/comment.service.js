@@ -16,11 +16,27 @@ exports.checkIfCommentExsists = exports.dislikeComment = exports.likeComment = e
 const Comment_1 = __importDefault(require("./../models/Comment"));
 const Post_1 = __importDefault(require("./../models/Post"));
 const Reply_1 = __importDefault(require("./../models/Reply"));
+const notification_service_1 = require("./notification.service");
+const User_1 = __importDefault(require("../models/User"));
 const getComments = (postId) => __awaiter(void 0, void 0, void 0, function* () { return Comment_1.default.find({ postId: postId }).populate("creator", "_id username profilePicture"); });
 exports.getComments = getComments;
 const createComment = (data, postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     const createdComment = yield Comment_1.default.create(Object.assign(Object.assign({}, data), { postId: postId, creator: userId }));
     yield Post_1.default.findOneAndUpdate({ _id: postId }, { $push: { comments: createdComment._id } });
+    // Create notification
+    const post = yield Post_1.default.findById(postId);
+    const user = yield User_1.default.findById(userId);
+    // Prevent against same user
+    if (((_a = post === null || post === void 0 ? void 0 : post.creator) === null || _a === void 0 ? void 0 : _a.toString()) !== ((_b = user === null || user === void 0 ? void 0 : user._id) === null || _b === void 0 ? void 0 : _b.toString())) {
+        yield (0, notification_service_1.createNotification)(post === null || post === void 0 ? void 0 : post.creator, {
+            type: "comment",
+            actorId: userId,
+            targetId: post === null || post === void 0 ? void 0 : post._id,
+            message: `has commented your post`,
+            isRead: false
+        });
+    }
     return createdComment;
 });
 exports.createComment = createComment;
@@ -33,6 +49,9 @@ const deleteComment = (postId, commentId, userId) => __awaiter(void 0, void 0, v
     yield Reply_1.default.deleteMany({ commentId: commentId });
     // Delete records from post
     yield Post_1.default.findByIdAndUpdate(postId, { $pull: { comments: commentId } });
+    // Delete notification
+    const post = yield Post_1.default.findById(postId);
+    yield (0, notification_service_1.deleteNotification)(post === null || post === void 0 ? void 0 : post.creator, userId, postId, "comment");
 });
 exports.deleteComment = deleteComment;
 const likeComment = (commentId, userId) => __awaiter(void 0, void 0, void 0, function* () {
