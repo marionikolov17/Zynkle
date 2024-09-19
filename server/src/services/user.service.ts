@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 import userModel from "./../models/User";
 import { uploadFileToCloud } from "./../utils/storage-upload";
-import { createNotification } from "./notification.service";
+import { createNotification, deleteNotification } from "./notification.service";
 
 export const getCurrentUser = async (userId: Types.ObjectId) =>
   userModel.findById(userId, { password: 0 });
@@ -109,6 +109,10 @@ export const unfollowUser = async (
     { _id: currentUserId },
     { $pull: { follows: unfollowedUserId } }
   );
+
+  // Delete notification
+
+  await deleteNotification(unfollowedUserId, currentUserId, currentUserId, "follow");
 };
 
 const isFollowedAlready = async (
