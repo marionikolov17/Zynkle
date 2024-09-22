@@ -11,6 +11,11 @@ export const getNotifications = async (
     .populate("notifications.actorId", "_id username profilePicture")
     .populate({ path: "notifications.targetId", model: postModel });
   
+  // Sort notifications by latest
+  let sortedNotifications = results?.notifications?.sort((a: any, b: any) => b.createdAt-a.createdAt);
+  results["notifications"] = sortedNotifications;
+
+  // Filter notifications if type is not null
   let notifications = results?.notifications?.filter((el: any) => el.type == type);
   if (type != "null" && type != null) results["notifications"] = notifications;
 

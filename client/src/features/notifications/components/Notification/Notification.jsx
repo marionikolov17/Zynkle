@@ -2,8 +2,11 @@
 import moment from "moment";
 import ProfilePicture from "../../../../shared/components/ProfilePicture/ProfilePicture";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Notification({ notification }) {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
   const navigate = useNavigate();
 
   return (
@@ -34,10 +37,12 @@ export default function Notification({ notification }) {
           <div></div>
         ) : (
           <div className="w-14 h-12 ms-4 overflow-hidden flex rounded cursor-pointer" onClick={() => navigate(`/post/${notification?.targetId?._id}`)}>
+            {isImageLoading && <div className="w-full h-full skeleton-loading"></div>}
             <img
               className="object-cover"
               src={notification?.targetId?.imageUri}
               alt="post picture"
+              onLoad={() => setIsImageLoading(false)}
             />
           </div>
         )}

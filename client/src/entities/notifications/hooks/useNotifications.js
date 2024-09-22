@@ -30,16 +30,18 @@ export const useGetNotifications = (type = null) => {
     return { notifications, isLoading, error };
 }
 
-export const useReadNotifications = () => {
+export const useReadNotifications = (isLoading) => {
     useEffect(() => {
-        (async () => {
-            try {
-                await notificationService.readNotifications()
-            } catch (error) {
-                console.log("read error", error)
-            } 
-        })()
-    }, [])
+        if (!isLoading) {
+            (async () => {
+                try {
+                    await notificationService.readNotifications()
+                } catch (error) {
+                    console.log("read error", error)
+                } 
+            })()
+        }
+    }, [isLoading])
 }
 
 export const useCheckNotifications = () => {

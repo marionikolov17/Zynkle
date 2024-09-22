@@ -16,12 +16,16 @@ exports.checkForNotifications = exports.readNotifications = exports.deleteNotifi
 const Notification_1 = __importDefault(require("../models/Notification"));
 const Post_1 = __importDefault(require("../models/Post"));
 const getNotifications = (userId, type) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _a, _b;
     let results = yield Notification_1.default
         .findOne({ userId: userId })
         .populate("notifications.actorId", "_id username profilePicture")
         .populate({ path: "notifications.targetId", model: Post_1.default });
-    let notifications = (_a = results === null || results === void 0 ? void 0 : results.notifications) === null || _a === void 0 ? void 0 : _a.filter((el) => el.type == type);
+    // Sort notifications by latest
+    let sortedNotifications = (_a = results === null || results === void 0 ? void 0 : results.notifications) === null || _a === void 0 ? void 0 : _a.sort((a, b) => b.createdAt - a.createdAt);
+    results["notifications"] = sortedNotifications;
+    // Filter notifications if type is not null
+    let notifications = (_b = results === null || results === void 0 ? void 0 : results.notifications) === null || _b === void 0 ? void 0 : _b.filter((el) => el.type == type);
     if (type != "null" && type != null)
         results["notifications"] = notifications;
     return results;
