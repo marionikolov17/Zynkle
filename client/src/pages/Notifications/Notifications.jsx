@@ -8,7 +8,7 @@ export default function Notifications() {
   const { notifications, isLoading, error } = useGetNotifications(type);
 
   // Read notifications
-  useReadNotifications();
+  useReadNotifications(isLoading);
 
   return (
     <>
