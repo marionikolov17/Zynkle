@@ -70,7 +70,7 @@ const followUser = (currentUserId, followedUserId) => __awaiter(void 0, void 0, 
         type: "follow",
         actorId: followerUser === null || followerUser === void 0 ? void 0 : followerUser._id,
         targetId: followerUser === null || followerUser === void 0 ? void 0 : followerUser._id,
-        message: `${followerUser === null || followerUser === void 0 ? void 0 : followerUser.username} has followed you`,
+        message: `has followed you`,
         isRead: false
     });
 });
