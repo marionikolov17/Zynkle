@@ -55,11 +55,11 @@ export default function Notifications() {
                 <div className="loader"></div>
               </div>
             )}
-            {error && <p className="text-base text-red-500 mx-2">Could not get notifications.</p>}
+            {!isLoading && error && <p className="text-base text-red-500 mx-2">Could not get notifications.</p>}
             {!isLoading && !error && notifications?.map(notification => {
                 return <Notification key={notification._id} notification={notification}/>
             })}
-            {notifications?.length == 0 && <p className="mx-2">There are no notifications.</p>}
+            {!isLoading && notifications?.length == 0 && <p className="mx-2">There are no notifications.</p>}
           </div>
         </div>
       </section>
