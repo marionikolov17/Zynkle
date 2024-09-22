@@ -90,7 +90,7 @@ export default function Home() {
               />
             );
           })}
-          {!hasMore && <NoPosts />}
+          {!hasMore && !loading && <NoPosts />}
         </div>
       </section>
       <section className="hidden lg:flex flex-col items-start flex-auto shrink grow-0 w-[25%] sticky top-0 h-screen p-6">
