@@ -84,7 +84,7 @@ export const followUser = async (
     type: "follow",
     actorId: followerUser?._id,
     targetId: followerUser?._id,
-    message: `${followerUser?.username} has followed you`,
+    message: `has followed you`,
     isRead: false
   })
 };
