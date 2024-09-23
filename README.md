@@ -18,6 +18,7 @@
 - [x] Implementation of infinite scrolling on home page, which brings more discoverability to the users and their posts.
 - [x] Notifications for follows, likes, comments, replies.
 - [x] Creation of posts which uses memory storage for preparing the file, and then saves it to a cloud file storage.
+- [x] Editing the post image
 - [x] Interacting with posts - like/dislike, save/unsave, share and comment
 - [x] Deletion of post with resource protection (owner only)
 - [x] Commenting on a post
