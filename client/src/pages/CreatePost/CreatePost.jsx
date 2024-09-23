@@ -18,10 +18,12 @@ export default function CreatePost() {
   const [image, setImage] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [scale, setScale] = useState(1.0);
+
+  // States for imagePositioning
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
-  const [positionMoved, setPositionMoved] = useState({ x: 0, y: 0 })
+  const [positionMoved, setPositionMoved] = useState({ x: 0, y: 0 });
   const parentRef = useRef(null);
 
   const user = useSelector((state) => state.user);
@@ -76,27 +78,40 @@ export default function CreatePost() {
     setImage(undefined);
   };
 
-  const handleMouseMove = (e) => {
-    let mouseX = e.clientX;
-    let mouseY = e.clientY;
+  const handleMove = (clientX, clientY) => {
+    let mouseX = clientX;
+    let mouseY = clientY;
 
     if (isDragging && parentRef.current) {
-      setPositionMoved({ x: e.clientX, y: e.clientY })
+      setPositionMoved({ x: clientX, y: clientY });
     } else {
       setStartPosition({ x: mouseX, y: mouseY });
     }
   };
 
-  const handleMouseDown = () => {
+  const handleMouseMove = (e) => {
+    handleMove(e.clientX, e.clientY);
+  };
+
+  const handleTouchMove = (e) => {
+    if (e.touches.length === 1) {
+      // Only handle one finger touch
+      const touch = e.touches[0];
+      //console.log(touch.clientX, touch.clientY)
+      handleMove(touch.clientX, touch.clientY);
+    }
+  };
+
+  const handleStart = () => {
     setIsDragging(true);
   };
 
-  const handleMouseUp = () => {
+  const handleEnd = () => {
     setIsDragging(false);
   };
 
   useEffect(() => {
-    setPosition(currentPos => {
+    setPosition((currentPos) => {
       let newPosX = 0;
       let newPosY = 0;
 
@@ -115,22 +130,22 @@ export default function CreatePost() {
         newPosY = currentPos.y - diffY;
       }
 
-      return { x: newPosX, y: newPosY }
-    })
+      return { x: newPosX, y: newPosY };
+    });
 
     return () => {
-      setPosition({ x: 0, y: 0 })
-    }
-  }, [positionMoved])
+      setPosition({ x: 0, y: 0 });
+    };
+  }, [positionMoved]);
 
   useEffect(() => {
     // Stop dragging when mouse is released outside the container
-    window.addEventListener("mouseup", handleMouseUp);
-    window.addEventListener("touchend", handleMouseUp);
+    window.addEventListener("mouseup", handleEnd);
+    window.addEventListener("touchend", handleEnd);
 
     return () => {
-      window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("touchend", handleMouseUp);
+      window.removeEventListener("mouseup", handleEnd);
+      window.removeEventListener("touchend", handleEnd);
     };
   }, []);
 
@@ -217,13 +232,15 @@ export default function CreatePost() {
           )}
 
           {/* Uploaded photo visualizer */}
-          {true && (
+          {image && (
             <div className="col-span-full rounded-lg border-2 border-dashed border-gray-900/25 mt-8">
               <div
                 className="relative w-full overflow-hidden max-h-[500px]"
                 ref={parentRef}
-                onMouseMove={handleMouseMove} 
-                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseDown={handleStart}
+                onTouchMove={handleTouchMove}
+                onTouchStart={handleStart}
               >
                 <button
                   className="absolute top-0 right-0 p-4 z-30"
@@ -235,7 +252,9 @@ export default function CreatePost() {
                 <img
                   src={image}
                   onDragStart={(e) => e.preventDefault()}
-                  className={`object-cover ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+                  className={`object-cover ${
+                    isDragging ? "cursor-grabbing" : "cursor-grab"
+                  }`}
                   alt="Uploaded picture"
                   style={{
                     scale: scale,
