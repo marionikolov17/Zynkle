@@ -40,9 +40,20 @@ export default function CreatePost() {
     }
   };
 
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files;
+    const file = files[files.length - 1];
+    handleFile(file);
+  }
+
   const onImageUpload = (event) => {
     const files = event.target.files;
     const file = files[files.length - 1];
+    handleFile(file)
+  };
+
+  const handleFile = (file) => {
     if (!allowedImageMimeTypes.includes(file.type)) {
       // Show message
       return setError("Invalid file type. Only images allowed")
@@ -56,7 +67,7 @@ export default function CreatePost() {
     }
     setError(null);
     setValue('imageUri', file);
-  };
+  }
 
   const onImageRemove = () => {
     setValue("imageUri", undefined);
@@ -112,7 +123,7 @@ export default function CreatePost() {
             >
               Upload photo
             </label>
-            <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+            <div onDrop={handleDrop} onDragOver={(e) => e.preventDefault()} className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
               <div className="text-center">
                 {/* <PhotoIcon aria-hidden="true" className="mx-auto h-12 w-12 text-gray-300" /> */}
                 <BsFiletypePng className="mx-auto h-12 w-12 text-gray-300" />
@@ -141,7 +152,7 @@ export default function CreatePost() {
 
           {/* Uploaded photo visualizer */}
           {image && <div className="col-span-full mt-8">
-            <div className="relative w-full overflow-hidden max-h-[850px] rounded-lg border-2 border-dashed border-gray-900/25">
+            <div className="relative w-full overflow-hidden max-h-[500px] rounded-lg border-2 border-dashed border-gray-900/25">
               <button className="absolute top-0 right-0 p-4" onClick={() => onImageRemove()}>
                 <MdDelete className="text-3xl text-red-700"/>
               </button>
