@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -18,6 +18,11 @@ export default function CreatePost() {
   const [image, setImage] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [scale, setScale] = useState(1.0);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
+  const [positionMoved, setPositionMoved] = useState({ x: 0, y: 0 })
+  const parentRef = useRef(null);
 
   const user = useSelector((state) => state.user);
 
@@ -70,6 +75,64 @@ export default function CreatePost() {
     setValue("imageUri", undefined);
     setImage(undefined);
   };
+
+  const handleMouseMove = (e) => {
+    let mouseX = e.clientX;
+    let mouseY = e.clientY;
+
+    if (isDragging && parentRef.current) {
+      setPositionMoved({ x: e.clientX, y: e.clientY })
+    } else {
+      setStartPosition({ x: mouseX, y: mouseY });
+    }
+  };
+
+  const handleMouseDown = () => {
+    setIsDragging(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    setPosition(currentPos => {
+      let newPosX = 0;
+      let newPosY = 0;
+
+      let diffX = Math.abs(positionMoved.x - startPosition.x);
+      let diffY = Math.abs(positionMoved.y - startPosition.y);
+
+      if (positionMoved.x > startPosition.x) {
+        newPosX = currentPos.x + diffX;
+      } else {
+        newPosX = currentPos.x - diffX;
+      }
+
+      if (positionMoved.y > startPosition.y) {
+        newPosY = currentPos.y + diffY;
+      } else {
+        newPosY = currentPos.y - diffY;
+      }
+
+      return { x: newPosX, y: newPosY }
+    })
+
+    return () => {
+      setPosition({ x: 0, y: 0 })
+    }
+  }, [positionMoved])
+
+  useEffect(() => {
+    // Stop dragging when mouse is released outside the container
+    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("touchend", handleMouseUp);
+
+    return () => {
+      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("touchend", handleMouseUp);
+    };
+  }, []);
 
   return (
     <>
@@ -156,18 +219,28 @@ export default function CreatePost() {
           {/* Uploaded photo visualizer */}
           {true && (
             <div className="col-span-full rounded-lg border-2 border-dashed border-gray-900/25 mt-8">
-              <div className="relative w-full overflow-hidden max-h-[500px] ">
+              <div
+                className="relative w-full overflow-hidden max-h-[500px]"
+                ref={parentRef}
+                onMouseMove={handleMouseMove} 
+                onMouseDown={handleMouseDown}
+              >
                 <button
                   className="absolute top-0 right-0 p-4 z-30"
+                  type="button"
                   onClick={() => onImageRemove()}
                 >
                   <MdDelete className="text-3xl text-red-700" />
                 </button>
                 <img
                   src={image}
-                  className="object-cover"
+                  onDragStart={(e) => e.preventDefault()}
+                  className={`object-cover ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
                   alt="Uploaded picture"
-                  style={{ scale: scale }}
+                  style={{
+                    scale: scale,
+                    translate: `${position.x}px ${position.y}px`,
+                  }}
                 />
               </div>
               <div className="w-full h-10 flex items-center justify-center bg-white">
