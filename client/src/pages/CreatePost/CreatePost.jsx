@@ -36,7 +36,7 @@ export default function CreatePost() {
     setIsLoading(true);
 
     try {
-      await createPost(toFormData(data));
+      await createPost(toFormData({...data, scale: scale, translateX: position.x, translateY: position.y}));
     } catch (error) {
       setError(error.message);
     } finally {

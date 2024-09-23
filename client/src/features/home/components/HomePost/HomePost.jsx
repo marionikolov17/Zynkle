@@ -130,20 +130,23 @@ export default function HomePost({
             </div>
           )}
           {/* Image */}
-          <div
-            className={
-              !imageLoading
-                ? "w-full max-h-[500px] mt-2 sm:mt-4 p-0 sm:px-4 overflow-hidden relative"
-                : "w-full h-[350px] mt-2 sm:mt-4 p-0 sm:px-4 skeleton-loading"
-            }
-          >
-            <img
-              className="object-cover w-full cursor-pointer"
-              src={post?.imageUri}
-              onLoad={() => setImageLoading(false)}
-              onClick={() => navigate(`/post/${post?._id}`)}
-              alt=""
-            />
+          <div className="p-0 sm:px-4">
+            <div
+              className={
+                !imageLoading
+                  ? "w-full max-h-[500px] mt-2 sm:mt-4 overflow-hidden"
+                  : "w-full h-[350px] mt-2 sm:mt-4 skeleton-loading"
+              }
+            >
+              <img
+                className="object-cover w-full cursor-pointer"
+                src={post?.imageUri}
+                onLoad={() => setImageLoading(false)}
+                onClick={() => navigate(`/post/${post?._id}`)}
+                style={{ transform: `scale(${post?.scale})`, translate: `${post?.translateX}px ${post?.translateY}px` }}
+                alt=""
+              />
+            </div>
           </div>
           {/* Action buttons */}
           <div className="w-full flex justify-around align-middle mt-2 sm:mt-4 px-4 relative">

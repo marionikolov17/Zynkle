@@ -12,6 +12,18 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  scale: {
+    type: Number,
+    default: 1.0
+  },
+  translateX: {
+    type: Number,
+    default: 0
+  },
+  translateY: {
+    type: Number,
+    default: 0
+  },
   likedBy: [
     {
       type: mongoose.Types.ObjectId,
