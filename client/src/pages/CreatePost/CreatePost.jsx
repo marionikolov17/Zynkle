@@ -20,11 +20,7 @@ export default function CreatePost() {
 
   const user = useSelector((state) => state.user);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-  } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   const createPost = useCreatePost();
 
@@ -45,29 +41,29 @@ export default function CreatePost() {
     const files = e.dataTransfer.files;
     const file = files[files.length - 1];
     handleFile(file);
-  }
+  };
 
   const onImageUpload = (event) => {
     const files = event.target.files;
     const file = files[files.length - 1];
-    handleFile(file)
+    handleFile(file);
   };
 
   const handleFile = (file) => {
     if (!allowedImageMimeTypes.includes(file.type)) {
       // Show message
-      return setError("Invalid file type. Only images allowed")
+      return setError("Invalid file type. Only images allowed");
     }
     // Visualize image
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
     reader.onload = (readerEvent) => {
-      setImage(readerEvent.target?.result)
-    }
+      setImage(readerEvent.target?.result);
+    };
     setError(null);
-    setValue('imageUri', file);
-  }
+    setValue("imageUri", file);
+  };
 
   const onImageRemove = () => {
     setValue("imageUri", undefined);
@@ -116,52 +112,64 @@ export default function CreatePost() {
           </div>
 
           {/* Upload photo field */}
-          {!image && <div className="col-span-full mt-8">
-            <label
-              htmlFor="cover-photo"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Upload photo
-            </label>
-            <div onDrop={handleDrop} onDragOver={(e) => e.preventDefault()} className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-              <div className="text-center">
-                {/* <PhotoIcon aria-hidden="true" className="mx-auto h-12 w-12 text-gray-300" /> */}
-                <BsFiletypePng className="mx-auto h-12 w-12 text-gray-300" />
-                <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                  <label
-                    htmlFor="file-upload"
-                    className="relative cursor-pointer rounded-md font-semibold text-mainGreen"
-                  >
-                    <span>Upload a file</span>
-                    <input
-                      id="file-upload"
-                      name="file-upload"
-                      type="file"
-                      className="sr-only"
-                      onChange={(e) => onImageUpload(e)}
-                    />
-                  </label>
-                  <p className="pl-1">or drag and drop</p>
+          {!image && (
+            <div className="col-span-full mt-8">
+              <label
+                htmlFor="cover-photo"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Upload photo
+              </label>
+              <div
+                onDrop={handleDrop}
+                onDragOver={(e) => e.preventDefault()}
+                className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
+              >
+                <div className="text-center">
+                  {/* <PhotoIcon aria-hidden="true" className="mx-auto h-12 w-12 text-gray-300" /> */}
+                  <BsFiletypePng className="mx-auto h-12 w-12 text-gray-300" />
+                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                    <label
+                      htmlFor="file-upload"
+                      className="relative cursor-pointer rounded-md font-semibold text-mainGreen"
+                    >
+                      <span>Upload a file</span>
+                      <input
+                        id="file-upload"
+                        name="file-upload"
+                        type="file"
+                        className="sr-only"
+                        onChange={(e) => onImageUpload(e)}
+                      />
+                    </label>
+                    <p className="pl-1">or drag and drop</p>
+                  </div>
+                  <p className="text-xs leading-5 text-gray-600">
+                    PNG, JPG, GIF up to 10MB
+                  </p>
                 </div>
-                <p className="text-xs leading-5 text-gray-600">
-                  PNG, JPG, GIF up to 10MB
-                </p>
               </div>
             </div>
-          </div>}
+          )}
 
           {/* Uploaded photo visualizer */}
-          {image && <div className="col-span-full mt-8">
-            <div className="relative w-full overflow-hidden max-h-[500px] rounded-lg border-2 border-dashed border-gray-900/25">
-              <button className="absolute top-0 right-0 p-4" onClick={() => onImageRemove()}>
-                <MdDelete className="text-3xl text-red-700"/>
-              </button>
-              <img 
-                src={image} 
-                className="object-cover"
-                alt="Uploaded picture" />
+          {image && (
+            <div className="col-span-full mt-8">
+              <div className="relative w-full overflow-hidden max-h-[500px] rounded-lg border-2 border-dashed border-gray-900/25">
+                <button
+                  className="absolute top-0 right-0 p-4"
+                  onClick={() => onImageRemove()}
+                >
+                  <MdDelete className="text-3xl text-red-700" />
+                </button>
+                <img
+                  src={image}
+                  className="object-cover"
+                  alt="Uploaded picture"
+                />
+              </div>
             </div>
-          </div>}
+          )}
 
           <div className="flex justify-end items-center mt-8">
             <Link to="/" className="mx-4 text-sm">
@@ -171,7 +179,9 @@ export default function CreatePost() {
               Post
             </button>
           </div>
-          {error && <FormErrorMessage className="text-center" message={error} />}
+          {error && (
+            <FormErrorMessage className="text-center" message={error} />
+          )}
         </form>
       </div>
     </>
