@@ -231,9 +231,11 @@ export default function CreatePost() {
             </div>
           )}
 
+          {image && <p className="font-bold text-xs mt-8 sm:hidden">*Double tap to move image</p>}
+
           {/* Uploaded photo visualizer */}
           {image && (
-            <div className="col-span-full rounded-lg border-2 border-dashed border-gray-900/25 mt-8">
+            <div className="col-span-full rounded-lg border-2 border-dashed border-gray-900/25 mt-2 sm:mt-8">
               <div
                 className="relative w-full overflow-hidden max-h-[500px]"
                 ref={parentRef}
