@@ -179,7 +179,7 @@ export default function CreatePost() {
                     type="range"
                     name="scale"
                     id="scale"
-                    className="my-auto w-full"
+                    className="w-full h-2 bg-gray-300 rounded-lg shadow appearance-none cursor-pointer accent-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300"
                     min={1.0}
                     max={2.0}
                     step={0.01}
