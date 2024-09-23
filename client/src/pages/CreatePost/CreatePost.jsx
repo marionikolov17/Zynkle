@@ -17,6 +17,7 @@ export default function CreatePost() {
   const [error, setError] = useState();
   const [image, setImage] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [scale, setScale] = useState(1.0);
 
   const user = useSelector((state) => state.user);
 
@@ -153,11 +154,11 @@ export default function CreatePost() {
           )}
 
           {/* Uploaded photo visualizer */}
-          {image && (
-            <div className="col-span-full mt-8">
-              <div className="relative w-full overflow-hidden max-h-[500px] rounded-lg border-2 border-dashed border-gray-900/25">
+          {true && (
+            <div className="col-span-full rounded-lg border-2 border-dashed border-gray-900/25 mt-8">
+              <div className="relative w-full overflow-hidden max-h-[500px] ">
                 <button
-                  className="absolute top-0 right-0 p-4"
+                  className="absolute top-0 right-0 p-4 z-30"
                   onClick={() => onImageRemove()}
                 >
                   <MdDelete className="text-3xl text-red-700" />
@@ -166,7 +167,26 @@ export default function CreatePost() {
                   src={image}
                   className="object-cover"
                   alt="Uploaded picture"
+                  style={{ scale: scale }}
                 />
+              </div>
+              <div className="w-full h-10 flex items-center justify-center bg-white">
+                <label htmlFor="scale" className="font-medium">
+                  Scale
+                </label>
+                <div className="relative flex items-center h-full ms-2 w-52">
+                  <input
+                    type="range"
+                    name="scale"
+                    id="scale"
+                    className="my-auto w-full"
+                    min={1.0}
+                    max={2.0}
+                    step={0.01}
+                    defaultValue={1.0}
+                    onChange={(e) => setScale(e.target.value)}
+                  />
+                </div>
               </div>
             </div>
           )}
