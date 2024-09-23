@@ -63,7 +63,7 @@ export default function DesktopPost() {
             <div
               className={
                 !imageLoading
-                  ? "flex grow-0 shrink"
+                  ? "flex lg:max-w-[550px] grow-0 shrink"
                   : "grow-1 shrink-0 w-1/2 h-full skeleton-loading"
               }
             >

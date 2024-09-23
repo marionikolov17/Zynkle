@@ -133,7 +133,7 @@ export default function HomePost({
           <div
             className={
               !imageLoading
-                ? "w-full max-h-max mt-2 sm:mt-4 p-0 sm:px-4"
+                ? "w-full max-h-[500px] mt-2 sm:mt-4 p-0 sm:px-4 overflow-hidden relative"
                 : "w-full h-[350px] mt-2 sm:mt-4 p-0 sm:px-4 skeleton-loading"
             }
           >
